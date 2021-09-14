@@ -9,7 +9,7 @@ class Usuario(models.Model):
     cpf = models.CharField(max_length=11, validators=[validators.MinLengthValidator(11)]) # 11 números compõem um CPF, pode ser usado como primeiro campo de um login
     telefone = models.CharField(max_length=13)
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
-    data_nascimento = models.DateTimeField() # Recbe um objeto datetime que conterá as informações da data. ex: dt = datetime(2015, 10, 09, 23, 55, 59, 25454...)
+    data_nascimento = models.DateField() # Recbe um objeto datetime que conterá as informações da data. ex: dt = datetime(2015, 10, 09, 23, 55, 59, 25454...)
     senha = models.CharField(max_length=255)
 
     whatsapp = models.CharField(max_length=13)
