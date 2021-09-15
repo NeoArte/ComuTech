@@ -4,7 +4,7 @@ is_logged_in = False
 # TODO: Criar os htmls para cada view
 
 def index(request):
-    return render(request, "principal/index.html")
+    return render(request, "principal/testadmin.html")
 
 def registro(request):
     return render(request, "principal/registro.html")
