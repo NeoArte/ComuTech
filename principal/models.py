@@ -18,3 +18,10 @@ class Usuario(models.Model):
     instagram = models.CharField(blank=True, max_length=30) # Isso se referece ao nome de úsuario (@), não o nome.
 
     data_criacao = models.DateTimeField(default=timezone.now)
+
+class Socorro(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    titulo = models.CharField(max_length=255)
+    descricao = models.TextField()
+    # lista_necessidades
+    # fotos
