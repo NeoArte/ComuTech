@@ -11,7 +11,7 @@ class Usuario(models.Model):
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
     data_nascimento = models.DateField() # Recbe um objeto datetime que conterá as informações da data. ex: dt = datetime(2015, 10, 09, 23, 55, 59, 25454...)
     senha = models.CharField(max_length=255)
-    profile_pic = models.ImageField(upload_to='images/', blank=True)
+    foto_perfil = models.ImageField(upload_to='images/', blank=True)
 
     whatsapp = models.CharField(max_length=13)
     twitter = models.CharField(blank=True, max_length=15, validators=[validators.MinLengthValidator(4)]) # Isso se refere ao @ da pessoa, todavia o @ (character) não entra.
@@ -21,22 +21,28 @@ class Usuario(models.Model):
     data_criacao = models.DateTimeField(default=timezone.now)
 
 class Socorro(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE) # Existe apenas se estiver associado a um úsuario
     titulo = models.CharField(max_length=255)
     descricao = models.TextField()
-    # fotos
-    data_criacao = models.DateTimeField(default=timezone.now)
+    data_criacao = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
+    data_conclusao = models.DateTimeField(blank=True) # Quando finalizado pelo úsuario entre em uma contagem para ser excluido.
 
-class Contribuidores(models.Model):
-    socorro = models.ForeignKey(Socorro, on_delete=models.DO_NOTHING)
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    # Estados possiveis para um socorro, aberto enquanto no tempo de funcionamento,
+    # congelado quando esse tempo acaba e finalizado quando o usuário finaliza aquele pedido.
+    STATES = (("A", "Aberto"), ("C", "Congelado"), ("F", "Finalizado"))
+    estado = models.CharField(max_length=1, choices=STATES)
+
+    # Contribuidores é "Muitos para Muitos" pois muitos socorros podem ser ajudos por muitos usuários diferentes.
+    contribuidores = models.ManyToManyField(Usuario)
 
 class Necessidades(models.Model):
-    socorro = models.ForeignKey(Socorro, on_delete=models.DO_NOTHING)
+    socorro = models.ForeignKey(Socorro, on_delete=models.CASCADE) # Necessidades são parte de socorros (um socorro para muitas nec.)
     nome = models.CharField(max_length=255)
     descricao = models.TextField(blank=True)
+    STATES = (("NF", "Não Finalizado"), ("F", "Finalizado")) # O status define se aquela necessidade foi cumprida
+    estado = models.CharField(max_length=2, choices=STATES)
 
 class Fotos(models.Model):
-    socorro = models.ForeignKey(Socorro, on_delete=models.DO_NOTHING)
-    # path = models.TextField()
+    socorro = models.ForeignKey(Socorro, on_delete=models.CASCADE)
+    imagem = models.ImageField()
 

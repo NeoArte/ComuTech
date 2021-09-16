@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from .models import Usuario
 
 is_logged_in = False
 # TODO: Criar os htmls para cada view
 
 def index(request):
-    return render(request, "principal/testadmin.html")
+    list_users = Usuario.objects.all()
+    return render(request, "principal/index.html", {'usuarios': list_users})
 
 def registro(request):
     return render(request, "principal/registro.html")
