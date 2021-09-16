@@ -11,6 +11,7 @@ class Usuario(models.Model):
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
     data_nascimento = models.DateField() # Recbe um objeto datetime que conterá as informações da data. ex: dt = datetime(2015, 10, 09, 23, 55, 59, 25454...)
     senha = models.CharField(max_length=255)
+    profile_pic = models.ImageField(upload_to='images/', blank=True)
 
     whatsapp = models.CharField(max_length=13)
     twitter = models.CharField(blank=True, max_length=15, validators=[validators.MinLengthValidator(4)]) # Isso se refere ao @ da pessoa, todavia o @ (character) não entra.
@@ -25,3 +26,8 @@ class Socorro(models.Model):
     descricao = models.TextField()
     # lista_necessidades
     # fotos
+    data_criacao = models.DateTimeField(default=timezone.now)
+
+class Contribuidores(models.Model):
+    socorro = models.ForeignKey(Socorro, on_delete=models.DO_NOTHING)
+    
