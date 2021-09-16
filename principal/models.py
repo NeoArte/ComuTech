@@ -24,10 +24,19 @@ class Socorro(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     titulo = models.CharField(max_length=255)
     descricao = models.TextField()
-    # lista_necessidades
     # fotos
     data_criacao = models.DateTimeField(default=timezone.now)
 
 class Contribuidores(models.Model):
     socorro = models.ForeignKey(Socorro, on_delete=models.DO_NOTHING)
-    
+    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+
+class Necessidades(models.Model):
+    socorro = models.ForeignKey(Socorro, on_delete=models.DO_NOTHING)
+    nome = models.CharField(max_length=255)
+    descricao = models.TextField(blank=True)
+
+class Fotos(models.Model):
+    socorro = models.ForeignKey(Socorro, on_delete=models.DO_NOTHING)
+    # path = models.TextField()
+
