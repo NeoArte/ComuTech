@@ -5,11 +5,10 @@ is_logged_in = False
 # TODO: Criar os htmls para cada view
 
 def index(request):
-    list_users = Usuario.objects.all()
-    return render(request, "principal/index.html", {'usuarios': list_users})
+    return render(request, "principal/index.html")
 
-def registro(request):
-    return render(request, "principal/registro.html")
+def cadastro(request):
+    return render(request, "principal/cadastro.html")
 
 def login(request):
     return render(request, "principal/login.html")

@@ -6,7 +6,7 @@ urlpatterns = [
     #TODO - Trocar int por <int:variavel>| INT É APENAS PARA TESTES
 
     path("", views.index, name="index"), # Página Inicial - caso esteja logado redirecionar
-    path("registro/", views.registro, name="registrar"), # Página de Registro
+    path("cadastro/", views.cadastro, name="cadastro"), # Página de Registro
     path("login/", views.login, name="login"), # Página de Login 
 
 
