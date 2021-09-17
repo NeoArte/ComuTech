@@ -20,8 +20,13 @@ class Usuario(models.Model):
 
     data_criacao = models.DateTimeField(default=timezone.now)
 
+class TipoSocorro(models.Model):
+    nome = models.ForeignKey
+    descricao = models.TextField(blank=True) # Pode ser útil disponibilizar uma descrição para aquela categoria.
+
 class Socorro(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE) # Existe apenas se estiver associado a um úsuario
+    tipo = models.ForeignKey(TipoSocorro, on_delete=models.SET_NULL)
     titulo = models.CharField(max_length=255)
     descricao = models.TextField()
     data_criacao = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
@@ -45,4 +50,5 @@ class Necessidades(models.Model):
 class Fotos(models.Model):
     socorro = models.ForeignKey(Socorro, on_delete=models.CASCADE)
     imagem = models.ImageField()
+    descricao = models.TextField(blank=True) # Descrição na imagem para leitores de tela. 
 
