@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block conteudo %}
+<main class="register-page" style="min-height: 570.391px">
+    <div class="register-box">
+        <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">dsad</p>
+    
+            <form action="../../index.html" method="post">
+            <div class="input-group mb-3">
+                <input
+                type="text"
+                class="form-control"
+                placeholder="Nome Completo"
+                id="name"
+                />
+                <div class="input-group-append">
+                <span class="fas fa-user"></span>
+                <div class="input-group-text"></div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input
+                type="email"
+                class="form-control"
+                placeholder="Email"
+                id="email"
+                />
+                <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                </div>
+                </div>
+            </div>
+    
+            <div class="input-group mb-3">
+                <input class="form-control" placeholder="CPF" id="cpf" />
+                <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+                </div>
+            </div>
+    
+            <div class="input-group mb-3">
+                <input
+                type="password"
+                class="form-control"
+                placeholder="Celular"
+                id="phone"
+                />
+                <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+                </div>
+            </div>
+    
+            <div class="input-group mb-3">
+                <input class="form-control" placeholder="CEP" id="cep" />
+                <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+                </div>
+            </div>
+    
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="Senha" />
+                <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input
+                type="password"
+                class="form-control"
+                placeholder="Confirme sua senha"
+                />
+                <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-8">
+                <div class="icheck-primary">
+                    <input
+                    type="checkbox"
+                    id="agreeTerms"
+                    name="terms"
+                    value="agree"
+                    />
+                    <label for="agreeTerms">
+                    <span>Eu concordo com os</span> <strong>termos</strong>
+                    </label>
+                </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Cadastar
+                </button>
+                </div>
+                <!-- /.col -->
+            </div>
+            </form>
+    
+        </div>
+        <!-- /.form-box -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.register-box -->
+    
+        <!-- jQuery -->
+        <script src="../../plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../../dist/js/adminlte.min.js"></script>
+</main>
+{% endblock %}
