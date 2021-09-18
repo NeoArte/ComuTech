@@ -18,10 +18,7 @@ def explorar(request):
 
 def visualizar(request):
 
-    if is_logged_in:
-        return render(request, "principal/index.html")
-    elif not is_logged_in:
-        return redirect('login')
+    return render(request, "principal/index.html")
 
 def usuario(request):
     if is_logged_in:

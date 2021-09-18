@@ -11,7 +11,7 @@ urlpatterns = [
 
 
     path("explorar/", views.explorar, name="explorar"), # Página para Explorar
-    path("explorar/int/", views.visualizar, name="visualizar"), # Abre um socorro de acordo com o ID (<int>)
+    path("explorar/int/", views.visualizar, name="visualizar"), # Abre um socorro de acordo com o ID (<int>), visualiza ele.
 
 
     path("usuario/int/", views.usuario, name="usuario"), #Página para visualizar informações da conta. O int é o ID DA CONTA
