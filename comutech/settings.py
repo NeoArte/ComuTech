@@ -119,7 +119,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL e MEDIA_URL são as pastas que aparecerão no navegador como equivalentes a STATIC e MEDIA que temos localmente
+# MEDIA_ROOT determina em que pasta localmente será a pasta estática para videos, imagens etc.
+
+STATIC_URL = '/static/' 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

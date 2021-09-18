@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Usuario
 
 is_logged_in = False
-# TODO: Criar os htmls para cada view
+
+# As funções com testes "if_logged_in" verificam se o usuário está logado, se estiver acessa a página normalmente e 
+# caso contrário é redirecionado para a página de login (determinadno que é necessário estar logado), as páginas com apenas redirects são as que fazem
+# ações HTTP (ex: POST) e devolvem o úsuario para alguma tela, geralmente a anterior.
 
 def index(request):
     return render(request, "principal/index.html")
@@ -45,7 +48,6 @@ def criacao(request):
         return redirect('login')
 
 def criar(request):
-    
     return redirect('socorrosmeus')
 
 def editar(request):
