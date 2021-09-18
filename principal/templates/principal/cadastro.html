@@ -2,7 +2,13 @@
 {% load static %}
 
 {% block conteudo %}
-<main class="register-page" style="min-height: 570.391px">
+
+<form method="POST" action="">
+    {%csrf_token%}
+    {{form.as_p}}
+</form>
+
+<main class="register-page" style="min-height: 570.391px; display: none;">
     <div class="register-box">
         <div class="card card-outline card-primary">
         <div class="card-header text-center">

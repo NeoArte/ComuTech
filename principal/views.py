@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Usuario
+from django.contrib.auth.forms import UserCreationForm
 
 is_logged_in = False
 
@@ -11,7 +12,9 @@ def index(request):
     return render(request, "principal/index.html")
 
 def cadastro(request):
-    return render(request, "principal/cadastro.html")
+    form = UserCreationForm()
+    context = {'form':form}
+    return render(request, "principal/cadastro.html", context)
 
 def login(request):
     return render(request, "principal/login.html")
