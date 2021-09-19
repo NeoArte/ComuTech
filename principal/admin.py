@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Usuario
+from .models import User
 
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nome', 'email', 'cpf', 'telefone', 'cep', 'data_nascimento']
-    list_display_links = ['id', 'nome', 'email', 'cpf', 'telefone', 'cep', 'data_nascimento']
+    list_display = ['id', 'name', 'email', 'cpf', 'phone', 'cep', 'birth_date']
+    list_display_links = ['id', 'name', 'email', 'cpf', 'phone', 'cep', 'birth_date']
 
-admin.site.register(Usuario, UsuarioAdmin)
+admin.site.register(User, UsuarioAdmin)

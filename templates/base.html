@@ -1,28 +1,24 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- From Bootstrap only-->
-    
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-
-    <!-- From AdminLTE -->
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'AdminLTE/plugins/fontawesome-free/css/all.min.css' %}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{% static 'AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/adminlte.min.css' %}">
-
     <title>ComuTech</title>
+    {% include 'partials/_importsStyle.html' %}
 </head>
 <body>
-    {% block conteudo %}{% endblock %}
+    <header class="sticky-top">
+        {% include 'partials/_header.html' %}
+        {% block head %}{% endblock %}
+    </header>
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    <footer>
+        {% include 'partials/_footer.html' %}
+    </footer>
+
+    {% include 'partials/_importsScripts.html' %}
 </body>
 </html>

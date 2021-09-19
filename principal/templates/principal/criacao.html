@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<main>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-5 text-center mb-5">Criar Socorro</h1>
+            <form action="">
+                
+                <div class="col-md-12 text-center" >
+                    <img src="usuario.png" width="350"class="rounded" alt="Foto do Usuario"><p>Barra para escolher foto</p>
+                </div>
+
+                <div class="form-group">
+                    
+                    <label for="">Titulo do Socorro</label>
+                    <input type="text" required class="form-control">
+                </div>
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Selecione sua Categoria</label>
+                        <select class="form-control" id="exampleFormControlSelect1" required>
+                            <option hidden>Selecione uma categoria...</option>
+                            <option value="surgery">Cirurgia</option>
+                            <option value="manpower">Mão de Obra</option>
+                            <option value="food">Comida</option>
+                            <option value="donations">Doações</option>
+                            <option value="clothes">Roupas</option>
+                        </select>
+                        <label for="exampleFormControlTextarea1">Descrição</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Descreva sua situação, e oque precisa..."></textarea>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-outline-danger ">Success</button>
+                    </div>
+                </form>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

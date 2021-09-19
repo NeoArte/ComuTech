@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Usuario
+from .models import User
 from django.contrib.auth.forms import UserCreationForm
 
 is_logged_in = False
@@ -24,7 +24,7 @@ def explorar(request):
 
 def visualizar(request):
 
-    return render(request, "principal/index.html")
+    return render(request, "principal/socorro.html")
 
 def usuario(request):
     if is_logged_in:
@@ -38,7 +38,7 @@ def editarconta(request):
     elif not is_logged_in:
         return redirect('login')
 
-def socorrosmeus(request):
+def socorros_meus(request):
     if is_logged_in:
         return render(request, "principal/socorrosmeus.html")
     elif not is_logged_in:
@@ -52,19 +52,6 @@ def criacao(request):
 
 def criar(request):
     return redirect('socorrosmeus')
-
-def editar(request):
-    if is_logged_in:
-        return render(request, "principal/criacao.html") #Usa o html de criação, mas iremos carregar as informações junto
-    elif not is_logged_in:
-        return redirect('login')
-
-def atualizar(request):
-    if is_logged_in:
-        # Apenas fazer a ação de atualizar aqui dentro.
-        return redirect('socorrosmeus')
-    elif not is_logged_in:
-        return redirect('login')
 
 def deletar(request):
     if is_logged_in:
