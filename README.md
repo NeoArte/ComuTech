@@ -12,7 +12,7 @@ Siga os seguintes passos para instalar o projeto em sua máquina local.
     2. source ./env/bin/activate
   - Para Windows:
     2. Caso você já não tenha feito anteriormente, abra o Power Shell como administrador e execute o comando:
-        `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+    `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
     3. .\env\Scripts\Activate.ps1
 4. Então instale as bibliotecas necessárias:
   - Django
