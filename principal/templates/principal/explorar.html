@@ -13,16 +13,20 @@
           <a class="dropdown-item" href="#">1 mês</a>
         </div>
       </div>
-      <div class="dropdown m-2 ml-0">
+
+        
+        <div class="dropdown m-2 ml-0">
         <button class="btn btn-success dropdown-toggle rounded-pill" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Tipo de Publicação
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Item 1</a>
-          <a class="dropdown-item" href="#">Item 2</a>
-          <a class="dropdown-item" href="#">Item 3</a>
+          {% for type in aidtypes %} 
+          <a class="dropdown-item" href="#">{{type.name}}</a>
+          {% endfor %}
         </div>
       </div>
+       
+      
       <input class="form-control mr-sm-2 border-success rounded-pill" type="search" placeholder="Busca por palavras chaves" aria-label="SearchKeyWords">
       <button class="btn btn-success my-2 my-sm-0 rounded-pill" type="submit">Pesquisar</button>
     </form>
@@ -119,6 +123,25 @@
               </div><!--Fim Do Corpo Do Card-->
             </div><!--Fim da Sombra Do Card-->
           </div><!--Fim Card-->
+
+          <!-- {% for socorro in socorroLista %} 
+            <div class="card mb-4 shadow-sm">
+              <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
+              <h1 class="card-title text-center">{{socorro.title}}</h1>
+              <div class="card-body">
+                <p class="description">{{socorro.date}}</p>
+                <p class="card-text">{{socorro.type}}</p>
+                <div class="user-block">
+                  <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;">
+                    <span class="username">
+                      <a href="#">{{socorro.author}=</a>
+                    </span>
+                  </div>
+              </div><!--Fim Do Corpo Do Card-->
+            <!-- </div>
+          {% endfor %} -->
+          
+
 
           <div class="col-md-4"><!--Inicio Card-->
             <div class="card mb-4 shadow-sm"><!--sombra do card-->

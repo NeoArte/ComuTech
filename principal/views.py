@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
 
-is_logged_in = False
+is_logged_in = True
 
 # As funções com testes "if_logged_in" verificam se o usuário está logado, se estiver acessa a página normalmente e 
 # caso contrário é redirecionado para a página de login (determinadno que é necessário estar logado), as páginas com apenas redirects são as que fazem

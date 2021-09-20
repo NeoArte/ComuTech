@@ -27,7 +27,9 @@ class User(models.Model): # Usuários
 
     creation_date = models.DateTimeField(default=timezone.now)
 
-
+class AidType(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
 
 class Aid(models.Model): # Socorros
 
@@ -36,9 +38,9 @@ class Aid(models.Model): # Socorros
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="criador")
-    #tag = models.ForeignKey(AidTags, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    type = models.ForeignKey(AidType, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
     ending_date = models.DateTimeField(blank=True) # Quando finalizado pelo úsuario entre em uma contagem para ser excluido.
 

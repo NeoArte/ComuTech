@@ -8,13 +8,13 @@
                 <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">dsad</p>
+                <p class="login-box-msg">Faça seu Cadastro</p>
                 
                 <form action="/register/create/" method="POST">
                     {% csrf_token %}
 
                     <div class="input-group mb-3">
-                        <!--<input type="text" class="form-control" placeholder="Nome Completo" id="name"/>-->
+                        <input type="text" class="form-control" placeholder="Nome Completo" id="name"/>
                         {{receive.name}}
                         <div class="input-group-append">
                         <span class="fas fa-user"></span>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <!--<input type="email" class="form-control" placeholder="Email" id="email"/>-->
+                        <input type="email" class="form-control" placeholder="Email" id="email"/>
                         {{receive.email}}
                         <div class="input-group-append">
                         <div class="input-group-text">
@@ -32,7 +32,7 @@
                     </div>
             
                     <div class="input-group mb-3">
-                        <!--<input class="form-control" placeholder="CPF" id="cpf" />-->
+                        <input class="form-control" placeholder="CPF" id="cpf" />
                         {{receive.cpf}}
                         <div class="input-group-append">
                         <div class="input-group-text">
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <!--<input class="form-control" placeholder="CPF" id="cpf" />-->
+                        <input class="form-control" placeholder="CPF" id="cpf" />
                         {{receive.birthDay}}
                         <div class="input-group-append">
                         <div class="input-group-text">
@@ -52,7 +52,7 @@
                     </div>
             
                     <div class="input-group mb-3">
-                        <!-- <input type="password" class="form-control" placeholder="Celular" id="phone" />-->
+                        <input type="password" class="form-control" placeholder="Celular" id="phone" />
                         {{receive.phone}}
                         <div class="input-group-append">
                         <div class="input-group-text">
@@ -62,7 +62,7 @@
                     </div>
             
                     <div class="input-group mb-3">
-                        <!--<input class="form-control" placeholder="CEP" id="cep" />-->
+                        <input class="form-control" placeholder="CEP" id="cep" />
                         {{receive.cep}}
                         <div class="input-group-append">
                         <div class="input-group-text">
@@ -72,7 +72,7 @@
                     </div>
             
                     <div class="input-group mb-3">
-                        <!--<input type="password" class="form-control" placeholder="Senha" />-->
+                        <input type="password" class="form-control" placeholder="Senha" />
                         {{receive.password}}
                         <div class="input-group-append">
                         <div class="input-group-text">
@@ -94,7 +94,7 @@
                         <div class="icheck-primary">
                             <input type="checkbox" id="agreeTerms" name="terms" value="agree" />
                             <label for="agreeTerms">
-                            <span>Eu concordo com os</span> <strong>termos</strong>
+                            <span>Eu concordo com os</span><strong onclick=""> termos</strong>
                             </label>
                         </div>
                         </div>
