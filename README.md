@@ -24,5 +24,5 @@ Siga os seguintes passos para instalar o projeto em sua máquina local.
     - Django (pip install django)
     - Django Filter (pip install django-filter)
     - Pillow (pip install pillow)
-    - (comando para instalar tudo ao mesmo tempo: *pip install django pillow*)
+    - (comando para instalar tudo ao mesmo tempo: *pip install django django-filter pillow*)
 5. Faça as migrações com: python manage.py migrate
