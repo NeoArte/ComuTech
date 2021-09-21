@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import User
+from .models import AidType
 from django.contrib.auth.forms import UserCreationForm
 
 is_logged_in = True
@@ -20,7 +20,9 @@ def login(request):
     return render(request, "principal/login.html")
 
 def explorar(request):
-    return render(request, "principal/explorar.html")
+    types = AidType.objects.all()
+    context = {'aidtypes': types}
+    return render(request, "principal/explorar.html", context)
 
 def visualizar(request):
 
