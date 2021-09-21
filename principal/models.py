@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import django.core.validators as validators
-# import datetime
+import datetime
 
 
 class User(models.Model): # Usuários
