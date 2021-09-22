@@ -2,7 +2,10 @@
 :root {
     --strong: #201C35;
     --main: #27A568;
-    --background: #C2E3FF;
+    --main-contrast: #2abd76;
+    --secundary: #C2E3FF;
+    --secundary-low-contrast: #b4d6f3;
+    --secundary-high-contrast: #8eb5d6;
     --help: red;
     --help-contrast: white;
     --explore: green;
@@ -17,7 +20,7 @@
     background-color: var(--strong);
 }
 .bg-display {
-    background-color: var(--background);
+    background-color: var(--secundary);
 }
 .form {
     min-width: 50vh;
@@ -26,7 +29,8 @@
     display: flex;
     flex-direction: column;
     word-wrap: break-word;
-    background-color: var(--main);
+    background-color: var(--secundary-low-contrast);
+    border-radius: 10px;
 }
 .main-display {
     min-height: 85vh;
@@ -72,6 +76,90 @@
 footer {
     background-color: var(--main);
 }
-.footer {
-    background-color: var(--main);
+.input-img {
+    border: 5px solid var(--secundary-high-contrast);
+    border-radius: 15%;
+    background-color: none;
+    margin: 25px auto;
+    width: 90%;
+    height: 250px;
+    justify-content: center;
+    display: table;
+}
+#_inputIMG {
+    display: none;
+}
+.input-icon {
+    vertical-align: middle;
+    display: table-cell;
+}
+.file-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+.file-icon>svg {
+    width: 40%;
+}
+#fileDefault {
+    color: var(--secundary-high-contrast);
+}
+#fileAdd {
+    display: none;
+    color: var(--main);
+}
+.input-img:hover {
+    border-color: var(--main);
+}
+.input-icon:hover {
+    cursor: pointer;
+}
+.input-img:hover #fileAdd {
+    display: flex;
+}
+.input-img:hover #fileDefault {
+    display: none;
+}
+.input-group-text>svg {
+    width: 25px;
+    height: 25px;
+    color: var(--secundary-high-contrast);
+}
+.input-group-text, .form-control {
+    border: none;
+    border-radius: 0;
+}
+.form-control {
+    background-color: inherit;
+    border-right: 0;
+}
+.form-control::placeholder {
+    color: var(--secundary-high-contrast);
+}
+.form-control:focus {
+    background-color: var(--secundary);
+    box-shadow: none;
+    border: none;
+}
+.input-group {
+    border: 2px solid var(--secundary-high-contrast);
+    border-radius: 15px;
+    background-color: var(--secundary);
+}
+.input-group > * {
+    border-radius: 15px;
+}
+.input-group-text {
+    background-color: inherit;
+}
+.card-header>h1 {
+    color: var(--main-contrast);
+}
+.card-header>h1>b {
+    color:  var(--main);
+}
+#name:focus #rowName {
+    background-color: yellow;
 }
