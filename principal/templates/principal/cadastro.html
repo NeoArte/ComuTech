@@ -1,119 +1,115 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <div class="register-page" style="min-height: 570.391px">
-        <div class="register-box">
-            <div class="card card-outline card-primary">
-            <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
-            </div>
-            <div class="card-body">
-                <p class="login-box-msg">dsad</p>
+            <div class="form card-outline card-primary">
+                <div class="card-header text-center">
+                    <h1 class="h1"><b>Cadas</b>trar-se</h1>
+                </div>
+                <div class="card-body">
+                    <p class="login-box-msg">dsad</p>
+                    
+                    <form action="/register/create/" method="POST">
+                        {% csrf_token %}
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Nome Completo" id="name"/>
+                            {{receive.name}}
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email" id="email"/>
+                            {{receive.email}}
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                            </div>
+                        </div>
                 
-                <form action="/register/create/" method="POST">
-                    {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input class="form-control" placeholder="CPF" id="cpf" />
+                            {{receive.cpf}}
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                            </div>
+                        </div>
 
-                    <div class="input-group mb-3">
-                        <!--<input type="text" class="form-control" placeholder="Nome Completo" id="name"/>-->
-                        {{receive.name}}
-                        <div class="input-group-append">
-                        <span class="fas fa-user"></span>
-                        <div class="input-group-text"></div>
+                        <div class="input-group mb-3">
+                            <input class="form-control" placeholder="CPF" id="cpf" />
+                            {{receive.birthDay}}
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <!--<input type="email" class="form-control" placeholder="Email" id="email"/>-->
-                        {{receive.email}}
-                        <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="Celular" id="phone" />
+                            {{receive.phone}}
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                            </div>
                         </div>
+                
+                        <div class="input-group mb-3">
+                            <input class="form-control" placeholder="CEP" id="cep" />
+                            {{receive.cep}}
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                            </div>
                         </div>
-                    </div>
-            
-                    <div class="input-group mb-3">
-                        <!--<input class="form-control" placeholder="CPF" id="cpf" />-->
-                        {{receive.cpf}}
-                        <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="Senha" />
+                            {{receive.password}}
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                            </div>
                         </div>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="Confirme sua senha"/>
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                            </div>
                         </div>
-                    </div>
+                
+                        <div class="row">
+                            <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree" />
+                                <label for="agreeTerms">
+                                <span>Eu concordo com os</span> <strong>termos</strong>
+                                </label>
+                            </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Cadastrar
+                            </button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
 
-                    <div class="input-group mb-3">
-                        <!--<input class="form-control" placeholder="CPF" id="cpf" />-->
-                        {{receive.birthDay}}
-                        <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                        </div>
-                    </div>
-            
-                    <div class="input-group mb-3">
-                        <!-- <input type="password" class="form-control" placeholder="Celular" id="phone" />-->
-                        {{receive.phone}}
-                        <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                        </div>
-                    </div>
-            
-                    <div class="input-group mb-3">
-                        <!--<input class="form-control" placeholder="CEP" id="cep" />-->
-                        {{receive.cep}}
-                        <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                        </div>
-                    </div>
-            
-                    <div class="input-group mb-3">
-                        <!--<input type="password" class="form-control" placeholder="Senha" />-->
-                        {{receive.password}}
-                        <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Confirme sua senha"/>
-                        <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                        </div>
-                    </div>
-            
-                    <div class="row">
-                        <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree" />
-                            <label for="agreeTerms">
-                            <span>Eu concordo com os</span> <strong>termos</strong>
-                            </label>
-                        </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">
-                            Cadastrar
-                        </button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
-
-            </div>
+                </div>
             <!-- /.form-box -->
             </div>
-            <!-- /.card -->
-        </div>
-    </div>
 {% endblock %}
 
 
