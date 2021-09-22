@@ -69,6 +69,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'principal.User'
+
 WSGI_APPLICATION = 'comutech.wsgi.application'
 
 

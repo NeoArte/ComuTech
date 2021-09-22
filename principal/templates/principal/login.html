@@ -11,7 +11,8 @@
         <div class="card-body">
           <p class="login-box-msg">Realize seu login</p>
 
-          <form action="../../index3.html" method="post">
+          <form action="" method="POST">
+            {% csrf_token %}
             <div class="input-group mb-3">
               <input type="email" class="form-control" placeholder="Email" id="email">
               <div class="input-group-append">

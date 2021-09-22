@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from .form import RegistrationForm
 
 is_logged_in = False
 
@@ -12,12 +14,25 @@ def index(request):
     return render(request, "principal/index.html")
 
 def cadastro(request):
-    form = UserCreationForm()
-    context = {'form':form}
-    return render(request, "principal/cadastro.html", context)
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print('Registrado')
+            return redirect('index')
 
-def login(request):
+    form = RegistrationForm() 
+    context = {
+        'form': form,
+    }
+    return render(request, "principal/cadastro-customuser.html", context)
+
+def log_in(request):
     return render(request, "principal/login.html")
+
+def process_login(request):
+    return redirect('index')
+
 
 def explorar(request):
     return render(request, "principal/explorar.html")
