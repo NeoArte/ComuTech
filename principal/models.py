@@ -9,7 +9,7 @@ import django.core.validators as validators
 
 # User Manager é a classe responsável por lidar com o que ocorre durante a criação de um usuario (create_user) e super usuario (create_super_user)
 class UserManager(BaseUserManager):
-    def create_user(self, cpf, name, email, phone, cep, password=None):
+    def create_user(self, cpf, name, email, phone, cep, birth_date, password=None):
         if not cpf:
             raise ValueError("Usuários precisam ter um CPF - Users must have a CPF")
         
@@ -25,25 +25,31 @@ class UserManager(BaseUserManager):
         if not cep:
             raise ValueError("Usuários precisam ter um CEP - Users must have a CEP")
         
+        if not birth_date:
+            raise ValueError("Usuários precisam ter um CEP - Users must have a CEP")
+        
+
         user = self.model(
             cpf=cpf,
             name=name,
             email=self.normalize_email(email), # Normalize -> deixa tudo em letra minúscula
             phone=phone,
-            cep=cep
+            cep=cep,
+            birth_date=birth_date
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, cpf, name, email, phone, cep, password):
+    def create_superuser(self, cpf, name, email, phone, cep, birth_date, password):
         user = self.create_user(
             cpf=cpf,
             name=name,
             email=self.normalize_email(email), # Normalize -> deixa tudo em letra minúscula
             phone=phone,
             cep=cep,
+            birth_date=birth_date,
             password=password
         )
         user.is_admin = True
@@ -85,7 +91,7 @@ class User(AbstractBaseUser): # Usuários
     is_superuser = models.BooleanField(default=False) # É um super usuário (privilégios especiais)
 
     USERNAME_FIELD = 'email' # O que será usado para realizar o login
-    REQUIRED_FIELDS = ['name', 'cpf', 'phone', 'cep']
+    REQUIRED_FIELDS = ['name', 'cpf', 'phone', 'cep', 'birth_date']
 
     objects = UserManager()
 
@@ -97,7 +103,7 @@ class User(AbstractBaseUser): # Usuários
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
-    def has_module_perm(self, app_label):
+    def has_module_perms(self, app_label):
         return True
 
 

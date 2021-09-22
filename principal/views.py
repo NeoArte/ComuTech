@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 
 is_logged_in = False
 
@@ -16,8 +17,25 @@ def cadastro(request):
     context = {'form':form}
     return render(request, "principal/cadastro.html", context)
 
-def login(request):
+def log_in(request):
+    if request.POST:
+        username = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            print('Sucesso')
+            return redirect('index')
+        else:
+            print('falhou')
+            return redirect('login')
+
     return render(request, "principal/login.html")
+
+def process_login(request):
+    return redirect('index')
+
 
 def explorar(request):
     return render(request, "principal/explorar.html")
