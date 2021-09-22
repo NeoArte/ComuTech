@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import AidType
+from .models import AidType, Aid
 from django.contrib.auth.forms import UserCreationForm
+from datetime import datetime, timedelta, date
 
 is_logged_in = True
 
@@ -21,7 +22,36 @@ def login(request):
 
 def explorar(request):
     types = AidType.objects.all()
+
     context = {'aidtypes': types}
+
+    if request.method == "GET":
+        if "#oneWeek":
+            date_now = datetime.now().strptime("%d-%m-%Y")
+            seven_days_ago = timedelta(days=7)
+            result = date_now - seven_days_ago            
+            # return abs((result).days)
+            aid = Aid.objects.filter(creation_date = [date_now, seven_days_ago] )
+            context["aid"] = aid
+            return render(request, "principal/explorar.html", context)
+
+        elif "#twoWeeks":
+            date_now = datetime.now()
+            fourteen_days_ago = timedelta(days=14)
+            result = date_now - fourteen_days_ago
+            aid = aid.objects.filter(result)
+            context["aid"] = aid            
+            return render(request, "principal/explorar.html", context)
+        
+        elif "#oneMonth":
+            date_now = datetime.now()
+            one_month_ago = timedelta(days=30)
+            result = date_now - one_month_ago 
+            aid = aid.objects.filter(result)
+            context["aid"] = aid
+            return render(request, "principal/explorar.html", context)
+
+
     return render(request, "principal/explorar.html", context)
 
 def visualizar(request):
@@ -61,3 +91,4 @@ def deletar(request):
         return redirect('socorrosmeus')
     elif not is_logged_in:
         return redirect('login')
+
