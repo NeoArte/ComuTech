@@ -28,7 +28,19 @@ def cadastro(request):
     return render(request, "principal/cadastro-customuser.html", context)
 
 def log_in(request):
-    return render(request, "principal/login.html")
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, username=email, password=password)
+        print("\n\n\n", email, " : ", password, "\n=====\n", user,  "\n\n\n")
+        if user is not None:
+            print("\n\nLOGADO\n\n")
+            login(request, user)
+            return redirect('index')
+        else:
+            print("\n\nERRO\n\n")
+            return redirect('cadastro')
+    return render(request, "principal/login-customuser.html")
 
 def process_login(request):
     return redirect('index')

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="login-page" style="min-height: 466px;">
+    <div class="login-box">
+      <!-- /.login-logo -->
+      <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+          <a href="../../index2.html" class="h1"><b>Logo</b>Comutech</a>
+        </div>
+        <div class="card-body">
+          <p class="login-box-msg">Realize seu login</p>
+
+          <form action="/login/" method="POST">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <input name="email" type="email" class="form-control" placeholder="Email" id="email">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input name="password" type="password" class="form-control" placeholder="Senha">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- /.col -->
+              <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Logar</button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+    
+          <p class="mb-0">
+            <a href="{% url 'cadastro' %}" class="text-center">Cadastre-se</a>
+          </p>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+{% endblock %}
