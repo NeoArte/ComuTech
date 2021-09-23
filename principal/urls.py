@@ -7,9 +7,9 @@ urlpatterns = [
 
     path("", views.index, name="index"), # Página Inicial - caso esteja logado redirecionar
     path("cadastro/", views.cadastro, name="cadastro"), # Página de Registro
+    
     path("login/", views.log_in, name="login"), # Página de Login 
-    path("login/process", views.process_login), # Recebe as informações do usuario e as processa e então o direciona de acordo.
-
+    path("logout/", views.log_out, name="logout"),
 
     path("explorar/", views.explorar, name="explorar"), # Página para Explorar
     path("explorar/int/", views.visualizar, name="visualizar"), # Abre um socorro de acordo com o ID (<int>) para o visualizar.
