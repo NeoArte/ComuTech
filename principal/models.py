@@ -59,5 +59,4 @@ class AidPhotos(models.Model):
     image = models.ImageField(upload_to="socorros/", default="")
     description = models.TextField(blank=True) # Descrição na imagem para leitores de tela.
 
-# class Time(models.Model):
-    
+

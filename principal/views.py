@@ -3,6 +3,7 @@ from .models import AidType, Aid
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
 
+
 is_logged_in = True
 
 # As funções com testes "if_logged_in" verificam se o usuário está logado, se estiver acessa a página normalmente e 
@@ -22,34 +23,34 @@ def login(request):
 
 def explorar(request):
     types = AidType.objects.all()
-
     context = {'aidtypes': types}
 
+    # Filtro de dias
     if request.method == "GET":
         if "#oneWeek":
-            date_now = datetime.now().strptime("%d-%m-%Y")
-            seven_days_ago = timedelta(days=7)
-            result = date_now - seven_days_ago            
-            # return abs((result).days)
-            aid = Aid.objects.filter(creation_date = [date_now, seven_days_ago] )
+            seven_days_ago = datetime.today() - timedelta(days=7)
+            aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
             context["aid"] = aid
-            return render(request, "principal/explorar.html", context)
+            return render (request, "principal/explorar.html", context)
 
         elif "#twoWeeks":
-            date_now = datetime.now()
-            fourteen_days_ago = timedelta(days=14)
-            result = date_now - fourteen_days_ago
-            aid = aid.objects.filter(result)
+            fourteen_days_ago = datetime.today() - timedelta(days=14)
+            aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
             context["aid"] = aid            
             return render(request, "principal/explorar.html", context)
         
         elif "#oneMonth":
-            date_now = datetime.now()
-            one_month_ago = timedelta(days=30)
-            result = date_now - one_month_ago 
-            aid = aid.objects.filter(result)
+            one_month_ago = datetime.today() - timedelta(days=30)
+            aid = Aid.objects.filter(creation_date__gt=one_month_ago)
             context["aid"] = aid
             return render(request, "principal/explorar.html", context)
+
+    # Barra de Pesquisa
+    # if request.method == "GET":
+    #     palavra_digitada = Palavra que o usuário digitou na barra de pesquisa
+    #     len_string = len(palavradigitada)
+    #     dicionario = {'tamanho': len_string}
+    #     return render(request, "resultado.html", dicionario)
 
 
     return render(request, "principal/explorar.html", context)

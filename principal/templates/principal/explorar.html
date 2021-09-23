@@ -21,12 +21,13 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for type in aidtypes %} 
-          <a class="dropdown-item" href="#">{{type.name}}</a>
+          <a class="dropdown-item" href="type={{type.name}}&">{{type.name}}</a>
           {% endfor %}
         </div>
       </div>
-       
-      
+    </form>
+
+    <form action="" method="post" class="form-inline ">
       <input class="form-control mr-sm-2 border-success rounded-pill" type="search" placeholder="Busca por palavras chaves" aria-label="SearchKeyWords">
       <button class="btn btn-success my-2 my-sm-0 rounded-pill" type="submit">Pesquisar</button>
     </form>
