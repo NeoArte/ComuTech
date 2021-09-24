@@ -2,33 +2,23 @@
 
 {% block head %}
   <nav class="navbar navbar-light bg-transparent">
-    <form class="form-inline ml-auto">
+    <form method="get" action="/explorar" class="form-inline ml-auto">
       <div class="dropdown m-2 ml-0">
-        <button class="btn btn-success dropdown-toggle rounded-pill" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Publicado há
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="?time=oneWeek&" >1 semana</a>
-          <a class="dropdown-item" href="?time=twoWeeks&">2 semanas</a>
-          <a class="dropdown-item" href="?time=oneMonth&">1 mês</a>
-        </div>
+        <select name="publicado" id="publicado" class="btn btn-success dropdown-toggle rounded-pill">
+          <option value="1week">1 semana</option>
+          <option value="2week">2 semanas</option>
+          <option value="1month">1 mês</option>
+        </select>
       </div>
-
-        
-        <div class="dropdown m-2 ml-0">
-        <button class="btn btn-success dropdown-toggle rounded-pill" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Tipo de Publicação
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      
+      <div class="dropdown m-2 ml-0">
+        <select name="tipo_publicacao" id="tipo_publicacao">
           {% for type in aidtypes %} 
-          <a class="dropdown-item" href="type={{type.name}}&">{{type.name}}</a>
+          <option value="{{type.id}}">{{type.name}}</option>
           {% endfor %}
-        </div>
+        </select>
       </div>
-    </form>
-
-    <form action="" method="post" class="form-inline ">
-      <input class="form-control mr-sm-2 border-success rounded-pill" type="search" placeholder="Busca por palavras chaves" aria-label="SearchKeyWords">
+      <input class="form-control mr-sm-2 border-success rounded-pill" type="search" name="search" placeholder="Buscar por titulo do socorro" aria-label="SearchKeyWords">
       <button class="btn btn-success my-2 my-sm-0 rounded-pill" type="submit">Pesquisar</button>
     </form>
   </nav>

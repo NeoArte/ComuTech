@@ -46,14 +46,21 @@ def explorar(request):
             return render(request, "principal/explorar.html", context)
 
     # Barra de Pesquisa
-    # if request.method == "GET":
-    #     palavra_digitada = Palavra que o usuário digitou na barra de pesquisa
-    #     len_string = len(palavradigitada)
-    #     dicionario = {'tamanho': len_string}
-    #     return render(request, "resultado.html", dicionario)
+    if request.method == "GET":
+        aid = Aid.objects.all()
+        search = request.GET.get('search')
+        if search:
+            aid = aid.filter(title__icontains=search)
+        context = {"aid": aid}
 
 
     return render(request, "principal/explorar.html", context)
+
+# def search(request):
+
+#     search = request.GET
+#     return redirect()
+
 
 def visualizar(request):
 
