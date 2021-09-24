@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .form import RegistrationForm
+from .form import AidForm, RegistrationForm
 
 is_logged_in = False
 
@@ -73,11 +73,25 @@ def socorros_meus(request):
 
 @login_required(login_url="/login/")
 def criacao(request):
-    return render(request, "principal/criacao.html")
+    context = {}
+    context['form'] = AidForm()
+    return render(request, "principal/criacao-customuser.html", context)
 
 @login_required(login_url="/login/")
 def criar(request):
-    return redirect('socorrosmeus')
+    form = AidForm(request.POST)
+    print("\n\n\n\n\n\n\n")
+    for f in form.fields:
+        print(form.fields[f])
+    print("\n\n\n\n\n\n\n")
+    if form.is_valid():
+        print("\n\n\n\n\n\n\n")
+        print("ENTROOOOU")
+        print("\n\n\n\n\n\n\n")
+        form.cleaned_data['author'] == request.user
+        form.save()
+        return redirect('socorrosmeus')
+
 
 @login_required(login_url="/login/")
 def deletar(request):

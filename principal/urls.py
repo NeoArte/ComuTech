@@ -21,8 +21,8 @@ urlpatterns = [
     path("usuario/int/editar/", views.editarconta, name="editarconta"),
 
     path("usuario/int/socorrosmeus/", views.socorros_meus, name="socorrosmeus"), # Em "meus socorros" pode criar, editar, visualizar ou deletar um socorro
-    path("usuario/int/criacao", views.criacao, name="criacao"), # Página para criação do socorro.
-    path("usuario/int/criar/int", views.criar), # Cria o o socorro e redireciona para "explorar/id_do_socorro" para visualiza-lo. O SEGUNDO INT é o id do socorro
-    path("usuario/int/deletar/int", views.deletar) # Deleta o socorro e redireciona para "socorrosmeus"
+    path("criacao", views.criacao, name="criacao"), # Página para criação do socorro.
+    path("criar/int", views.criar), # Cria o o socorro e redireciona para "explorar/id_do_socorro" para visualiza-lo. O SEGUNDO INT é o id do socorro
+    path("deletar/int", views.deletar) # Deleta o socorro e redireciona para "socorrosmeus"
 
 ]

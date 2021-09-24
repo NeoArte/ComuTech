@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import ModelForm, fields
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, Aid
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -36,3 +37,20 @@ class RegistrationForm(UserCreationForm):
         
         return user
 
+
+class AidForm(ModelForm):
+    class Meta:
+        model = Aid
+        fields = (
+            'author',
+            'title',
+            'description',
+            # 'tag', -> quando adicionar as tags novamente
+            # photos, 
+        )
+    
+    def __init__(self, *args, **kwargs):
+        super(AidForm, self).__init__(*args, **kwargs)
+        self.fields['author'].widget = forms.HiddenInput()
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'style': 'display: block; margin: 10px auto'})

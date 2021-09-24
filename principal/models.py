@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.http import request
 from django.utils import timezone
 import django.core.validators as validators
 # import datetime
@@ -73,12 +74,12 @@ class User(AbstractBaseUser): # Usuários
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='usuarios/', blank=True)
+    profile_picture = models.ImageField(upload_to='usuarios/', null=True, blank=True)
 
     whatsapp = models.CharField(max_length=13)
-    twitter = models.CharField(blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
-    facebook = models.CharField(blank=True, max_length=255)
-    instagram = models.CharField(blank=True, max_length=30)
+    twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
+    facebook = models.CharField(null=True, blank=True, max_length=255)
+    instagram = models.CharField(null=True, blank=True, max_length=30)
 
 
     # OBRIGADO pelo Django (REQUIRED by Django)
@@ -120,9 +121,9 @@ class Aid(models.Model): # Socorros
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="criador")
     #tag = models.ForeignKey(AidTags, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    description = models.TextField(null=True, blank=True)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
-    ending_date = models.DateTimeField(blank=True) # Quando finalizado pelo úsuario entre em uma contagem para ser excluido.
+    ending_date = models.DateTimeField(null=True, blank=True) # Quando finalizado pelo úsuario entre em uma contagem para ser excluido.
 
     # Estados possiveis para um socorro, aberto enquanto no tempo de funcionamento,
     # congelado quando esse tempo acaba e finalizado quando o usuário finaliza aquele pedido.
@@ -137,6 +138,6 @@ class AidPhotos(models.Model):
 
     aid = models.ForeignKey(Aid, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="socorros/", default="")
-    description = models.TextField(blank=True) # Descrição na imagem para leitores de tela.
+    description = models.TextField(null=True, blank=True) # Descrição na imagem para leitores de tela.
 
 

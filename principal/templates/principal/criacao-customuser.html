@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<main>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-5 text-center mb-5">Criar Socorro</h1>
+            <form action="/criar/int" method="POST">
+                {% csrf_token %}
+                <div class="col-md-12 text-center">
+                    {{form}}
+                </div>
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-outline-danger ">Success</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
