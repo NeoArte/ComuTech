@@ -28,7 +28,7 @@ def cadastro(request):
     context = {
         'form': form,
     }
-    return render(request, "principal/cadastro-customuser.html", context)
+    return render(request, "principal/cadastro.html", context)
 
 def log_in(request):
     if request.method == 'POST':
@@ -51,7 +51,7 @@ def log_in(request):
         else:
             return redirect('login')
 
-    return render(request, "principal/login-customuser.html")
+    return render(request, "principal/login.html")
 
 def log_out(request):
     logout(request)
