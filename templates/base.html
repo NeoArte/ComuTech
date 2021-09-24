@@ -7,12 +7,12 @@
     <title>ComuTech</title>
     {% include 'partials/_importsStyle.html' %}
 </head>
-<body>
+<body class="bg-display">
     <header class="sticky-top">
         {% include 'partials/_header.html' %}
         {% block head %}{% endblock %}
     </header>
-    <main>
+    <main class="main-display">
         {% block main %}{% endblock %}
     </main>
     <footer>
