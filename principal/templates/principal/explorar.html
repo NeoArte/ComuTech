@@ -3,19 +3,19 @@
 {% block head %}
   <nav class="navbar navbar-light bg-transparent">
     <form class="form-inline ml-auto">
-      <select name="" id="" class="btn explore-btn dropdown-toggle">
+      <select name="publicado" id="publicado" class="btn explore-btn dropdown-toggle">
         <option selected disabled hidden>Publicado há ?</option>
-        <option value="">1 semana</option>
-        <option value="">2 semanas</option>
-        <option value="">1 mês</option>
+        <option value="1week">1 semana</option>
+        <option value="2week">2 semanas</option>
+        <option value="1month">1 mês</option>
       </select>
       <select name="" id="" class="btn explore-btn dropdown-toggle">
         <option selected disabled hidden>Classificado em</option>
-        <option value="">1 semana</option>
-        <option value="">2 semanas</option>
-        <option value="">1 mês</option>
+        {% for type in aidtypes %} 
+        <option value="{{type.id}}">{{type.name}}</option>
+        {% endfor %}
       </select>
-      <input class="form-control explore-btn" type="search" placeholder="Buscar por..." aria-label="SearchKeyWords">
+      <input name="search" class="form-control explore-btn" type="search" placeholder="Buscar por..." aria-label="SearchKeyWords">
       <button class="btn explore-btn" type="submit">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -133,7 +133,40 @@
         </div><!--Fim da Sombra Do Card-->
       </div><!--Fim Card-->
     </a>
+    
+              <!-- {% for socorro in socorroLista %} 
+            <div class="card mb-4 shadow-sm">
+              <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
+              <h1 class="card-title text-center">{{socorro.title}}</h1>
+              <div class="card-body">
+                <p class="description">{{socorro.date}}</p>
+                <p class="card-text">{{socorro.type}}</p>
+                <div class="user-block">
+                  <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;">
+                    <span class="username">
+                      <a href="#">{{socorro.author}=</a>
+                    </span>
+                  </div>
+              </div> <!--Fim Do Corpo Do Card-->
+            <!-- </div>
+          {% endfor %} -->
 
+    <div class="col-md-4"><!--Inicio Card-->
+      <div class="card mb-4 shadow-sm"><!--sombra do card-->
+        <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
+        <h1 class="card-title text-center">Titulo</h1>
+        <div class="card-body"><!--Inicio Corpo Do Card-->
+          <p class="description">DD/MM/AAAA</p>
+          <p class="card-text">Classificação</p>
+          <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
+            <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;"> <!--imagem do usuário-->
+              <span class="username"><!--Nome Do Usuario-->
+                <a href="#">Usuario</a>
+              </span><!--Fim Do Que Contém No Nome Do Usuario-->
+            </div>
+        </div><!--Fim Do Corpo Do Card-->
+      </div><!--Fim da Sombra Do Card-->
+    </div><!--Fim Card-->
     
   </div><!--Fim Div Row-->
 </div><!--Fim Div Container-->

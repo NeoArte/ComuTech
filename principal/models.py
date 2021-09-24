@@ -1,15 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.http import request
 from django.utils import timezone
 import django.core.validators as validators
-# import datetime
+import datetime
 
 
 # Classes ligadas ao usuário (User related classes) ===================
 
 # User Manager é a classe responsável por lidar com o que ocorre durante a criação de um usuario (create_user) e super usuario (create_super_user)
 class UserManager(BaseUserManager):
-    def create_user(self, cpf, name, email, phone, cep, password=None):
+    def create_user(self, cpf, name, email, phone, cep, birth_date, password=None):
         if not cpf:
             raise ValueError("Usuários precisam ter um CPF - Users must have a CPF")
         
@@ -25,18 +26,38 @@ class UserManager(BaseUserManager):
         if not cep:
             raise ValueError("Usuários precisam ter um CEP - Users must have a CEP")
         
+        if not birth_date:
+            raise ValueError("Usuários precisam ter um CEP - Users must have a CEP")
+        
+
         user = self.model(
             cpf=cpf,
             name=name,
             email=self.normalize_email(email), # Normalize -> deixa tudo em letra minúscula
             phone=phone,
-            cep=cep
+            cep=cep,
+            birth_date=birth_date
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
-
+    
+    def create_superuser(self, cpf, name, email, phone, cep, birth_date, password):
+        user = self.create_user(
+            cpf=cpf,
+            name=name,
+            email=self.normalize_email(email), # Normalize -> deixa tudo em letra minúscula
+            phone=phone,
+            cep=cep,
+            birth_date=birth_date,
+            password=password
+        )
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractBaseUser): # Usuários
@@ -53,12 +74,12 @@ class User(AbstractBaseUser): # Usuários
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='usuarios/', blank=True)
+    profile_picture = models.ImageField(upload_to='usuarios/', null=True, blank=True)
 
     whatsapp = models.CharField(max_length=13)
-    twitter = models.CharField(blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
-    facebook = models.CharField(blank=True, max_length=255)
-    instagram = models.CharField(blank=True, max_length=30)
+    twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
+    facebook = models.CharField(null=True, blank=True, max_length=255)
+    instagram = models.CharField(null=True, blank=True, max_length=30)
 
 
     # OBRIGADO pelo Django (REQUIRED by Django)
@@ -70,8 +91,10 @@ class User(AbstractBaseUser): # Usuários
     is_staff = models.BooleanField(default=False) # É da equipe (quem trabalha)?
     is_superuser = models.BooleanField(default=False) # É um super usuário (privilégios especiais)
 
-    USERNAME_FIELD = 'cpf' # O que será usado para realizar o login
-    REQUIRED_FIELDS = ['name', 'email', 'phone', 'cep']
+    USERNAME_FIELD = 'email' # O que será usado para realizar o login
+    REQUIRED_FIELDS = ['name', 'cpf', 'phone', 'cep', 'birth_date']
+
+    objects = UserManager()
 
     # O que retornar ao dar print em User
     def __str__(self):
@@ -81,13 +104,15 @@ class User(AbstractBaseUser): # Usuários
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
-    def has_module_perm(self, app_label):
+    def has_module_perms(self, app_label):
         return True
 
 
 # Classes Comuns (Common Classes) ========================
 
-
+class AidType(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
 
 class Aid(models.Model): # Socorros
 
@@ -96,11 +121,11 @@ class Aid(models.Model): # Socorros
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="criador")
-    #tag = models.ForeignKey(AidTags, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    description = models.TextField(null=True, blank=True)
+    type = models.ForeignKey(AidType, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
-    ending_date = models.DateTimeField(blank=True) # Quando finalizado pelo úsuario entre em uma contagem para ser excluido.
+    ending_date = models.DateTimeField(null=True, blank=True) # Quando finalizado pelo úsuario entre em uma contagem para ser excluido.
 
     # Estados possiveis para um socorro, aberto enquanto no tempo de funcionamento,
     # congelado quando esse tempo acaba e finalizado quando o usuário finaliza aquele pedido.
@@ -115,6 +140,6 @@ class AidPhotos(models.Model):
 
     aid = models.ForeignKey(Aid, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="socorros/", default="")
-    description = models.TextField(blank=True) # Descrição na imagem para leitores de tela.
+    description = models.TextField(null=True, blank=True) # Descrição na imagem para leitores de tela.
 
 
