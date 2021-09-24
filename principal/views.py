@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .form import AidForm, RegistrationForm
+from .models import AidType, Aid
+from django.contrib.auth.forms import UserCreationForm
+from datetime import datetime, timedelta, date
 
-is_logged_in = False
+
+is_logged_in = True
 
 # As funções com testes "if_logged_in" verificam se o usuário está logado, se estiver acessa a página normalmente e 
 # caso contrário é redirecionado para a página de login (determinadno que é necessário estar logado), as páginas com apenas redirects são as que fazem
@@ -54,7 +58,45 @@ def log_out(request):
     return redirect('index')
 
 def explorar(request):
-    return render(request, "principal/explorar.html")
+    types = AidType.objects.all()
+    context = {'aidtypes': types}
+
+    # Filtro de dias
+    if request.method == "GET":
+        if "#oneWeek":
+            seven_days_ago = datetime.today() - timedelta(days=7)
+            aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
+            context["aid"] = aid
+            return render (request, "principal/explorar.html", context)
+
+        elif "#twoWeeks":
+            fourteen_days_ago = datetime.today() - timedelta(days=14)
+            aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
+            context["aid"] = aid            
+            return render(request, "principal/explorar.html", context)
+        
+        elif "#oneMonth":
+            one_month_ago = datetime.today() - timedelta(days=30)
+            aid = Aid.objects.filter(creation_date__gt=one_month_ago)
+            context["aid"] = aid
+            return render(request, "principal/explorar.html", context)
+
+    # Barra de Pesquisa
+    if request.method == "GET":
+        aid = Aid.objects.all()
+        search = request.GET.get('search')
+        if search:
+            aid = aid.filter(title__icontains=search)
+        context = {"aid": aid}
+
+
+    return render(request, "principal/explorar.html", context)
+
+# def search(request):
+
+#     search = request.GET
+#     return redirect()
+
 
 def visualizar(request):
     return render(request, "principal/socorro.html")
@@ -100,3 +142,4 @@ def deletar(request):
         return redirect('socorrosmeus')
     elif not is_logged_in:
         return redirect('login')
+
