@@ -6,8 +6,6 @@
     <h1 class="h1"><b>Log</b>in</h1>
   </div>
   <div class="card-body">
-    <p class="login-box-msg">Realize seu login</p>
-
     <form action="../../index3.html" method="post">
       <label class="input-group mb-3" for="email">
         <input type="email" class="form-control" placeholder="Email" id="email"/>
@@ -30,16 +28,16 @@
       </label>
       <div class="row">
         <!-- /.col -->
-        <div class="col-4">
-          <button type="submit" class="btn btn-primary btn-block">Logar</button>
+        <div class="col-6 register-button">
+          <button type="submit" class="btn btn-block btn-form">
+              Login
+          </button>
         </div>
+        <a class="form-link col-6" href="{% url 'cadastro' %}">Ainda não possui uma conta?</a>
         <!-- /.col -->
       </div>
     </form>
-
-    <p class="mb-0">
-      <a href="{% url 'cadastro' %}" class="text-center">Cadastre-se</a>
-    </p>
+    
   </div>
   <!-- /.card-body -->
 </div>

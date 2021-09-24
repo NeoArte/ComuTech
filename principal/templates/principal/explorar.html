@@ -3,20 +3,24 @@
 {% block head %}
   <nav class="navbar navbar-light bg-transparent">
     <form class="form-inline ml-auto">
-      <select name="" id="" class="btn btn-success dropdown-toggle rounded-pill m-2">
+      <select name="" id="" class="btn explore-btn dropdown-toggle">
         <option selected disabled hidden>Publicado há ?</option>
         <option value="">1 semana</option>
         <option value="">2 semanas</option>
         <option value="">1 mês</option>
       </select>
-      <select name="" id="" class="btn btn-success dropdown-toggle rounded-pill m-2">
+      <select name="" id="" class="btn explore-btn dropdown-toggle">
         <option selected disabled hidden>Classificado em</option>
         <option value="">1 semana</option>
         <option value="">2 semanas</option>
         <option value="">1 mês</option>
       </select>
-      <input class="form-control mr-sm-2 border-success rounded-pill" type="search" placeholder="Buscar por..." aria-label="SearchKeyWords">
-      <button class="btn btn-success my-2 my-sm-0 rounded-pill" type="submit">Pesquisar</button>
+      <input class="form-control explore-btn" type="search" placeholder="Buscar por..." aria-label="SearchKeyWords">
+      <button class="btn explore-btn" type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+      </button>
     </form>
   </nav>
 {% endblock %}
@@ -29,10 +33,12 @@
       <div class="col-md-4"><!--Inicio Card-->
         <div class="card mb-4 shadow-sm"><!--sombra do card-->
           <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="card-title text-center c-text">Titulo</h1>
+          <h1 class="text-center c-text">Titulo</h1>
           <div class="card-body"><!--Inicio Corpo Do Card-->
-            <p class="description c-text mb-3">DD/MM/AAAA</p>
-            <p class="card-text c-text mb-3">Classificação</p>
+            <div class="card-date-class">
+              <p class="description c-text mb-1">DD/MM/AAAA</p>
+              <p class="card-text c-text mb-1">Classificação</p>
+            </div>
             <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
               <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
                 <span class="username"><!--Nome Do Usuario-->
@@ -48,10 +54,12 @@
       <div class="col-md-4"><!--Inicio Card-->
         <div class="card mb-4 shadow-sm"><!--sombra do card-->
           <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="card-title text-center c-text">Titulo</h1>
+          <h1 class="text-center c-text">Titulo</h1>
           <div class="card-body"><!--Inicio Corpo Do Card-->
-            <p class="description c-text mb-3">DD/MM/AAAA</p>
-            <p class="card-text c-text mb-3">Classificação</p>
+            <div class="card-date-class">
+              <p class="description c-text mb-1">DD/MM/AAAA</p>
+              <p class="card-text c-text mb-1">Classificação</p>
+            </div>
             <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
               <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
                 <span class="username"><!--Nome Do Usuario-->
@@ -67,10 +75,12 @@
       <div class="col-md-4"><!--Inicio Card-->
         <div class="card mb-4 shadow-sm"><!--sombra do card-->
           <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="card-title text-center c-text">Titulo</h1>
+          <h1 class="text-center c-text">Titulo</h1>
           <div class="card-body"><!--Inicio Corpo Do Card-->
-            <p class="description c-text mb-3">DD/MM/AAAA</p>
-            <p class="card-text c-text mb-3">Classificação</p>
+            <div class="card-date-class">
+              <p class="description c-text mb-1">DD/MM/AAAA</p>
+              <p class="card-text c-text mb-1">Classificação</p>
+            </div>
             <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
               <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
                 <span class="username"><!--Nome Do Usuario-->
@@ -86,10 +96,12 @@
       <div class="col-md-4"><!--Inicio Card-->
         <div class="card mb-4 shadow-sm"><!--sombra do card-->
           <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="card-title text-center c-text">Titulo</h1>
+          <h1 class="text-center c-text">Titulo</h1>
           <div class="card-body"><!--Inicio Corpo Do Card-->
-            <p class="description c-text mb-3">DD/MM/AAAA</p>
-            <p class="card-text c-text mb-3">Classificação</p>
+            <div class="card-date-class">
+              <p class="description c-text mb-1">DD/MM/AAAA</p>
+              <p class="card-text c-text mb-1">Classificação</p>
+            </div>
             <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
               <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
                 <span class="username"><!--Nome Do Usuario-->
@@ -105,10 +117,12 @@
       <div class="col-md-4"><!--Inicio Card-->
         <div class="card mb-4 shadow-sm"><!--sombra do card-->
           <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="card-title text-center c-text">Titulo</h1>
+          <h1 class="text-center c-text">Titulo</h1>
           <div class="card-body"><!--Inicio Corpo Do Card-->
-            <p class="description c-text mb-3">DD/MM/AAAA</p>
-            <p class="card-text c-text mb-3">Classificação</p>
+            <div class="card-date-class">
+              <p class="description c-text mb-1">DD/MM/AAAA</p>
+              <p class="card-text c-text mb-1">Classificação</p>
+            </div>
             <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
               <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
                 <span class="username"><!--Nome Do Usuario-->
@@ -120,43 +134,6 @@
       </div><!--Fim Card-->
     </a>
 
-    <a class="card-link" href="ParaCard" style="text-decoration: none;">
-      <div class="col-md-4"><!--Inicio Card-->
-        <div class="card mb-4 shadow-sm"><!--sombra do card-->
-          <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="card-title text-center c-text">Titulo</h1>
-          <div class="card-body"><!--Inicio Corpo Do Card-->
-            <p class="description c-text mb-3">DD/MM/AAAA</p>
-            <p class="card-text c-text mb-3">Classificação</p>
-            <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                <span class="username"><!--Nome Do Usuario-->
-                  <a href="Usuario" class="userName">Usuario</a>
-                </span><!--Fim Do Que Contém No Nome Do Usuario-->
-              </div>
-          </div><!--Fim Do Corpo Do Card-->
-        </div><!--Fim da Sombra Do Card-->
-      </div><!--Fim Card-->
-    </a>
-
-    <a class="card-link" href="ParaCard" style="text-decoration: none;">
-      <div class="col-md-4"><!--Inicio Card-->
-        <div class="card mb-4 shadow-sm"><!--sombra do card-->
-          <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="card-title text-center c-text">Titulo</h1>
-          <div class="card-body"><!--Inicio Corpo Do Card-->
-            <p class="description c-text mb-3">DD/MM/AAAA</p>
-            <p class="card-text c-text mb-3">Classificação</p>
-            <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                <span class="username"><!--Nome Do Usuario-->
-                  <a href="Usuario" class="userName">Usuario</a>
-                </span><!--Fim Do Que Contém No Nome Do Usuario-->
-              </div>
-          </div><!--Fim Do Corpo Do Card-->
-        </div><!--Fim da Sombra Do Card-->
-      </div><!--Fim Card-->
-    </a>
     
   </div><!--Fim Div Row-->
 </div><!--Fim Div Container-->
