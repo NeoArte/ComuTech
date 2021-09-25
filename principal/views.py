@@ -16,7 +16,7 @@ is_logged_in = True
 def index(request):
     return render(request, "principal/index.html")
 
-def cadastro(request):
+def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -28,7 +28,8 @@ def cadastro(request):
     context = {
         'form': form,
     }
-    return render(request, "principal/cadastro.html", context)
+    return render(request, "principal/register.html", context)
+
 
 def log_in(request):
     if request.method == 'POST':
@@ -117,7 +118,7 @@ def socorros_meus(request):
 def criacao(request):
     context = {}
     context['form'] = AidForm()
-    return render(request, "principal/criacao-customuser.html", context)
+    return render(request, "principal/criacao.html", context)
 
 @login_required(login_url="/login/")
 def criar(request):

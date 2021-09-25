@@ -39,6 +39,7 @@
     min-height: 85vh;
     padding: 1.5%;
     display: flex;
+    align-content: center;
 }
 .nav-text {
     font-size: 20px;
@@ -189,6 +190,9 @@ footer {
     font-weight: 550;
     color: var(--secundary);
     box-shadow: 2.5px 2.5px 0px 1px var(--main-high-contrast);
+    margin: 10px;
+    width: 95%;
+    
 }
 .btn-form:hover {
     color: var(--secundary);
@@ -375,9 +379,81 @@ button.explore-btn:active {
     left: 3px;
     box-shadow: none;
 }
+.date-input {
+    padding: 4px 12px;
+    border-radius: 15px;
+    border: 2px solid var(--secundary-high-contrast);
+}
+.date-input::-webkit-calendar-picker-indicator {
+    width: 25px;
+    height: 25px;
+}
+.social-buttons>a>.social-medias {
+    color: var(--secundary-high-contrast);
+}
+.social-buttons>a>.social-medias:hover {
+    color: var(--main-low-contrast);
+}
+.subtitle {
+    font-size: 30px;
+    color: var(--main);
+}
+#help-box-st {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+.help-boxes {
+    width: 50%;
+    max-width: 50%;
+    margin: 10px;
+}
+.card-body {
+    padding: 0;
+    margin: 20px;
+    align-content: center;
+}
+.carousel-item>img {
+    width: 100%;
+    height: 70vh;
+}
+.carousel-item.active>img {
+    border-radius: 10px;
+}
+.chevron-compact {
+    width: 80px;
+    height: 80px;
+    color: var(--main);
+}
+.chevron-compact:focus {
+    color: initial;
+}
+.carousel-indicators li {
+    background-color: var(--main);
+}
 
-@media only screen and (max-width: 999px) and (min-width: 768px) {
-    .card-date-class {
+@media only screen and (max-width: 1065px) {
+    #help-box-st {
         flex-direction: column;
     }
+    .help-boxes {
+        width: 100%;
+        max-width: 100%;
+    }
+    .help-boxes.carousel-box {
+        width: 85%;
+        margin: auto;
+    }}
+@media only screen and (max-width: 450px) {
+    .help-boxes.carousel-box {
+        width: 100%;
+    }
 }
+@media only screen and (max-width: 400px) {
+    .carousel-item>img {
+        height: 35vh;
+    }
+}
+@media only screen and (max-width: 999px) and (min-width: 768px) {.card-date-class {flex-direction: column;}}
+@media only screen and (max-width:450px) {.social-medias {width: 50px;height: 50px;}}
+@media only screen and (max-width:300px) {.social-medias {width: 40px; height: 40px;}}
