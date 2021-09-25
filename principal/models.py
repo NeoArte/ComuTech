@@ -10,7 +10,7 @@ import datetime
 
 # User Manager é a classe responsável por lidar com o que ocorre durante a criação de um usuario (create_user) e super usuario (create_super_user)
 class UserManager(BaseUserManager):
-    def create_user(self, cpf, name, email, phone, cep, birth_date, facebook, whatsapp, instagram, twitter, password=None,):
+    def create_user(self, cpf, name, email, phone, cep, birth_date, facebook, whatsapp, instagram, twitter, profile_picture, password=None,):
         if not cpf:
             raise ValueError("Usuários precisam ter um CPF - Users must have a CPF")
         
@@ -43,6 +43,7 @@ class UserManager(BaseUserManager):
             whatsapp=whatsapp,
             instagram=instagram,
             twitter=twitter,
+            profile_picture=profile_picture,
         )
 
         user.set_password(password)
