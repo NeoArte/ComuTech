@@ -44,13 +44,22 @@ class AidForm(ModelForm):
         fields = (
             'author',
             'title',
+            'type',
             'description',
             # 'tag', -> quando adicionar as tags novamente
             # photos, 
         )
+        exclude = ['author']
     
     def __init__(self, *args, **kwargs):
+        self._author = kwargs.pop('author') # 'author' será um kwarg (um argumento) que será passado pela views (request.user)
         super(AidForm, self).__init__(*args, **kwargs)
-        self.fields['author'].widget = forms.HiddenInput()
         for field in self.fields:
             self.fields[field].widget.attrs.update({'style': 'display: block; margin: 10px auto'})
+
+    def save(self, commit=True):
+        aidform = super(AidForm, self).save(commit=False)
+        aidform.author = self._author
+        if commit:
+            aidform.save()
+        return aidform

@@ -114,6 +114,9 @@ class AidType(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.name
+
 class Aid(models.Model): # Socorros
 
     # O socorro é a principal engrenagem da plataforma, ele necessita e apenas existe caso tenha um criador (usuário), necessita de um tipo, titulo, 
@@ -133,7 +136,7 @@ class Aid(models.Model): # Socorros
     state = models.CharField(max_length=1, choices=STATES, default="A")
 
     # Contribuidores é "Muitos para Muitos" pois muitos socorros podem ser ajudos por muitos usuários diferentes.
-    contributors = models.ManyToManyField(User, related_name="contribuidores")
+    contributors = models.ManyToManyField(User, related_name="contribuidores", blank=True)
 
 class AidPhotos(models.Model):
     # Fotos usadas em um socorro, precisa estar associado a um socorro, conter uma imagem (salva em MEDIA/socorros/) e uma descrição usada em leitores de tela.
