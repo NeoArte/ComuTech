@@ -30,6 +30,7 @@ def register(request):
     }
     return render(request, "principal/register.html", context)
 
+
 def log_in(request):
     if request.method == 'POST':
         email = request.POST.get('email')
