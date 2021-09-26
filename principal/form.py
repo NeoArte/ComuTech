@@ -102,6 +102,13 @@ class RegistrationForm(UserCreationForm):
         user.cpf = self.cleaned_data['cpf']
         user.cep = self.cleaned_data['cep']
         user.birth_date = self.cleaned_data['birth_date']
+        user.whatsapp = self.cleaned_data['whatsapp']
+
+        #ITENS OPCIONAIS
+        user.facebook = self.cleaned_data['facebook']
+        user.twitter = self.cleaned_data['twitter']
+        user.instagram = self.cleaned_data['facebook']
+        user.profile_picture = self.cleaned_data['profile_picture']
 
         if commit:
             user.save()

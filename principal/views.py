@@ -22,6 +22,14 @@ def register(request):
         if form.is_valid():
             form.save()
             print('Registrado')
+
+            # Loga o usuário após se cadastrar.
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('explorar')
             return redirect('index')
 
     form = RegistrationForm() 
@@ -117,13 +125,8 @@ def socorros_meus(request):
 @login_required(login_url="/login/")
 def criacao(request):
     context = {}
-<<<<<<< HEAD
-    context['form'] = AidForm()
-    return render(request, "principal/criacao.html", context)
-=======
     context['form'] = AidForm(author=request.user)
     return render(request, "principal/criacao-customuser.html", context)
->>>>>>> 999c493 (Criação de Socorros completa)
 
 @login_required(login_url="/login/")
 def criar(request):
