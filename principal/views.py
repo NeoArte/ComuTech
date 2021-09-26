@@ -117,21 +117,18 @@ def socorros_meus(request):
 @login_required(login_url="/login/")
 def criacao(request):
     context = {}
+<<<<<<< HEAD
     context['form'] = AidForm()
     return render(request, "principal/criacao.html", context)
+=======
+    context['form'] = AidForm(author=request.user)
+    return render(request, "principal/criacao-customuser.html", context)
+>>>>>>> 999c493 (Criação de Socorros completa)
 
 @login_required(login_url="/login/")
 def criar(request):
-    form = AidForm(request.POST)
-    print("\n\n\n\n\n\n\n")
-    for f in form.fields:
-        print(form.fields[f])
-    print("\n\n\n\n\n\n\n")
+    form = AidForm(request.POST, author=request.user)
     if form.is_valid():
-        print("\n\n\n\n\n\n\n")
-        print("ENTROOOOU")
-        print("\n\n\n\n\n\n\n")
-        form.cleaned_data['author'] == request.user
         form.save()
         return redirect('socorrosmeus')
 
