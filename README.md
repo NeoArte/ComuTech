@@ -26,3 +26,4 @@ Siga os seguintes passos para instalar o projeto em sua máquina local.
     - Pillow (pip install pillow)
     - (comando para instalar tudo ao mesmo tempo: *pip install django django-filter pillow*)
 5. Faça as migrações com: python manage.py migrate
+6. Confirme que todas as pastas para midias foram criadas corretamente (media, media/usuarios, media/socorros, ...)
