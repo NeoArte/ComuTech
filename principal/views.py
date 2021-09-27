@@ -66,7 +66,7 @@ def log_out(request):
     logout(request)
     return redirect('index')
 
-def explorar(request):
+def explorar(request, extra_context=None):
     types = AidType.objects.all()
     context = {'aidtypes': types}
 
@@ -98,7 +98,14 @@ def explorar(request):
             aid = aid.filter(title__icontains=search)
         context = {"aid": aid}
 
+        # Scroll Infinito 
 
+    context = {
+        'entry_list': AidType.objects.all(),
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+    
     return render(request, "principal/explorar.html", context)
 
 # def search(request):

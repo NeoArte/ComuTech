@@ -29,110 +29,27 @@
 <div class="container">
   <div class="row">
 
-    <a class="card-link" href="ParaCard" style="text-decoration: none;">
+    {%  for  entry  in  entry_list  %} 
+        
       <div class="col-md-4"><!--Inicio Card-->
         <div class="card mb-4 shadow-sm"><!--sombra do card-->
           <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="text-center c-text">Titulo</h1>
+          <h1 class="card-title text-center">Titulo</h1>
           <div class="card-body"><!--Inicio Corpo Do Card-->
-            <div class="card-date-class">
-              <p class="description c-text mb-1">DD/MM/AAAA</p>
-              <p class="card-text c-text mb-1">Classificação</p>
-            </div>
+            <p class="description">DD/MM/AAAA</p>
+            <p class="card-text">Classificação</p>
             <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
+              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;"> <!--imagem do usuário-->
                 <span class="username"><!--Nome Do Usuario-->
-                  <a href="Usuario" class="userName">Usuario</a>
+                  <a href="#">Usuario</a>
                 </span><!--Fim Do Que Contém No Nome Do Usuario-->
               </div>
           </div><!--Fim Do Corpo Do Card-->
         </div><!--Fim da Sombra Do Card-->
       </div><!--Fim Card-->
-    </a>
-
-    <a class="card-link" href="ParaCard" style="text-decoration: none;">
-      <div class="col-md-4"><!--Inicio Card-->
-        <div class="card mb-4 shadow-sm"><!--sombra do card-->
-          <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="text-center c-text">Titulo</h1>
-          <div class="card-body"><!--Inicio Corpo Do Card-->
-            <div class="card-date-class">
-              <p class="description c-text mb-1">DD/MM/AAAA</p>
-              <p class="card-text c-text mb-1">Classificação</p>
-            </div>
-            <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                <span class="username"><!--Nome Do Usuario-->
-                  <a href="Usuario" class="userName">Usuario</a>
-                </span><!--Fim Do Que Contém No Nome Do Usuario-->
-              </div>
-          </div><!--Fim Do Corpo Do Card-->
-        </div><!--Fim da Sombra Do Card-->
-      </div><!--Fim Card-->
-    </a>
-
-    <a class="card-link" href="ParaCard" style="text-decoration: none;">
-      <div class="col-md-4"><!--Inicio Card-->
-        <div class="card mb-4 shadow-sm"><!--sombra do card-->
-          <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="text-center c-text">Titulo</h1>
-          <div class="card-body"><!--Inicio Corpo Do Card-->
-            <div class="card-date-class">
-              <p class="description c-text mb-1">DD/MM/AAAA</p>
-              <p class="card-text c-text mb-1">Classificação</p>
-            </div>
-            <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                <span class="username"><!--Nome Do Usuario-->
-                  <a href="Usuario" class="userName">Usuario</a>
-                </span><!--Fim Do Que Contém No Nome Do Usuario-->
-              </div>
-          </div><!--Fim Do Corpo Do Card-->
-        </div><!--Fim da Sombra Do Card-->
-      </div><!--Fim Card-->
-    </a>
-
-    <a class="card-link" href="ParaCard" style="text-decoration: none;">
-      <div class="col-md-4"><!--Inicio Card-->
-        <div class="card mb-4 shadow-sm"><!--sombra do card-->
-          <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="text-center c-text">Titulo</h1>
-          <div class="card-body"><!--Inicio Corpo Do Card-->
-            <div class="card-date-class">
-              <p class="description c-text mb-1">DD/MM/AAAA</p>
-              <p class="card-text c-text mb-1">Classificação</p>
-            </div>
-            <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                <span class="username"><!--Nome Do Usuario-->
-                  <a href="Usuario" class="userName">Usuario</a>
-                </span><!--Fim Do Que Contém No Nome Do Usuario-->
-              </div>
-          </div><!--Fim Do Corpo Do Card-->
-        </div><!--Fim da Sombra Do Card-->
-      </div><!--Fim Card-->
-    </a>
-
-    <a class="card-link" href="ParaCard" style="text-decoration: none;">
-      <div class="col-md-4"><!--Inicio Card-->
-        <div class="card mb-4 shadow-sm"><!--sombra do card-->
-          <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-          <h1 class="text-center c-text">Titulo</h1>
-          <div class="card-body"><!--Inicio Corpo Do Card-->
-            <div class="card-date-class">
-              <p class="description c-text mb-1">DD/MM/AAAA</p>
-              <p class="card-text c-text mb-1">Classificação</p>
-            </div>
-            <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-              <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                <span class="username"><!--Nome Do Usuario-->
-                  <a href="Usuario" class="userName">Usuario</a>
-                </span><!--Fim Do Que Contém No Nome Do Usuario-->
-              </div>
-          </div><!--Fim Do Corpo Do Card-->
-        </div><!--Fim da Sombra Do Card-->
-      </div><!--Fim Card-->
-    </a>
+        
+    {%  endfor  %}
+    
     
               <!-- {% for socorro in socorroLista %} 
             <div class="card mb-4 shadow-sm">
