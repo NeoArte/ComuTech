@@ -3,7 +3,7 @@ from .models import AidType, User
 
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'email', 'cpf', 'phone', 'cep', 'birth_date']
+    list_display = ['id', 'name', 'email', 'cpf', 'phone', 'cep', 'birth_date', 'whatsapp', 'facebook', 'instagram', 'twitter', 'profile_picture']
     list_display_links = ['id', 'name', 'email', 'cpf', 'phone', 'cep', 'birth_date']
 
 class AidTypeAdmin(admin.ModelAdmin):

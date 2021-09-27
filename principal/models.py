@@ -10,7 +10,7 @@ import datetime
 
 # User Manager é a classe responsável por lidar com o que ocorre durante a criação de um usuario (create_user) e super usuario (create_super_user)
 class UserManager(BaseUserManager):
-    def create_user(self, cpf, name, email, phone, cep, birth_date, password=None):
+    def create_user(self, cpf, name, email, phone, cep, birth_date, facebook, whatsapp, instagram, twitter, profile_picture, password=None,):
         if not cpf:
             raise ValueError("Usuários precisam ter um CPF - Users must have a CPF")
         
@@ -27,8 +27,10 @@ class UserManager(BaseUserManager):
             raise ValueError("Usuários precisam ter um CEP - Users must have a CEP")
         
         if not birth_date:
-            raise ValueError("Usuários precisam ter um CEP - Users must have a CEP")
-        
+            raise ValueError("Usuários precisam ter um CEP - Users must have a birth date")
+
+        if not whatsapp:
+            raise ValueError("Usuários precisam ter um whatsapp - User must have a whatsapp")
 
         user = self.model(
             cpf=cpf,
@@ -36,14 +38,19 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email), # Normalize -> deixa tudo em letra minúscula
             phone=phone,
             cep=cep,
-            birth_date=birth_date
+            birth_date=birth_date,
+            facebook=facebook,
+            whatsapp=whatsapp,
+            instagram=instagram,
+            twitter=twitter,
+            profile_picture=profile_picture,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, cpf, name, email, phone, cep, birth_date, password):
+    def create_superuser(self, cpf, name, email, phone, cep, birth_date, facebook, whatsapp, instagram, twitter, profile_picture, password,):
         user = self.create_user(
             cpf=cpf,
             name=name,
@@ -51,7 +58,12 @@ class UserManager(BaseUserManager):
             phone=phone,
             cep=cep,
             birth_date=birth_date,
-            password=password
+            password=password,
+            facebook=facebook,
+            whatsapp=whatsapp,
+            instagram=instagram,
+            twitter=twitter,
+            profile_picture=profile_picture,
         )
         user.is_admin = True
         user.is_staff = True
@@ -76,7 +88,7 @@ class User(AbstractBaseUser): # Usuários
     password = models.CharField(max_length=255)
     profile_picture = models.ImageField(upload_to='usuarios/', null=True, blank=True)
 
-    whatsapp = models.CharField(max_length=13)
+    whatsapp = models.CharField(max_length=13, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
     facebook = models.CharField(null=True, blank=True, max_length=255)
     instagram = models.CharField(null=True, blank=True, max_length=30)
@@ -114,6 +126,9 @@ class AidType(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.name
+
 class Aid(models.Model): # Socorros
 
     # O socorro é a principal engrenagem da plataforma, ele necessita e apenas existe caso tenha um criador (usuário), necessita de um tipo, titulo, 
@@ -133,7 +148,7 @@ class Aid(models.Model): # Socorros
     state = models.CharField(max_length=1, choices=STATES, default="A")
 
     # Contribuidores é "Muitos para Muitos" pois muitos socorros podem ser ajudos por muitos usuários diferentes.
-    contributors = models.ManyToManyField(User, related_name="contribuidores")
+    contributors = models.ManyToManyField(User, related_name="contribuidores", blank=True)
 
 class AidPhotos(models.Model):
     # Fotos usadas em um socorro, precisa estar associado a um socorro, conter uma imagem (salva em MEDIA/socorros/) e uma descrição usada em leitores de tela.

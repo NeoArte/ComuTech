@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .form import AidForm, RegistrationForm
-from .models import AidType, Aid
+from .form import AidForm, RegistrationForm, UpdateForm
+from .models import AidType, Aid, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
 
@@ -16,19 +16,28 @@ is_logged_in = True
 def index(request):
     return render(request, "principal/index.html")
 
-def cadastro(request):
+def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             print('Registrado')
+
+            # Loga o usuário após se cadastrar.
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('explorar')
             return redirect('index')
 
     form = RegistrationForm() 
     context = {
         'form': form,
     }
-    return render(request, "principal/cadastro.html", context)
+    return render(request, "principal/register.html", context)
+
 
 def log_in(request):
     if request.method == 'POST':
@@ -102,12 +111,24 @@ def visualizar(request):
     return render(request, "principal/socorro.html")
 
 @login_required(login_url="/login/")
-def usuario(request):
-    return render(request, "principal/usuario.html")
+def user(request, id):
+    userViewed = User.objects.get(pk=id)
+    return render(request, "principal/account.html", {'userViewed':userViewed})
 
 @login_required(login_url="/login/")
-def editarconta(request):
-    return render(request, "principal/editarconta.html")
+def editAccount(request, id):
+    userData = User.objects.get(pk=id)
+    userForm = UpdateForm(instance = userData)
+    if request.method == 'POST':
+        userUpdate = UpdateForm(request.POST, instance = userData)
+        if userUpdate.is_valid():
+            userUpdate.save()
+            return redirect(f'/user/{id}/')
+        else:
+            print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+    else:
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})
 
 @login_required(login_url="/login/")
 def socorros_meus(request):
@@ -116,21 +137,13 @@ def socorros_meus(request):
 @login_required(login_url="/login/")
 def criacao(request):
     context = {}
-    context['form'] = AidForm()
+    context['form'] = AidForm(author=request.user)
     return render(request, "principal/criacao-customuser.html", context)
 
 @login_required(login_url="/login/")
 def criar(request):
-    form = AidForm(request.POST)
-    print("\n\n\n\n\n\n\n")
-    for f in form.fields:
-        print(form.fields[f])
-    print("\n\n\n\n\n\n\n")
+    form = AidForm(request.POST, author=request.user)
     if form.is_valid():
-        print("\n\n\n\n\n\n\n")
-        print("ENTROOOOU")
-        print("\n\n\n\n\n\n\n")
-        form.cleaned_data['author'] == request.user
         form.save()
         return redirect('socorrosmeus')
 

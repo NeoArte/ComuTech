@@ -6,7 +6,7 @@ urlpatterns = [
     #TODO - Trocar int por <int:variavel>| INT É APENAS PARA TESTES
 
     path("", views.index, name="index"), # Página Inicial - caso esteja logado redirecionar
-    path("cadastro/", views.cadastro, name="cadastro"), # Página de Registro
+    path("register/", views.register, name="register"), # Página de Registro
     
     path("login/", views.log_in, name="login"), # Página de Login 
     path("logout/", views.log_out, name="logout"),
@@ -17,8 +17,8 @@ urlpatterns = [
 
     #TODO - ao acessar apenas "usuario" redireciona para "usuario/int" da própria pessoa
 
-    path("usuario/int/", views.usuario, name="usuario"), # Página para visualizar informações da conta. O int é o ID DA CONTA
-    path("usuario/int/editar/", views.editarconta, name="editarconta"),
+    path("user/<int:id>/", views.user), # Página para visualizar informações da conta. O int é o ID DA CONTA
+    path("user/<int:id>/edit/", views.editAccount),
     
     path("usuario/int/socorrosmeus/", views.socorros_meus, name="socorrosmeus"), # Em "meus socorros" pode criar, editar, visualizar ou deletar um socorro
     path("criacao", views.criacao, name="criacao"), # Página para criação do socorro.
