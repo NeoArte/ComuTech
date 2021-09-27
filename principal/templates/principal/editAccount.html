@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <form action="/user/{{userData.id}}/edit/" method="POST" class="w-100">
+    {% csrf_token %}
+    <div class="card-body column m-0">
+        <div id="help-box-st">
+            <div class="input-img col-md-5">
+            {{userForm.profile_picture}}
+            <label class="input-icon" for="_inputIMG">
+                <div id="fileDefault" class="file-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                    <p>Adicionar Foto</p>
+                </div>
+                <div id="fileAdd" class="file-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+                    <p>Adicionar Foto</p>
+                </div>
+            </label>
+            </div>
+            <div class="col-md-7 user-second-box">
+            <h1 class="user-title">
+                {{userForm.name}}
+            </h1>
+            <label class="input-group mb-3" for="email">
+                {{userForm.email}}
+                <div class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
+                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"/>
+                    </svg>
+                </div>
+            </label>
+            <label class="input-group mb-3" for="phone">
+                {{userForm.phone}}
+                <div class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                    </svg>
+                </div>
+            </label>
+            <p class="subtitle m-3">Contatar</p>
+            <div class="social-network">
+                <section class="social-buttons mb-3">
+                    <div id="facebook" class="social-add">
+                        <svg class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 9 23" fill="currentColor">
+                            <path d="M8.638 9.98h-2.67V20H1.924V9.98H0V6.46h1.924V4.18c0-1.63.755-4.181 4.08-4.181L9 .013V3.43H6.826c-.356 0-.858.182-.858.96v2.072h3.023L8.638 9.98z"/>
+                        </svg>
+                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+                        </svg>
+                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                        </svg>
+                    </div>
+                    <div id="whatsapp" class="social-add">
+                        <svg class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-whatsapp" viewBox="-1 0 18 17">
+                            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                        </svg>
+                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+                        </svg>
+                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                        </svg>
+                    </div>
+                    <div id="instagram" class="social-add">
+                        <svg class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 18 17" fill="currentColor">
+                            <path d="M11.214 0a4.764 4.764 0 0 1 4.758 4.758v6.456a4.764 4.764 0 0 1-4.758 4.758H4.758A4.764 4.764 0 0 1 0 11.214V4.758A4.764 4.764 0 0 1 4.758 0h6.456zm3.151 11.214V4.758c0-1.74-1.41-3.151-3.151-3.151H4.758a3.151 3.151 0 0 0-3.151 3.151v6.456c0 1.74 1.41 3.151 3.151 3.151h6.456c1.74 0 3.151-1.41 3.151-3.151zM7.986 3.855a4.136 4.136 0 0 1 4.13 4.131 4.136 4.136 0 0 1-4.13 4.13 4.136 4.136 0 0 1-4.13-4.13 4.136 4.136 0 0 1 4.13-4.13zm0 6.655a2.524 2.524 0 1 0 0-5.048 2.524 2.524 0 0 0 0 5.048zm4.139-5.634a.99.99 0 1 1 0-1.98.99.99 0 0 1 0 1.98z"/>
+                        </svg>
+                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+                        </svg>
+                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                        </svg>
+                    </div>
+                    <div id="twitter" class="social-add">
+                        <svg class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 14" fill="currentColor">
+                            <path d="M18 1.657a7.628 7.628 0 0 1-2.121.556A3.576 3.576 0 0 0 17.503.258a7.597 7.597 0 0 1-2.345.858A3.768 3.768 0 0 0 12.462 0c-2.04 0-3.693 1.583-3.693 3.534 0 .277.032.547.096.806-3.07-.148-5.79-1.555-7.612-3.693-.318.521-.5 1.129-.5 1.777 0 1.226.652 2.308 1.642 2.941a3.793 3.793 0 0 1-1.672-.442v.045c0 1.712 1.273 3.14 2.962 3.465a3.835 3.835 0 0 1-1.667.061c.47 1.404 1.833 2.426 3.45 2.455A7.623 7.623 0 0 1 .88 12.46c-.297 0-.592-.016-.88-.05A10.789 10.789 0 0 0 5.66 14c6.793 0 10.508-5.385 10.508-10.056 0-.153-.004-.306-.011-.457A7.319 7.319 0 0 0 18 1.657z"/>
+                        </svg>
+                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+                        </svg>
+                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                        </svg>
+                    </div>
+                </section>
+                <section id="social-inputs">
+                    <label id="input-facebook" class="input-group mb-3" for="facebook-input">
+                        {{userForm.facebook}}
+                        <div class="input-group-text">
+                            <svg id="facebook" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 9 23" fill="currentColor">
+                                <path d="M8.638 9.98h-2.67V20H1.924V9.98H0V6.46h1.924V4.18c0-1.63.755-4.181 4.08-4.181L9 .013V3.43H6.826c-.356 0-.858.182-.858.96v2.072h3.023L8.638 9.98z"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <label id="input-whatsapp" class="input-group mb-3" for="whatsapp-input">
+                        {{userForm.whatsapp}}
+                        <div class="input-group-text">
+                            <svg id="whatsapp" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-whatsapp" viewBox="-1 0 18 17">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <label id="input-instagram" class="input-group mb-3" for="instagram-input">
+                        {{userForm.instagram}}
+                        <div class="input-group-text">
+                            <svg id="instagram" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 18 17" fill="currentColor">
+                                <path d="M11.214 0a4.764 4.764 0 0 1 4.758 4.758v6.456a4.764 4.764 0 0 1-4.758 4.758H4.758A4.764 4.764 0 0 1 0 11.214V4.758A4.764 4.764 0 0 1 4.758 0h6.456zm3.151 11.214V4.758c0-1.74-1.41-3.151-3.151-3.151H4.758a3.151 3.151 0 0 0-3.151 3.151v6.456c0 1.74 1.41 3.151 3.151 3.151h6.456c1.74 0 3.151-1.41 3.151-3.151zM7.986 3.855a4.136 4.136 0 0 1 4.13 4.131 4.136 4.136 0 0 1-4.13 4.13 4.136 4.136 0 0 1-4.13-4.13 4.136 4.136 0 0 1 4.13-4.13zm0 6.655a2.524 2.524 0 1 0 0-5.048 2.524 2.524 0 0 0 0 5.048zm4.139-5.634a.99.99 0 1 1 0-1.98.99.99 0 0 1 0 1.98z"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <label id="input-twitter" class="input-group mb-3" for="twitter-input">
+                        {{userForm.twitter}}
+                        <div class="input-group-text">
+                            <svg id="twitter" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 14" fill="currentColor">
+                                <path d="M18 1.657a7.628 7.628 0 0 1-2.121.556A3.576 3.576 0 0 0 17.503.258a7.597 7.597 0 0 1-2.345.858A3.768 3.768 0 0 0 12.462 0c-2.04 0-3.693 1.583-3.693 3.534 0 .277.032.547.096.806-3.07-.148-5.79-1.555-7.612-3.693-.318.521-.5 1.129-.5 1.777 0 1.226.652 2.308 1.642 2.941a3.793 3.793 0 0 1-1.672-.442v.045c0 1.712 1.273 3.14 2.962 3.465a3.835 3.835 0 0 1-1.667.061c.47 1.404 1.833 2.426 3.45 2.455A7.623 7.623 0 0 1 .88 12.46c-.297 0-.592-.016-.88-.05A10.789 10.789 0 0 0 5.66 14c6.793 0 10.508-5.385 10.508-10.056 0-.153-.004-.306-.011-.457A7.319 7.319 0 0 0 18 1.657z"/>
+                            </svg>
+                        </div>
+                    </label>
+                </section>
+            </div>
+            <div class="form-group row m-2 mt-5 user-info">
+                <h4><b class="pr-2">CPF</b></h4>
+                <h4>{{userData.cpf}}</h4>
+            </div>
+            <div class="form-group row m-2 my-2 user-info">
+                <h4><b class="pr-2">Data de nascimento</b></h4>
+                <h4>{{userData.birth_date}}</h4>
+            </div>
+            <label class="input-group mb-3" for="cep">
+                {{userForm.cep}}
+                <div class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
+                        <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+                    </svg>
+                </div>
+            </label>
+            </div>
+        </div>
+        <div class="col-12 register-button" >
+            <button type="submit" class="btn btn-block btn-form">
+                Salvar
+            </button>
+        </div>
+    </div>
+  </form>
+{% endblock %}
