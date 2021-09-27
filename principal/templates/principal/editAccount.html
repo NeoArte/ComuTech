@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block main %}
-  <form action="/user/{{userData.id}}/edit/" method="POST" class="w-100">
+  <form enctype="multipart/form-data" action="/user/{{userData.id}}/edit/" method="POST" class="w-100">
     {% csrf_token %}
     <div class="card-body column m-0">
         <div id="help-box-st">
