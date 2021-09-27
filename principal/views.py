@@ -116,30 +116,27 @@ def socorros_meus(request):
 @login_required(login_url="/login/")
 def criacao(request):
     context = {}
-    context['form'] = AidForm()
+    context['form'] = AidForm(author=request.user)
     return render(request, "principal/criacao-customuser.html", context)
 
 @login_required(login_url="/login/")
 def criar(request):
-    form = AidForm(request.POST)
-    print("\n\n\n\n\n\n\n")
-    for f in form.fields:
-        print(form.fields[f])
-    print("\n\n\n\n\n\n\n")
+    form = AidForm(request.POST, author=request.user)
     if form.is_valid():
-        print("\n\n\n\n\n\n\n")
-        print("ENTROOOOU")
-        print("\n\n\n\n\n\n\n")
-        form.cleaned_data['author'] == request.user
         form.save()
         return redirect('socorrosmeus')
 
 
 @login_required(login_url="/login/")
-def deletar(request):
-    if is_logged_in:
-        # Apenas fazer a ação de deletar aqui dentro.
-        return redirect('socorrosmeus')
-    elif not is_logged_in:
-        return redirect('login')
+def deletar(request, pk):
+    aid_post = Aid.objects.get(pk=pk)
+    print('\n\n\n\n', getattr(aid_post, 'author').id, ' x ', request.user.id, '\n\n\n\n')
+
+    if request.user.id == getattr(aid_post, 'author').id:
+        aid_post.delete()
+        print('\n\n\n\nSocorro deletado com sucesso\n\n\n\n')
+    else:
+        print('\n\n\n\nEsse socorro não é seu\n\n\n\n')
+
+    return redirect('index')
 
