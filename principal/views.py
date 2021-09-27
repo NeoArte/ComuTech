@@ -16,19 +16,28 @@ is_logged_in = True
 def index(request):
     return render(request, "principal/index.html")
 
-def cadastro(request):
+def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             print('Registrado')
+
+            # Loga o usuário após se cadastrar.
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('explorar')
             return redirect('index')
 
     form = RegistrationForm() 
     context = {
         'form': form,
     }
-    return render(request, "principal/cadastro.html", context)
+    return render(request, "principal/register.html", context)
+
 
 def log_in(request):
     if request.method == 'POST':
