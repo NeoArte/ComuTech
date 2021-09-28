@@ -29,8 +29,6 @@ class UserManager(BaseUserManager):
         if not birth_date:
             raise ValueError("Usuários precisam ter um CEP - Users must have a birth date")
 
-        if not whatsapp:
-            raise ValueError("Usuários precisam ter um whatsapp - User must have a whatsapp")
 
         user = self.model(
             cpf=cpf,

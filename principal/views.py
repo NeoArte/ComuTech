@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .form import AidForm, RegistrationForm, UpdateForm
+from .form import AidForm, RegistrationForm, EditProfileForm
 from .models import AidType, Aid, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
@@ -116,18 +116,21 @@ def user(request, id):
     return render(request, "principal/account.html", {'userViewed':userViewed})
 
 @login_required(login_url="/login/")
-def editAccount(request, id):
+def edit_account(request, id):
     userData = User.objects.get(pk=id)
-    userForm = UpdateForm(instance = userData)
+    userForm = EditProfileForm(instance = userData)
     if request.method == 'POST':
-        userUpdate = UpdateForm(request.POST, instance = userData)
+        print('\n\nFoi POST\n\n')
+        userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData)
         if userUpdate.is_valid():
             userUpdate.save()
             return redirect(f'/user/{id}/')
         else:
-            print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+            print("\n\nForm é invalido")
+            print('CPF: ', userUpdate['cpf'].value(), " X ", userData.cpf)
+            print("\n\n")
     else:
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        print('\n\nNão foi POST\n\n')
         return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})
 
 @login_required(login_url="/login/")

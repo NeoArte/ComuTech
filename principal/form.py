@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, fields, widgets
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User, Aid
 from django.contrib.admin import widgets
 
@@ -102,10 +102,10 @@ class RegistrationForm(UserCreationForm):
         user.cpf = self.cleaned_data['cpf']
         user.cep = self.cleaned_data['cep']
         user.birth_date = self.cleaned_data['birth_date']
-        user.whatsapp = self.cleaned_data['whatsapp']
 
         #ITENS OPCIONAIS
         user.facebook = self.cleaned_data['facebook']
+        user.whatsapp = self.cleaned_data['whatsapp']
         user.twitter = self.cleaned_data['twitter']
         user.instagram = self.cleaned_data['facebook']
         user.profile_picture = self.cleaned_data['profile_picture']
@@ -115,23 +115,14 @@ class RegistrationForm(UserCreationForm):
         
         return user
 
-class UpdateForm(UserCreationForm):
+class EditProfileForm(UserChangeForm):
+    
     class Meta:
         model = User
-        fields = (
-            'name',
-            'email',
-            'phone',
-            'cep',
-            'facebook',
-            'whatsapp',
-            'twitter',
-            'instagram',
-            'profile_picture',
-        )
+        fields = ('profile_picture', 'name', 'email', 'phone', 'facebook', 'whatsapp', 'instagram', 'twitter', 'cep', 'password')
 
     def __init__(self, *args, **kwargs):
-        super(UpdateForm, self).__init__(*args, **kwargs)
+        super(EditProfileForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class':'form-control'})
@@ -181,24 +172,8 @@ class UpdateForm(UserCreationForm):
             'id':'_inputIMG'
             })
 
-    def save(self, commit=True):
-        user = super(UpdateForm, self).save(commit=False)
-        user.name = self.cleaned_data['name']
-        user.email = self.cleaned_data['email']
-        user.phone = self.cleaned_data['phone']
-        user.cep = self.cleaned_data['cep']
-        user.whatsapp = self.cleaned_data['whatsapp']
 
-        #ITENS OPCIONAIS
-        user.facebook = self.cleaned_data['facebook']
-        user.twitter = self.cleaned_data['twitter']
-        user.instagram = self.cleaned_data['facebook']
-        user.profile_picture = self.cleaned_data['profile_picture']
 
-        if commit:
-            user.save()
-        
-        return user
 
 class AidForm(ModelForm):
     class Meta:
@@ -208,7 +183,6 @@ class AidForm(ModelForm):
             'title',
             'type',
             'description',
-            # 'tag', -> quando adicionar as tags novamente
             # photos, 
         )
         exclude = ['author']
