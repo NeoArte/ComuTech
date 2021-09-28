@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, fields, widgets
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User, Aid
 from django.contrib.admin import widgets
 
@@ -102,10 +102,10 @@ class RegistrationForm(UserCreationForm):
         user.cpf = self.cleaned_data['cpf']
         user.cep = self.cleaned_data['cep']
         user.birth_date = self.cleaned_data['birth_date']
-        user.whatsapp = self.cleaned_data['whatsapp']
 
         #ITENS OPCIONAIS
         user.facebook = self.cleaned_data['facebook']
+        user.whatsapp = self.cleaned_data['whatsapp']
         user.twitter = self.cleaned_data['twitter']
         user.instagram = self.cleaned_data['facebook']
         user.profile_picture = self.cleaned_data['profile_picture']
@@ -114,6 +114,65 @@ class RegistrationForm(UserCreationForm):
             user.save()
         
         return user
+
+class EditProfileForm(UserChangeForm):
+    
+    class Meta:
+        model = User
+        fields = ('profile_picture', 'name', 'email', 'phone', 'facebook', 'whatsapp', 'instagram', 'twitter', 'cep', 'password')
+
+    def __init__(self, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class':'form-control'})
+
+        self.fields['name'].widget.attrs.update({
+            'placeholder':'Nome Completo',
+            'type':'text',
+            'id':'name',
+        })
+        self.fields['email'].widget.attrs.update({
+            'placeholder':'Email',
+            'type':'email',
+            'id':'email',
+        })
+        self.fields['phone'].widget.attrs.update({
+            'placeholder':'Celular',
+            'type':'text',
+            'id':'phone',
+        })
+        self.fields['cep'].widget.attrs.update({
+            'placeholder':'CEP',
+            'type':'text',
+            'id':'cep',
+        })
+        self.fields['facebook'].widget.attrs.update({
+            'placeholder':'Informe seu facebook',
+            'type':'text',
+            'id':'facebook-input',
+        })
+        self.fields['whatsapp'].widget.attrs.update({
+            'placeholder':'Informe seu número de whatsapp',
+            'type':'text',
+            'id':'whatsapp-input',
+        })
+        self.fields['instagram'].widget.attrs.update({
+            'placeholder':'Informe seu Instagram',
+            'type':'text',
+            'id':'instagram-input',
+        })
+        self.fields['twitter'].widget.attrs.update({
+            'placeholder':'Informe seu twitter',
+            'type':'text',
+            'id':'twitter-input',
+        })
+        self.fields['profile_picture'].widget.attrs.update({
+            'class':'',
+            'id':'_inputIMG'
+            })
+
+
 
 
 class AidForm(ModelForm):
@@ -124,7 +183,6 @@ class AidForm(ModelForm):
             'title',
             'type',
             'description',
-            # 'tag', -> quando adicionar as tags novamente
             # photos, 
         )
         exclude = ['author']

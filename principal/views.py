@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .form import AidForm, RegistrationForm
-from .models import AidType, Aid
+from .form import AidForm, RegistrationForm, EditProfileForm
+from .models import AidType, Aid, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
 
@@ -111,12 +111,27 @@ def visualizar(request):
     return render(request, "principal/socorro.html")
 
 @login_required(login_url="/login/")
-def usuario(request):
-    return render(request, "principal/usuario.html")
+def user(request, id):
+    userViewed = User.objects.get(pk=id)
+    return render(request, "principal/account.html", {'userViewed':userViewed})
 
 @login_required(login_url="/login/")
-def editarconta(request):
-    return render(request, "principal/editarconta.html")
+def edit_account(request, id):
+    userData = User.objects.get(pk=id)
+    userForm = EditProfileForm(instance = userData)
+    if request.method == 'POST':
+        print('\n\nFoi POST\n\n')
+        userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData)
+        if userUpdate.is_valid():
+            userUpdate.save()
+            return redirect(f'/user/{id}/')
+        else:
+            print("\n\nForm é invalido")
+            print('CPF: ', userUpdate['cpf'].value(), " X ", userData.cpf)
+            print("\n\n")
+    else:
+        print('\n\nNão foi POST\n\n')
+        return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})
 
 @login_required(login_url="/login/")
 def socorros_meus(request):

@@ -17,8 +17,8 @@ urlpatterns = [
 
     #TODO - ao acessar apenas "usuario" redireciona para "usuario/int" da própria pessoa
 
-    path("usuario/int/", views.usuario, name="usuario"), # Página para visualizar informações da conta. O int é o ID DA CONTA
-    path("usuario/int/editar/", views.editarconta, name="editarconta"),
+    path("user/<int:id>/", views.user), # Página para visualizar informações da conta. O int é o ID DA CONTA
+    path("user/<int:id>/edit/", views.edit_account),
     
     path("usuario/int/socorrosmeus/", views.socorros_meus, name="socorrosmeus"), # Em "meus socorros" pode criar, editar, visualizar ou deletar um socorro
     path("criacao", views.criacao, name="criacao"), # Página para criação do socorro.
