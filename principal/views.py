@@ -68,7 +68,7 @@ def log_out(request):
 
 def explorar(request):
     types = AidType.objects.all()
-    context = {'aidtypes': types}
+    context = {'aidtypes': types, 'socorroLista': Aid.objects.all()}
 
     # Filtro de dias
     if request.method == "GET":

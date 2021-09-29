@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AidType, User
+from .models import Aid, AidType, User
 
 
 class UsuarioAdmin(admin.ModelAdmin):
