@@ -119,20 +119,23 @@ def user(request, id):
 def edit_account(request, id):
     userData = User.objects.get(pk=id)
     userForm = EditProfileForm(instance = userData)
-    if request.method == 'POST':
-        print('\n\nFoi POST\n\n')
-        userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData)
-        if userUpdate.is_valid():
-            userUpdate.save()
-            return redirect(f'/user/{id}/')
+    user = User.objects.get(pk=id)
+    if request.user.id == getattr(user, 'id'):
+        if request.method == 'POST':
+            print('\n\nFoi POST\n\n')
+            userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData)
+            if userUpdate.is_valid():
+                userUpdate.save()
+                return redirect(f'/user/{id}/')
+            else:
+                print("\n\nForm é invalido")
+                print('CPF: ', userUpdate['cpf'].value(), " X ", userData.cpf)
+                print("\n\n")
         else:
-            print("\n\nForm é invalido")
-            print('CPF: ', userUpdate['cpf'].value(), " X ", userData.cpf)
-            print("\n\n")
+            print('\n\nNão foi POST\n\n')
+            return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})  
     else:
-        print('\n\nNão foi POST\n\n')
-        return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})
-
+        return redirect(f'/user/{id}/')
 @login_required(login_url="/login/")
 def socorros_meus(request):
     return render(request, "principal/socorrosmeus.html")
