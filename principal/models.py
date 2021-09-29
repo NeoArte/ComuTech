@@ -102,7 +102,7 @@ class User(AbstractBaseUser): # Usuários
     is_superuser = models.BooleanField(default=False) # É um super usuário (privilégios especiais)
 
     USERNAME_FIELD = 'email' # O que será usado para realizar o login
-    REQUIRED_FIELDS = ['name', 'cpf', 'phone', 'cep', 'birth_date']
+    REQUIRED_FIELDS = ['name', 'cpf', 'phone', 'cep', 'birth_date', 'whatsapp', 'twitter', 'facebook', 'instagram', 'profile_picture']
 
     objects = UserManager()
 
