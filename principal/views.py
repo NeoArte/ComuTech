@@ -164,3 +164,8 @@ def deletar(request, pk):
 
     return redirect('index')
 
+def delete(request, pk): #Deletar Usuário
+    user = User.objects.get(pk=pk)
+    if request.user.id == getattr(user, 'id'):
+        user.delete()
+    return redirect('index')
