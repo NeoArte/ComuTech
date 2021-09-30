@@ -108,6 +108,10 @@ footer {
     border-radius: 15%;
     width: 350px;
     height: 300px;
+    max-width: 350px;
+    max-height: 300px;
+    min-width: 350px;
+    min-height: 300px;
 }
 #section-img>.input-icon {
     border: 5px solid var(--secundary-high-contrast);
@@ -116,6 +120,9 @@ footer {
     border-color: var(--main);
     width: 350px;
     height: 300px;
+}
+#img-render {
+    border-radius: inherit;
 }
 #img-render-content {
     display: none;
@@ -137,6 +144,7 @@ footer {
     display: inherit;
     margin: auto;
     color: red;
+    display: block;
 }
 #img-remove>.minus:hover {
     cursor: pointer;
@@ -190,6 +198,8 @@ footer {
 }
 .input-group {
     min-width: 100%;
+    margin: 0;
+    padding: 5px 10px;
 }   
 .input-group > * {
     border-radius: 15px;
@@ -379,6 +389,8 @@ a:hover {
     text-align: center;
     text-decoration: underline;
     color: var(--main-low-contrast);
+    display: block;
+    margin: 10px auto;
 }
 .form-link:hover {
     color: var(--main-high-contrast);
@@ -462,7 +474,7 @@ button.explore-btn:active {
 }
 .card-body {
     padding: 0;
-    margin: 20px;
+    margin: 0;
     align-content: center;
 }
 .carousel-item>img {

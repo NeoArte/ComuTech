@@ -11,7 +11,7 @@
                         <div id="section-img">
                             {{form.profile_picture}}
                             <div id="img-render-content">
-                                <img id="img-render" src="">
+                                <img id="img-render" class="w-100 h-100" src="">
                                 <div id="img-remove">
                                     <svg class="minus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
@@ -188,17 +188,13 @@
                                 </svg>
                             </div>
                         </label>
-                        <div class="row">
-                            <a class="form-link col-6" href="{% url 'login' %}">Já possui possui uma conta?</a>
-                            <!-- /.col -->
-                            <div class="col-6 register-button">
-                                <button type="submit" class="btn btn-block btn-form">
-                                    Cadastrar
-                                </button>
-                            </div>
-                            <!-- /.col -->
-                        </div>
+                        <button type="submit" class="btn btn-block btn-form col-12 p-1">
+                            Cadastrar
+                        </button>
                     </form>
+                    <div class="w-100">
+                        <a class="form-link" href="{% url 'login' %}">Já possui possui uma conta?</a>
+                    </div>
                 </div>
             <!-- /.form-box -->
             </div>

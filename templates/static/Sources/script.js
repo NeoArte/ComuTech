@@ -58,7 +58,7 @@ document.getElementById('_inputIMG').onchange = function(event) {
         let imageRender = document.getElementById('img-render') //Pega o objeto html em que a imagem vai ser renderizado
         let renderContent = document.getElementById('img-render-content')
         imageRender.src = this.result //Atribui a rota de renderização criada pela função .readAsDataURL()
-        renderContent.style.display = 'initial';
+        renderContent.style.display = 'flex';
         document.getElementById('file-img').style.display = 'none';
       }
 }
