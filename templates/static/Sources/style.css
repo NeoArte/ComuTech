@@ -12,7 +12,8 @@
     --secundary-low-contrast: #b4d6f3;
     --secundary-high-contrast: #8eb5d6;
     --help: rgb(228, 26, 26);
-    --help-contrast: rgb(145, 28, 28);
+    --help-low-contrast: rgb(255, 62, 62);
+    --help-high-contrast: rgb(158, 27, 27);
     --explore: green;
     --explore-contrast: gray;
 }
@@ -55,7 +56,7 @@
     border-radius: 6px;
     background-color: var(--help);
     color: var(--secundary);
-    box-shadow: 2px 2px 0px 1px var(--help-contrast);
+    box-shadow: 2px 2px 0px 1px var(--help-high-contrast);
     font-size: 23px;
     height: 50px;
 }
@@ -65,7 +66,7 @@
     top: 2px;
     left: 2px;
     color: var(--secundary-high-contrast);
-    background-color: var(--help-contrast)  ;
+    background-color: var(--help-high-contrast)  ;
 }
 .nav-items {
     align-items: center;
@@ -102,7 +103,8 @@ footer {
     height: 300px;
     min-width: 350px;
     min-height: 300px;
-    margin: 15px auto;
+    margin: 15px;
+    align-self: center;
 }
 #section-img>* {
     border-radius: 15%;
@@ -112,6 +114,7 @@ footer {
     max-height: 300px;
     min-width: 350px;
     min-height: 300px;
+    margin: auto;
 }
 #section-img>.input-icon {
     border: 5px solid var(--secundary-high-contrast);
@@ -137,16 +140,18 @@ footer {
     display: none;
     width: 100%;
     height: 100%;
+    background-color: var(--help-low-contrast);
+    border-radius: inherit;
+    border: 5px solid var(--help);
 }
 #img-remove>.minus {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     display: inherit;
     margin: auto;
-    color: red;
+    color: var(--help-low-contrast);
+    background-color: var(--help-high-contrast);
     display: block;
-}
-#img-remove>.minus:hover {
     cursor: pointer;
 }
 
@@ -170,6 +175,9 @@ footer {
 }
 .file-icon>p {
     text-align: center;
+}
+.input-icon>#fileDefault , .input-icon>#fileAdd {
+    margin: auto;
 }
 #fileDefault {
     color: var(--secundary-high-contrast);

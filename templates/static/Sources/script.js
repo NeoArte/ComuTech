@@ -62,3 +62,9 @@ document.getElementById('_inputIMG').onchange = function(event) {
         document.getElementById('file-img').style.display = 'none';
       }
 }
+
+document.getElementById('register-img-remove').onclick = function() {
+    document.getElementById('_inputIMG').value = '';
+    document.getElementById('img-render-content').style.display = 'none';
+    document.getElementById('file-img').style.display = 'flex';
+}
