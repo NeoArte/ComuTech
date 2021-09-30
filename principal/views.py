@@ -5,7 +5,7 @@ from .form import AidForm, RegistrationForm, EditProfileForm
 from .models import AidType, Aid, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
-
+from django.conf import settings
 
 is_logged_in = True
 
@@ -131,7 +131,10 @@ def edit_account(request, id):
             print("\n\n")
     else:
         print('\n\nNão foi POST\n\n')
-        return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})
+        return render(request, "principal/editAccount.html", {
+            'userForm': userForm, 
+            'userData':userData,
+            })
 
 @login_required(login_url="/login/")
 def socorros_meus(request):
