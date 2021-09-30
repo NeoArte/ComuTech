@@ -26,29 +26,38 @@
 {% endblock %}
 
 {% block main %}
-<div class="container">
-  <div class="row">
+  <div class="container">
+    <div class="row">
 
 
           {% for socorro in socorroLista %} 
-            <div class="card mb-4 shadow-sm">
-              <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-              <h1 class="card-title text-center">{{socorro.title}}</h1>
-              <div class="card-body">
-                <p class="description">{{socorro.date}}</p>
-                <p class="card-text">{{socorro.type}}</p>
-                <div class="user-block">
-                  <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;">
-                    <span class="username">
-                      <a href="#">{{socorro.author.name}}</a>
-                    </span>
-                  </div>
-              </div> 
-           </div>
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
+                <h1 class="card-title text-center">{{socorro.title}}</h1>
+                <div class="card-body">
+                  <p class="description">{{socorro.date}}</p>
+                  <p class="card-text">{{socorro.type}}</p>
+                  <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;">
+                      <span class="username">
+                        <a href="#">{{socorro.author.name}}</a>
+                      </span>
+                    </div>
+                </div> 
+            </div>
           {% endfor %}
 
-   
-    
-  </div><!--Fim Div Row-->
-</div><!--Fim Div Container-->
+    {% block js %}
+      {{ block.super }}
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+          <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+          <script>
+              $.endlessPaginate({
+                  paginateOnScroll: true,
+                  paginateOnScrollMargin: 200
+              });
+        </script>
+    </div><!--Fim Div Row-->
+  </div><!--Fim Div Container-->
+  {% endblock %}
 {% endblock %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
+    'el_pagination',
     'principal.apps.PrincipalConfig'
 ]
 

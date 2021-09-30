@@ -68,51 +68,48 @@ def log_out(request):
 
 def explorar(request, extra_context=None):
     types = AidType.objects.all()
-    context = {'aidtypes': types, 'socorroLista': Aid.objects.all()}
+    aid = Aid.objects.all()
+    context = {'aidtypes': types, 'socorroLista': aid}
 
     # Filtro de dias
+    print('\n\n\n\n', request.GET.get('search', 'erro'), '\n\n\n\n')
+
     if request.method == "GET":
-        if "#oneWeek":
+        if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
             aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
-            context["aid"] = aid
+            context["socorroLista"] = aid
             return render (request, "principal/explorar.html", context)
 
-        elif "#twoWeeks":
+        elif request.GET.get('publicado', 'erro') == "2week":
             fourteen_days_ago = datetime.today() - timedelta(days=14)
             aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
-            context["aid"] = aid            
+            context["socorroLista"] = aid            
             return render(request, "principal/explorar.html", context)
         
-        elif "#oneMonth":
+        elif request.GET.get('publicado', 'erro') == "1month":
             one_month_ago = datetime.today() - timedelta(days=30)
             aid = Aid.objects.filter(creation_date__gt=one_month_ago)
-            context["aid"] = aid
+            context["socorroLista"] = aid
             return render(request, "principal/explorar.html", context)
 
     # Barra de Pesquisa
     if request.method == "GET":
-        aid = Aid.objects.all()
         search = request.GET.get('search')
         if search:
             aid = aid.filter(title__icontains=search)
-        context = {"aid": aid}
+            context = {"socorroLista": aid}          
+            print("\n\n\n", context, "\n\n\n")  
 
-        # Scroll Infinito 
+    # Scroll Infinito 
 
     context = {
-        'entry_list': AidType.objects.all(),
+        'socorroLista': aid,
     }
     if extra_context is not None:
         context.update(extra_context)
     
     return render(request, "principal/explorar.html", context)
-
-# def search(request):
-
-#     search = request.GET
-#     return redirect()
-
 
 def visualizar(request):
     return render(request, "principal/socorro.html")
@@ -140,9 +137,6 @@ def edit_account(request, id):
         print('\n\nNão foi POST\n\n')
         return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})
 
-@login_required(login_url="/login/")
-def socorros_meus(request):
-    return render(request, "principal/socorrosmeus.html")
 
 @login_required(login_url="/login/")
 def criacao(request):
@@ -155,7 +149,7 @@ def criar(request):
     form = AidForm(request.POST, author=request.user)
     if form.is_valid():
         form.save()
-        return redirect('socorrosmeus')
+        return redirect('index')
 
 
 @login_required(login_url="/login/")
