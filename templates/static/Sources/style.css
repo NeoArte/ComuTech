@@ -19,6 +19,10 @@
 *>hover {
     color: inherit;
 }
+.logo {
+    max-width: 10px;
+    height: 10px;
+}
 .bg-nav {
     background-color: var(--strong);
 }
@@ -82,8 +86,7 @@ footer {
     background-color: var(--main);
 }
 .input-img {
-    border: 5px solid var(--secundary-high-contrast);
-    border-radius: 15%;
+
     background-color: none;
     margin: 25px auto;
     width: 90%;
@@ -91,6 +94,54 @@ footer {
     justify-content: center;
     display: table;
 }
+
+#section-img {
+    max-width: 350px;
+    max-height: 300px;
+    width: 350px;
+    height: 300px;
+    min-width: 350px;
+    min-height: 300px;
+    margin: 15px auto;
+}
+#section-img>* {
+    border-radius: 15%;
+    width: 350px;
+    height: 300px;
+}
+#section-img>.input-icon {
+    border: 5px solid var(--secundary-high-contrast);
+}
+#section-img>.input-icon:hover {
+    border-color: var(--main);
+    width: 350px;
+    height: 300px;
+}
+#img-render-content {
+    display: none;
+}
+#img-render-content:hover >#img-remove {
+    display: inherit;
+}
+#img-render-content:hover >#img-render {
+    display: none;
+}
+#img-remove {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+#img-remove>.minus {
+    width: 80px;
+    height: 80px;
+    display: inherit;
+    margin: auto;
+    color: red;
+}
+#img-remove>.minus:hover {
+    cursor: pointer;
+}
+
 #_inputIMG {
     display: none;
 }
@@ -119,16 +170,13 @@ footer {
     display: none;
     color: var(--main);
 }
-.input-img:hover {
-    border-color: var(--main);
-}
 .input-icon:hover {
     cursor: pointer;
 }
-.input-img:hover #fileAdd {
+.input-icon:hover #fileAdd {
     display: flex;
 }
-.input-img:hover #fileDefault {
+.input-icon:hover #fileDefault {
     display: none;
 }
 .input-group-text>svg {

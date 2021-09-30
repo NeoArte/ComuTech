@@ -8,9 +8,17 @@
                 <div class="card-body">                     
                     <form enctype="multipart/form-data" action="/register/" method="POST">
                         {% csrf_token %}
-                        <div class="input-img">
+                        <div id="section-img">
                             {{form.profile_picture}}
-                            <label class="input-icon" for="_inputIMG">
+                            <div id="img-render-content">
+                                <img id="img-render" src="">
+                                <div id="img-remove">
+                                    <svg class="minus" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <label id="file-img" class="input-icon" for="_inputIMG">
                                 <div id="fileDefault" class="file-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -191,10 +199,7 @@
                             <!-- /.col -->
                         </div>
                     </form>
-
                 </div>
             <!-- /.form-box -->
             </div>
 {% endblock %}
-
-
