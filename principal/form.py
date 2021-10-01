@@ -85,9 +85,10 @@ class RegistrationForm(UserCreationForm):
             'id':'twitter-input',
         })
         self.fields['birth_date'].widget.attrs.update({
-            'placeholder':'',
+            'placeholder':'Data de nascimento',
             'type':'date',
-            'id':'date-input',
+            'id':'birth-date',
+            'class':'form-control datepicker'
         })
         self.fields['profile_picture'].widget.attrs.update({
             'class':'',

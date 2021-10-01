@@ -1,5 +1,8 @@
-  <nav class="navbar navbar-expand-md navbar-dark bg-nav">
-    <a class="navbar-brand" href="{% url 'index' %}"><img src="" alt="Logo"></a>
+{% load static %} 
+ <nav class="navbar navbar-expand-md navbar-dark bg-nav">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'Sources/images/ComuTechLogo.png' %}" alt="Logo" width="175" height="50" class="">
+    </a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
