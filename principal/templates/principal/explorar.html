@@ -49,12 +49,15 @@
           {% endfor %}
 
             <!-- Paginação -->
-            <!-- <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation example">
               <ul class="pagination">
                 {% for pagina in paginas.paginator.page_range %}
                 <li class="page-item">
                   <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
-                </li> -->
+                </li>
+                {% endfor %}
+              </ul>
+            </nav>
                 <!-- {% if paginas.number == pagina %}
                 <li class="page-item active">
                   <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
@@ -64,9 +67,7 @@
                   <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
                 </li> -->
                 <!-- {% endif %}
-                {% endfor %} -->
-              </ul>
-            </nav>
+                
     </div><!--Fim Div Row-->
   </div><!--Fim Div Container-->
 {% endblock %}

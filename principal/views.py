@@ -72,9 +72,8 @@ def explorar(request, extra_context=None):
     aid = Aid.objects.all()
     context = {'aidtypes': types, 'socorroLista': aid}
 
-    # Filtro de dias
-    print('\n\n\n\n', request.GET.get('search', 'erro'), '\n\n\n\n')
 
+    # Filtro de dias
     if request.method == "GET":
         if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
@@ -103,17 +102,17 @@ def explorar(request, extra_context=None):
             print("\n\n\n", context, "\n\n\n")  
 
     # Paginação
-    # paginator = Paginator(aid, 10)
-    # explorar = request.GET.get('explorar')
-    # aid = paginator.get_page(explorar)
-    # context = {"paginas": aid}
+    paginator = Paginator(aid, 10)
+    explorar = request.GET.get('explorar')
+    aid = paginator.get_page(explorar)
+    context = {"paginas": aid}
+
+
 
     # paginator = Paginator(aid, 16)
     # page = request.GET.get('explorar')
     # aid = paginator.get_page(page)
     # context = {"socorroLista": aid}
-
-
     return render(request, "principal/explorar.html", context)
 
 def visualizar(request):
