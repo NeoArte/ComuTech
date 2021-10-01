@@ -5,6 +5,7 @@ from .form import AidForm, RegistrationForm, EditProfileForm
 from .models import AidType, Aid, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
+from django.contrib import messages #Vai imortar as mensagens do django
 
 
 is_logged_in = True
@@ -21,6 +22,7 @@ def register(request):
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.SUCCESS, 'Cadastro concluido com sucesso!')
             print('Registrado')
 
             # Loga o usuário após se cadastrar.
@@ -29,8 +31,10 @@ def register(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('explorar')
+                return redirect('index')
             return redirect('index')
+        else:
+            messages.add_message(request, messages.ERROR, 'Formulário inválido!')
 
     form = RegistrationForm() 
     context = {
@@ -58,8 +62,8 @@ def log_in(request):
                 login(request, user)
                 return redirect('index')
         else:
+            messages.add_message(request, messages.ERROR, 'Email ou Senha incorretos!')
             return redirect('login')
-
     return render(request, "principal/login.html")
 
 def log_out(request):
