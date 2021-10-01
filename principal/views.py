@@ -6,7 +6,7 @@ from .models import AidType, Aid, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
 from django.contrib import messages #Vai imortar as mensagens do django
-
+from django.conf import settings
 
 is_logged_in = True
 
@@ -140,6 +140,7 @@ def edit_account(request, id):
             return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})  
     else:
         return redirect(f'/user/{id}/')
+
 @login_required(login_url="/login/")
 def socorros_meus(request):
     return render(request, "principal/socorrosmeus.html")
