@@ -5,6 +5,7 @@ from .form import AidForm, RegistrationForm, EditProfileForm
 from .models import AidType, Aid, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime, timedelta, date
+from django.core.paginator import Paginator
 
 
 is_logged_in = True
@@ -101,14 +102,18 @@ def explorar(request, extra_context=None):
             context = {"socorroLista": aid}          
             print("\n\n\n", context, "\n\n\n")  
 
-    # Scroll Infinito 
+    # Paginação
+    paginator = Paginator(aid, 10)
+    explorar = request.GET.get('explorar')
+    aid = paginator.get_page(explorar)
+    context = {"paginas": aid}
 
-    context = {
-        'socorroLista': aid,
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-    
+    # paginator = Paginator(aid, 16)
+    # page = request.GET.get('explorar')
+    # aid = paginator.get_page(page)
+    # context = {"socorroLista": aid}
+
+
     return render(request, "principal/explorar.html", context)
 
 def visualizar(request):

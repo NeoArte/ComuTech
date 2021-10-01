@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block head %}
   <nav class="navbar navbar-light bg-transparent">
     <form class="form-inline ml-auto">
@@ -11,6 +11,7 @@
       </select>
       <select name="" id="" class="btn explore-btn dropdown-toggle">
         <option selected disabled hidden>Classificado em</option>
+        <!-- Busca os tipos do banco de dados -->
         {% for type in aidtypes %} 
         <option value="{{type.id}}">{{type.name}}</option>
         {% endfor %}
@@ -29,7 +30,7 @@
   <div class="container">
     <div class="row">
 
-
+          <!-- Criação dos cards -->
           {% for socorro in socorroLista %} 
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
@@ -47,17 +48,25 @@
             </div>
           {% endfor %}
 
-    {% block js %}
-      {{ block.super }}
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-          <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
-          <script>
-              $.endlessPaginate({
-                  paginateOnScroll: true,
-                  paginateOnScrollMargin: 200
-              });
-        </script>
+            <!-- Paginação -->
+            <!-- <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                {% for pagina in paginas.paginator.page_range %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
+                </li> -->
+                <!-- {% if paginas.number == pagina %}
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
+                </li> -->
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </nav>
     </div><!--Fim Div Row-->
   </div><!--Fim Div Container-->
-  {% endblock %}
 {% endblock %}
