@@ -103,10 +103,10 @@ def explorar(request, extra_context=None):
             print("\n\n\n", context, "\n\n\n")  
 
     # Paginação
-    paginator = Paginator(aid, 10)
-    explorar = request.GET.get('explorar')
-    aid = paginator.get_page(explorar)
-    context = {"paginas": aid}
+    # paginator = Paginator(aid, 10)
+    # explorar = request.GET.get('explorar')
+    # aid = paginator.get_page(explorar)
+    # context = {"paginas": aid}
 
     # paginator = Paginator(aid, 16)
     # page = request.GET.get('explorar')
