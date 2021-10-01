@@ -186,6 +186,10 @@ footer {
     display: none;
     color: var(--main);
 }
+.datepicker {
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
 .input-icon:hover {
     cursor: pointer;
 }
