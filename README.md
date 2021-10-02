@@ -24,8 +24,7 @@ Siga os seguintes passos para instalar o projeto em sua máquina local.
     - Django (``pip install django``)
     - Django Filter (``pip install django-filter`)
     - Django Endless Pagination (``pip install django-el-pagination``)
-    - Django Multiupload - Fork por Grueebler (``pip install git+https://github.com/rgrueebler/django-multiupload.git@patch-1``)
     - Pillow (``pip install pillow``)
-    - (comando para instalar tudo ao mesmo tempo: ``*pip install django django-filter django-el-pagination pip install git+https://github.com/rgrueebler/django-multiupload.git@patch-1 pillow*``)
+    - (comando para instalar tudo ao mesmo tempo: ``*pip install django django-filter django-el-pagination pillow*``)
 5. Faça as migrações com: ``python manage.py migrate``
 6. Confirme que todas as pastas para midias foram criadas corretamente (media, media/usuarios, media/socorros, ...)
