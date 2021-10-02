@@ -3,13 +3,13 @@
 {% block head %}
   <nav class="navbar navbar-light bg-transparent">
     <form class="form-inline ml-auto">
-      <select name="publicado" id="publicado" class="btn explore-btn dropdown-toggle">
+      <select name="publicado" id="publicado" class="">
         <option selected disabled hidden>Publicado há ?</option>
         <option value="1week">1 semana</option>
         <option value="2week">2 semanas</option>
         <option value="1month">1 mês</option>
       </select>
-      <select name="" id="" class="btn explore-btn dropdown-toggle">
+      <select name="" id="" class="">
         <option selected disabled hidden>Classificado em</option>
         <!-- Busca os tipos do banco de dados -->
         {% for type in aidtypes %} 
@@ -47,17 +47,6 @@
                 </div> 
             </div>
           {% endfor %}
-
-            <!-- Paginação -->
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                {% for pagina in paginas.paginator.page_range %}
-                <li class="page-item">
-                  <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </nav>
                 <!-- {% if paginas.number == pagina %}
                 <li class="page-item active">
                   <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
@@ -67,7 +56,17 @@
                   <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
                 </li> -->
                 <!-- {% endif %}
-                
-    </div><!--Fim Div Row-->
+                -->      
+    </div>
+    <!-- Paginação -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% for pagina in socorroLista.paginator.page_range %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
   </div><!--Fim Div Container-->
 {% endblock %}

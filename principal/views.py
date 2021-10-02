@@ -73,27 +73,28 @@ def explorar(request, extra_context=None):
     context = {'aidtypes': types, 'socorroLista': aid}
 
 
-    # Filtro de dias
+    # Filtro de dias =================
+
     if request.method == "GET":
         if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
             aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
             context["socorroLista"] = aid
-            return render (request, "principal/explorar.html", context)
 
         elif request.GET.get('publicado', 'erro') == "2week":
             fourteen_days_ago = datetime.today() - timedelta(days=14)
             aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
             context["socorroLista"] = aid            
-            return render(request, "principal/explorar.html", context)
         
         elif request.GET.get('publicado', 'erro') == "1month":
             one_month_ago = datetime.today() - timedelta(days=30)
             aid = Aid.objects.filter(creation_date__gt=one_month_ago)
             context["socorroLista"] = aid
-            return render(request, "principal/explorar.html", context)
 
-    # Barra de Pesquisa
+    # Filtro por Tipo =================
+
+    # Filtro por titulo =================
+
     if request.method == "GET":
         search = request.GET.get('search')
         if search:
@@ -102,17 +103,11 @@ def explorar(request, extra_context=None):
             print("\n\n\n", context, "\n\n\n")  
 
     # Paginação
-    paginator = Paginator(aid, 10)
-    explorar = request.GET.get('explorar')
-    aid = paginator.get_page(explorar)
-    context = {"paginas": aid}
+    paginator = Paginator(context['socorroLista'], 16)
+    page = request.GET.get('page')
+    aid = paginator.get_page(page)
+    context["socorroLista"] = aid
 
-
-
-    # paginator = Paginator(aid, 16)
-    # page = request.GET.get('explorar')
-    # aid = paginator.get_page(page)
-    # context = {"socorroLista": aid}
     return render(request, "principal/explorar.html", context)
 
 def visualizar(request):
