@@ -1,8 +1,9 @@
 from django import forms
 from django.forms import ModelForm, fields, widgets
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, Aid
+from .models import User, Aid, AidPhotos
 from django.contrib.admin import widgets
+
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -200,3 +201,15 @@ class AidForm(ModelForm):
         if commit:
             aidform.save()
         return aidform
+
+class AidPhotosForm(ModelForm):
+    class Meta:
+        model = AidPhotos
+        fields = "__all__"
+        exclude = ['aid']
+    
+    def __init__(self, *args, **kwargs):
+        super(AidPhotosForm, self).__init__(*args, **kwargs)
+        self.fields['image'].widget.attrs.update({'multiple': True})
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'style': 'display: block; margin: 10px auto'})

@@ -1,18 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .form import AidForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, User, UserManager
+
+from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
+from .models import AidType, Aid, AidPhotos, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
+
 from datetime import datetime, timedelta, date
-from django.contrib import messages #Vai imortar as mensagens do django
+from django.contrib import messages # Vai importar as mensagens do django
 from django.conf import settings
 
-is_logged_in = True
-
-# As funções com testes "if_logged_in" verificam se o usuário está logado, se estiver acessa a página normalmente e 
-# caso contrário é redirecionado para a página de login (determinadno que é necessário estar logado), as páginas com apenas redirects são as que fazem
-# ações HTTP (ex: POST) e devolvem o úsuario para alguma tela, geralmente a anterior.
 
 def index(request):
     return render(request, "principal/index.html")
@@ -149,14 +146,36 @@ def socorros_meus(request):
 def criacao(request):
     context = {}
     context['form'] = AidForm(author=request.user)
-    return render(request, "principal/criacao-customuser.html", context)
+    context['image_form'] = AidPhotosForm()
+    return render(request, "principal/criacao.html", context)
 
 @login_required(login_url="/login/")
 def criar(request):
-    form = AidForm(request.POST, author=request.user)
-    if form.is_valid():
-        form.save()
-        return redirect('socorrosmeus')
+
+    # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
+    # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
+    # recuperada pelo request.FILES.getlist separadamente. 
+    # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
+    # instancia do form de imagens (o campo "aid" do model AidPhotos) 
+
+    form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
+    
+    img_form = AidPhotosForm(request.POST, request.FILES) # Contém os dados do form de imagens (seu ImageField pode conter apenas 1 imagem)
+    images = request.FILES.getlist('image') # Contém a lista de imagens pegas pelo request
+
+    print('\n\n\n\nRequest: ', request.FILES.getlist('image'), '\n\n\n\n') 
+
+    if form.is_valid() and img_form.is_valid():
+        print('\n\n\n\nEntrou\n\n\n\n') 
+        form = form.save()
+        description = img_form.cleaned_data['description']
+        for img in images:
+            print(img)
+            AidPhotos.objects.create(aid=form, image=img, description=description)
+        print("\n\n\n\n")
+        return redirect('index')
+
+    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
 
 
 @login_required(login_url="/login/")
