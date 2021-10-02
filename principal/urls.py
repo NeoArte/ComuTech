@@ -5,13 +5,13 @@ urlpatterns = [
 
     #TODO - Trocar int por <int:variavel>| INT É APENAS PARA TESTES
 
-    path("", views.index, name="index"), # Página Inicial - caso esteja logado redirecionar
+    path("", views.home, name="home"), # Página Inicial - caso esteja logado redirecionar
     path("register/", views.register, name="register"), # Página de Registro
     
     path("login/", views.log_in, name="login"), # Página de Login 
     path("logout/", views.log_out, name="logout"),
 
-    path("explorar/", views.explorar, name="explorar"), # Página para Explorar
+    path("explorar/", views.explorar, name="explore"), # Página para Explorar
     path("explorar/int/", views.visualizar, name="visualizar"), # Abre um socorro de acordo com o ID (<int>) para o visualizar.
     # path("search/", views.search, name="search"),
 
