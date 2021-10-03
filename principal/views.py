@@ -73,9 +73,11 @@ def explorar(request, extra_context=None):
     context = {'aidtypes': types, 'socorroLista': aid}
 
 
-    # Filtro de dias =================
 
     if request.method == "GET":
+
+        # Filtro de dias =================
+
         if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
             aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
@@ -91,15 +93,19 @@ def explorar(request, extra_context=None):
             aid = Aid.objects.filter(creation_date__gt=one_month_ago)
             context["socorroLista"] = aid
 
-    # Filtro por Tipo =================
+        # Filtro por Tipo =================
 
-    # Filtro por titulo =================
+        type = request.GET.get('type')
+        if type:
+            aid = aid.filter(type=type)
+            context["socorroLista"] = aid
 
-    if request.method == "GET":
+        # Filtro por titulo =================
+
         search = request.GET.get('search')
         if search:
             aid = aid.filter(title__icontains=search)
-            context = {"socorroLista": aid}          
+            context["socorroLista"] = aid          
             print("\n\n\n", context, "\n\n\n")  
 
     # Paginação

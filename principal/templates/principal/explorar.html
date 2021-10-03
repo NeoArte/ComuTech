@@ -9,7 +9,7 @@
         <option value="2week">2 semanas</option>
         <option value="1month">1 mês</option>
       </select>
-      <select name="" id="" class="">
+      <select name="type" id="" class="">
         <option selected disabled hidden>Classificado em</option>
         <!-- Busca os tipos do banco de dados -->
         {% for type in aidtypes %} 
@@ -62,9 +62,15 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         {% for pagina in socorroLista.paginator.page_range %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
-        </li>
+          {% if socorroLista.number == pagina %}
+          <li class="page-item active">
+            <a class="page-link" href="?page={{pagina}}&publicado={{request.GET.publicado}}&type={{request.GET.type}}&search={{request.GET.search}}">{{pagina}}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{pagina}}&publicado={{request.GET.publicado}}&type={{request.GET.type}}&search={{request.GET.search}}">{{pagina}}</a>
+          </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </nav>
