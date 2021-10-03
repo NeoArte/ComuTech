@@ -147,7 +147,7 @@ def edit_account(request, id):
 def criacao(request):
     context = {}
     context['form'] = AidForm(author=request.user)
-    return render(request, "principal/criacao-customuser.html", context)
+    return render(request, "principal/criacao.html", context)
 
 @login_required(login_url="/login/")
 def criar(request):
