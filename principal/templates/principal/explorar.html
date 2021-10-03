@@ -31,38 +31,31 @@
     <div class="row">
 
           <!-- Criação dos cards -->
-          {% for socorro in socorroLista %} 
+          {% for aid in aid_page %} 
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-                <h1 class="card-title text-center">{{socorro.title}}</h1>
+                <h1 class="card-title text-center">{{aid.title}}</h1>
                 <div class="card-body">
-                  <p class="description">{{socorro.date}}</p>
-                  <p class="card-text">{{socorro.type}}</p>
+                  <p class="description">{{aid.date}}</p>
+                  <p class="card-text">{{aid.type}}</p>
                   <div class="user-block">
                     <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;">
                       <span class="username">
-                        <a href="#">{{socorro.author.name}}</a>
+                        <a href="#">{{aid.author.name}}</a>
                       </span>
                     </div>
                 </div> 
             </div>
           {% endfor %}
-                <!-- {% if paginas.number == pagina %}
-                <li class="page-item active">
-                  <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
-                </li>
-                {% else %}
-                <li class="page-item">
-                  <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
-                </li> -->
-                <!-- {% endif %}
-                -->      
+          {% if aid_list.count == 0 %}
+          <h1>ZEROOOOOOOOOOOOOOOOOOOOOOOOOOOOO</h1>
+          {% endif %} 
     </div>
     <!-- Paginação -->
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        {% for pagina in socorroLista.paginator.page_range %}
-          {% if socorroLista.number == pagina %}
+        {% for pagina in aid_page.paginator.page_range %}
+          {% if aid_page.number == pagina %}
           <li class="page-item active">
             <a class="page-link" href="?page={{pagina}}&publicado={{request.GET.publicado}}&type={{request.GET.type}}&search={{request.GET.search}}">{{pagina}}</a>
           </li>

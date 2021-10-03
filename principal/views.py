@@ -70,7 +70,7 @@ def log_out(request):
 def explorar(request, extra_context=None):
     types = AidType.objects.all()
     aid = Aid.objects.all()
-    context = {'aidtypes': types, 'socorroLista': aid}
+    context = {'aidtypes': types, 'aid_list': aid}
 
 
 
@@ -81,39 +81,41 @@ def explorar(request, extra_context=None):
         if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
             aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
-            context["socorroLista"] = aid
+            context["aid_list"] = aid
 
         elif request.GET.get('publicado', 'erro') == "2week":
             fourteen_days_ago = datetime.today() - timedelta(days=14)
             aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
-            context["socorroLista"] = aid            
+            context["aid_list"] = aid            
         
         elif request.GET.get('publicado', 'erro') == "1month":
             one_month_ago = datetime.today() - timedelta(days=30)
             aid = Aid.objects.filter(creation_date__gt=one_month_ago)
-            context["socorroLista"] = aid
+            context["aid_list"] = aid
 
         # Filtro por Tipo =================
 
         type = request.GET.get('type')
         if type:
             aid = aid.filter(type=type)
-            context["socorroLista"] = aid
+            context["aid_list"] = aid
 
         # Filtro por titulo =================
 
         search = request.GET.get('search')
         if search:
             aid = aid.filter(title__icontains=search)
-            context["socorroLista"] = aid          
+            context["aid_list"] = aid          
             print("\n\n\n", context, "\n\n\n")  
 
     # Paginação
-    paginator = Paginator(context['socorroLista'], 16)
+    paginator = Paginator(context['aid_list'], 16)
     page = request.GET.get('page')
-    aid = paginator.get_page(page)
-    context["socorroLista"] = aid
 
+    aid_page = paginator.get_page(page)
+    context["aid_page"] = aid_page
+    
+    print('\n\n\n\nCount: ', context["aid_page"].count, '\n\n\n\n')
     return render(request, "principal/explorar.html", context)
 
 def visualizar(request):
