@@ -33,25 +33,32 @@
           <!-- Criação dos cards -->
           {% for aid in aid_page %} 
               <div class="card mb-4 shadow-sm">
+                {% for img in aid.photos.all %}
+                <img src="{{MEDIA_URL}}{{img.image}}">
+                {% endfor %}
+                
                 <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
                 <h1 class="card-title text-center">{{aid.title}}</h1>
                 <div class="card-body">
                   <p class="description">{{aid.date}}</p>
                   <p class="card-text">{{aid.type}}</p>
                   <div class="user-block">
-                    <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image" style="height: 25px;">
+                    {% if aid.author.profile_picture != "" %}
+                    <img class="img-circle img-bordered-sm w-50" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image" style="height: 50px;">
+                    {% endif %}
                       <span class="username">
                         <a href="#">{{aid.author.name}}</a>
                       </span>
                     </div>
                 </div> 
             </div>
+          {% empty %}
+            <h1>Nenhum socorro encontrado.</h1>
+            <h4>Os filtros selecionados não correspondem a nenhum socorro, mude os filtros e tente novamente.</h4>
           {% endfor %}
-          {% if aid_list.count == 0 %}
-          <h1>ZEROOOOOOOOOOOOOOOOOOOOOOOOOOOOO</h1>
-          {% endif %} 
     </div>
     <!-- Paginação -->
+    {% if aid_list.count != 0 %}
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         {% for pagina in aid_page.paginator.page_range %}
@@ -67,5 +74,7 @@
         {% endfor %}
       </ul>
     </nav>
+    {% endif %} 
+
   </div><!--Fim Div Container-->
 {% endblock %}

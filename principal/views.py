@@ -116,6 +116,10 @@ def explorar(request, extra_context=None):
     context["aid_page"] = aid_page
     
     print('\n\n\n\nCount: ', context["aid_page"].count, '\n\n\n\n')
+
+    aidtest = Aid.objects.get(pk=7)
+    aimgs = aidtest.photos.all()
+    print('\n\n\n\nImagens: ', aimgs, '\n\n\n\n')
     return render(request, "principal/explorar.html", context)
 
 def visualizar(request):
