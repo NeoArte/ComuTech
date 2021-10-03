@@ -11,8 +11,8 @@ from django.contrib import messages # Vai importar as mensagens do django
 from django.conf import settings
 
 
-def index(request):
-    return render(request, "principal/index.html")
+def home(request):
+    return render(request, "principal/home.html")
 
 def register(request):
     if request.method == 'POST':
@@ -28,8 +28,8 @@ def register(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('index')
-            return redirect('index')
+                return redirect('home')
+            return redirect('home')
         else:
             messages.add_message(request, messages.ERROR, 'Formulário inválido!')
 
@@ -57,7 +57,7 @@ def log_in(request):
                 return redirect(next)
             elif next is None:
                 login(request, user)
-                return redirect('index')
+                return redirect('home')
         else:
             messages.add_message(request, messages.ERROR, 'Email ou Senha incorretos!')
             return redirect('login')
@@ -65,7 +65,7 @@ def log_in(request):
 
 def log_out(request):
     logout(request)
-    return redirect('index')
+    return redirect('home')
 
 def explorar(request):
     types = AidType.objects.all()
@@ -189,10 +189,10 @@ def deletar(request, pk):
     else:
         print('\n\n\n\nEsse socorro não é seu\n\n\n\n')
 
-    return redirect('index')
+    return redirect('home')
 
 def delete(request, pk): #Deletar Usuário
     user = User.objects.get(pk=pk)
     if request.user.id == getattr(user, 'id'):
         user.delete()
-    return redirect('index')
+    return redirect('home')

@@ -5,6 +5,8 @@
 }
 :root {
     --strong: #201C35;
+    --strong-low-contrast: #342e50;
+    --strong-high-contrast: #151224;
     --main: #27A568;
     --main-low-contrast: #2abd76;
     --main-high-contrast: rgb(20, 148, 86);
@@ -14,8 +16,6 @@
     --help: rgb(228, 26, 26);
     --help-low-contrast: rgb(255, 62, 62);
     --help-high-contrast: rgb(158, 27, 27);
-    --explore: green;
-    --explore-contrast: gray;
 }
 *>hover {
     color: inherit;
@@ -42,7 +42,7 @@
 }
 .main-display {
     min-height: 85vh;
-    padding: 1.5%;
+    padding: 0;
     display: flex;
     align-content: center;
 }
@@ -298,6 +298,7 @@ a:hover {
 }
 .card {
     background-color: var(--secundary-low-contrast);
+    border: none;
 }
 .card-date-class {
     display: flex;
@@ -484,8 +485,11 @@ button.explore-btn:active {
     max-width: 50%;
     margin: 10px;
 }
+.alert {
+    margin-bottom: 0;
+}
 .card-body {
-    padding: 0;
+    padding: 15px;
     margin: 0;
     align-content: center;
 }
