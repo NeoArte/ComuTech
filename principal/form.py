@@ -203,6 +203,9 @@ class AidForm(ModelForm):
             'class':'form-control desc-textarea',
             'id':'aid-desc',
         })
+        self.fields['type'].widget.attrs.update({
+            'class':'form-control',
+        })
 
     def save(self, commit=True):
         aidform = super(AidForm, self).save(commit=False)

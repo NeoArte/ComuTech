@@ -3,7 +3,7 @@
 {% block main %}
 <div class="form card-outline card-primary my-5">
     <div class="card-header text-center">
-        <h1 class="h1"><b>Criar Publicação</b></h1>
+        <h1 class="h1 aid-create"><b>Criar Publicação</b></h1>
     </div>
     <div class="card-body">                     
         <form enctype="multipart/form-data" action="/register/" method="POST">
@@ -56,13 +56,8 @@
                     </svg>
                 </div>
             </label>
-            <label class="input-group mb-3" for="name">
-              <select name="publicado" class="form-control">
-                <option selected disabled hidden>Publicado há ?</option>
-                <option value="1week">1 semana</option>
-                <option value="2week">2 semanas</option>
-                <option value="1month">1 mês</option>
-              </select>
+            <label class="input-group mb-3 p-0" for="name">
+              {{form.type}}  
           </label>
             <label class="w-100" for="aid-desc">
                 <div class="card card-danger">
@@ -75,7 +70,7 @@
                 </div>
             </label>
             
-            <button type="submit" class="btn btn-block btn-form col-12 p-1">
+            <button type="submit" class="btn btn-block btn-form col-12 p-1 aid-create">
                 Publicar
             </button>
         </form>

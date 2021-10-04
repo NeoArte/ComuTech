@@ -674,8 +674,35 @@ button.explore-btn:active {
 #_plusAidIMG {
     display: none;
 }
+.input-group>select.form-control {
+    border-radius: 15px;
+    border-right: 2px solid var(--secundary-high-contrast);
+    padding: 10px 10px;
+    font-size: 18px;
+    color: var(--secundary-high-contrast);
+}
+.input-group>select.form-control:focus, .input-group>select.form-control:hover {
+    color: var(--main-low-contrast);
+    border-color: var(--main-low-contrast);
+}
+.card-body > textarea.form-control {
+    font-size: 16px;
+    color: var(--secundary-high-contrast);
+}
 
-
+.h1.aid-create>b {
+    color: var(--strong);
+}
+.btn-form.aid-create {
+    background-color: var(--help-low-contrast);
+    box-shadow: 2.5px 2.5px 0px 1px var(--help-high-contrast);
+}
+.btn-form.aid-create:hover {
+    background-color: var(--help);
+}
+.btn-form.aid-create:active {
+    box-shadow: none;
+}
 
 
 
