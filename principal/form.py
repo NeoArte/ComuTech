@@ -192,8 +192,17 @@ class AidForm(ModelForm):
     def __init__(self, *args, **kwargs):
         self._author = kwargs.pop('author') # 'author' será um kwarg (um argumento) que será passado pela views (request.user)
         super(AidForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'style': 'display: block; margin: 10px auto'})
+        
+        self.fields['title'].widget.attrs.update({
+        'placeholder':'Título da Publicação',
+        'type':'text',
+        'id':'title',
+        'class':'form-control big-input',
+        })
+        self.fields['description'].widget.attrs.update({
+            'class':'form-control desc-textarea',
+            'id':'aid-desc',
+        })
 
     def save(self, commit=True):
         aidform = super(AidForm, self).save(commit=False)
@@ -201,6 +210,7 @@ class AidForm(ModelForm):
         if commit:
             aidform.save()
         return aidform
+    
 
 class AidPhotosForm(ModelForm):
     class Meta:
@@ -210,6 +220,7 @@ class AidPhotosForm(ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(AidPhotosForm, self).__init__(*args, **kwargs)
-        self.fields['image'].widget.attrs.update({'multiple': True})
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'style': 'display: block; margin: 10px auto'})
+        self.fields['image'].widget.attrs.update({
+            'multiple': True,
+            'id':'_aidInputIMG'
+        })

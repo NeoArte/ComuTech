@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block main %}
-            <div class="form card-outline card-primary">
+            <div class="form card-outline card-primary my-5">
                 <div class="card-header text-center">
-                    <h1 class="h1"><b>Cadas</b>trar-se</h1>
+                    <h1 class="h1"><b>Cadastrar-se</b></h1>
                 </div>
                 <div class="card-body">                     
                     <form enctype="multipart/form-data" action="/register/" method="POST">
@@ -35,7 +35,6 @@
                             </label>
                         </div>
                         <label class="input-group mb-3" for="name">
-                            <!--<input type="text" class="form-control" placeholder="Nome Completo" id="name"/>-->
                             {{form.name}}
                             <div class="input-group-text">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -199,6 +198,5 @@
                         <a class="form-link" href="{% url 'login' %}">Já possui possui uma conta?</a>
                     </div>
                 </div>
-            <!-- /.form-box -->
             </div>
 {% endblock %}

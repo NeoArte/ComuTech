@@ -67,7 +67,7 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
-def explorar(request):
+def explore(request):
     types = AidType.objects.all()
     context = {'aidtypes': types}
 
@@ -108,7 +108,7 @@ def explorar(request):
 #     return redirect()
 
 
-def visualizar(request):
+def seeAid(request, id):
     return render(request, "principal/socorro.html")
 
 @login_required(login_url="/login/")
@@ -143,14 +143,14 @@ def socorros_meus(request):
     return render(request, "principal/socorrosmeus.html")
 
 @login_required(login_url="/login/")
-def criacao(request):
+def needAid(request):
     context = {}
     context['form'] = AidForm(author=request.user)
     context['image_form'] = AidPhotosForm()
-    return render(request, "principal/criacao.html", context)
+    return render(request, "principal/needAid.html", context)
 
 @login_required(login_url="/login/")
-def criar(request):
+def createAid(request):
 
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
@@ -173,7 +173,7 @@ def criar(request):
             print(img)
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
-        return redirect('index')
+        return redirect('home')
 
     print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
 

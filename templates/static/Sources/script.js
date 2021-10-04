@@ -1,3 +1,5 @@
+//Show/Hidden social-networks inputs
+
 function socialAddButtons() {
     let socialAdd = document.getElementsByClassName("social-add")
     for (n=0; n < socialAdd.length; n+= 1) {
@@ -31,6 +33,7 @@ function socialNetworks() {
     let twitter = document.getElementById("input-twitter")
 }
 socialNetworks()
+/////////////////////////////////////////////////////////////////////////
 
 //File load section
 
@@ -63,8 +66,10 @@ document.getElementById('_inputIMG').onchange = function(event) {
         preRenderImage(this.result, 'flex', 'none')
     }
 }
-
+//Extension to pre-render images in edit-account
 document.getElementById('register-img-remove').onclick = function() { //Função que remove a render e o conteudo da imagem que já tinha sido renderizada
     document.getElementById('_inputIMG').value = ''
     preRenderImage('', 'none', 'flex')
 }
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////

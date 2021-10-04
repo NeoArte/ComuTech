@@ -105,6 +105,7 @@ footer {
     min-height: 300px;
     margin: 15px;
     align-self: center;
+    margin: 10px auto 30px auto;
 }
 #section-img>* {
     border-radius: 15%;
@@ -573,6 +574,104 @@ button.explore-btn:active {
     display: inline;
     color: var(--secundary);
 }
+.card-header.desc-header {
+    border: 2px solid var(--secundary-high-contrast);
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
+    background-color: var(--secundary-low-contrast);
+}
+.desc-title {
+    margin: auto;
+    font-size: 30px;
+    font-weight: 550;
+    color: var(--main-high-contrast);
+}
+.desc-textarea {
+    border-top: none;
+    border-radius: 0px 0px 15px 15px;
+}
+.input-group.big-input {
+    padding: 0;
+}
+.form-control.big-input {
+    height: 60px;
+    font-size: 25px;
+}
+.input-group.big-input svg{
+    width: 40px;
+    height: 40px;
+    color: var(--secundary-high-contrast);
+}
+#carouselExampleIndicators {
+    display: none;
+}
+.aid-slide.carousel.slide {
+    width: 100%;
+}
+.carousel-item.aid-image>img {
+    height: 300px;
+    display: block;
+}
+#_aidInputIMG {
+    display: none;
+}
+.aid-img-box {
+    width: 100px;
+    height: 75px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+
+    background-color: var(--help-low-contrast);
+}
+.aid-img-box>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+.aid-img-box>svg {
+    color: var(--help-low-contrast);
+    background-color: var(--help-high-contrast);
+    width: 50px;
+    height: 50px;
+    display: none;
+    margin: auto;
+}
+.aid-img-box:hover>img {
+    display: none;
+}
+.aid-img-box:hover>svg {
+    display: block;
+}
+.aid-imgs-section {
+    justify-content: space-around;
+    display: none;
+}
+#aid-img-plus.aid-img-box {
+    background-color: transparent;
+}
+#aid-img-plus.aid-img-box > svg {
+    color: var(--secundary-low-contrast);
+    background-color: var(--secundary-high-contrast);
+    display: block;
+}
+#aid-img-plus.aid-img-box:hover > svg {
+    color: var(--main-low-contrast);
+    background-color: var(--main-high-contrast);
+}
+#aid-img-plus.aid-img-box:hover {
+    background-color: var(--main-low-contrast);
+}
+.aid-img-empty-box {
+    width: 100px;
+    height: 75px;
+    border-radius: 15px;
+    display: flex;
+    background-color: transparent;
+}
+
+
+
 
 
 
