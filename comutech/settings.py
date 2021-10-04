@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
 from pathlib import Path
 import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'principal.apps.PrincipalConfig'
+    'principal.apps.PrincipalConfig',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +122,14 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+#MENSAGENS
+MESSAGE_TAGS = {
+    messages.INFO: 'alert-warning',
+    messages.WARNING: 'alert-warning',
+    messages.SUCCESS: 'alert-success',
+    messages.ERROR: 'alert-danger',
+}
 
 
 # Static files (CSS, JavaScript, Images)

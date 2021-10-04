@@ -1,0 +1,2 @@
+https://api.whatsapp.com/send?phone=554791247878&text=Ola
+https://api.whatsapp.com/send?phone={{ user.phone }}text=Olá%20{{ user.name }}%20no%20carro%20anunciado

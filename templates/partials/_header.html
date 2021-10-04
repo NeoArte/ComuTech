@@ -1,13 +1,19 @@
-  <nav class="navbar navbar-expand-md navbar-dark bg-nav">
-    <a class="navbar-brand" href="{% url 'index' %}"><img src="" alt="Logo"></a>
+{% load static %} 
+ <nav class="navbar navbar-expand-md navbar-dark bg-nav">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img src="{% static 'Sources/images/ComuTechLogo.png' %}" alt="Logo" width="175" height="50" class="">
+    </a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="navbar-collapse collapse" id="navbarCollapse">
       <ul class="navbar-nav ml-auto nav-items">
+        <li class="nav-item active">
+          <a class="nav-form nav-text" href="{% url 'home' %}">Home</a>
+        </li>
         <li class="nav-item">
-          <a class="link-explore" href="{% url 'explorar' %}">
+          <a class="link-explore" href="{% url 'explore' %}">
             Explorar
           </a>
         </li>
@@ -46,3 +52,14 @@
       </ul>
     </div>
   </nav>
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert {{message.tags}} alert-dismissible fade show d-flex justify-content-center" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endfor %}
+  {% endif %}

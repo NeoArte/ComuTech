@@ -5,6 +5,8 @@
 }
 :root {
     --strong: #201C35;
+    --strong-low-contrast: #342e50;
+    --strong-high-contrast: #151224;
     --main: #27A568;
     --main-low-contrast: #2abd76;
     --main-high-contrast: rgb(20, 148, 86);
@@ -12,12 +14,15 @@
     --secundary-low-contrast: #b4d6f3;
     --secundary-high-contrast: #8eb5d6;
     --help: rgb(228, 26, 26);
-    --help-contrast: rgb(145, 28, 28);
-    --explore: green;
-    --explore-contrast: gray;
+    --help-low-contrast: rgb(255, 62, 62);
+    --help-high-contrast: rgb(158, 27, 27);
 }
 *>hover {
     color: inherit;
+}
+.logo {
+    max-width: 10px;
+    height: 10px;
 }
 .bg-nav {
     background-color: var(--strong);
@@ -37,7 +42,7 @@
 }
 .main-display {
     min-height: 85vh;
-    padding: 1.5%;
+    padding: 0;
     display: flex;
     align-content: center;
 }
@@ -51,7 +56,7 @@
     border-radius: 6px;
     background-color: var(--help);
     color: var(--secundary);
-    box-shadow: 2px 2px 0px 1px var(--help-contrast);
+    box-shadow: 2px 2px 0px 1px var(--help-high-contrast);
     font-size: 23px;
     height: 50px;
 }
@@ -61,7 +66,7 @@
     top: 2px;
     left: 2px;
     color: var(--secundary-high-contrast);
-    background-color: var(--help-contrast)  ;
+    background-color: var(--help-high-contrast)  ;
 }
 .nav-items {
     align-items: center;
@@ -82,8 +87,7 @@ footer {
     background-color: var(--main);
 }
 .input-img {
-    border: 5px solid var(--secundary-high-contrast);
-    border-radius: 15%;
+
     background-color: none;
     margin: 25px auto;
     width: 90%;
@@ -91,6 +95,66 @@ footer {
     justify-content: center;
     display: table;
 }
+
+#section-img {
+    max-width: 350px;
+    max-height: 300px;
+    width: 350px;
+    height: 300px;
+    min-width: 350px;
+    min-height: 300px;
+    margin: 15px;
+    align-self: center;
+}
+#section-img>* {
+    border-radius: 15%;
+    width: 350px;
+    height: 300px;
+    max-width: 350px;
+    max-height: 300px;
+    min-width: 350px;
+    min-height: 300px;
+    margin: auto;
+}
+#section-img>.input-icon {
+    border: 5px solid var(--secundary-high-contrast);
+}
+#section-img>.input-icon:hover {
+    border-color: var(--main);
+    width: 350px;
+    height: 300px;
+}
+#img-render {
+    border-radius: inherit;
+}
+#img-render-content {
+    display: none;
+}
+#img-render-content:hover >#img-remove {
+    display: inherit;
+}
+#img-render-content:hover >#img-render {
+    display: none;
+}
+#img-remove {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: var(--help-low-contrast);
+    border-radius: inherit;
+    border: 5px solid var(--help);
+}
+#img-remove>.minus {
+    width: 120px;
+    height: 120px;
+    display: inherit;
+    margin: auto;
+    color: var(--help-low-contrast);
+    background-color: var(--help-high-contrast);
+    display: block;
+    cursor: pointer;
+}
+
 #_inputIMG {
     display: none;
 }
@@ -112,6 +176,9 @@ footer {
 .file-icon>p {
     text-align: center;
 }
+.input-icon>#fileDefault , .input-icon>#fileAdd {
+    margin: auto;
+}
 #fileDefault {
     color: var(--secundary-high-contrast);
 }
@@ -119,16 +186,17 @@ footer {
     display: none;
     color: var(--main);
 }
-.input-img:hover {
-    border-color: var(--main);
+.datepicker {
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
 }
 .input-icon:hover {
     cursor: pointer;
 }
-.input-img:hover #fileAdd {
+.input-icon:hover #fileAdd {
     display: flex;
 }
-.input-img:hover #fileDefault {
+.input-icon:hover #fileDefault {
     display: none;
 }
 .input-group-text>svg {
@@ -142,6 +210,8 @@ footer {
 }
 .input-group {
     min-width: 100%;
+    margin: 0;
+    padding: 5px 10px;
 }   
 .input-group > * {
     border-radius: 15px;
@@ -228,6 +298,7 @@ a:hover {
 }
 .card {
     background-color: var(--secundary-low-contrast);
+    border: none;
 }
 .card-date-class {
     display: flex;
@@ -331,6 +402,8 @@ a:hover {
     text-align: center;
     text-decoration: underline;
     color: var(--main-low-contrast);
+    display: block;
+    margin: 10px auto;
 }
 .form-link:hover {
     color: var(--main-high-contrast);
@@ -412,9 +485,12 @@ button.explore-btn:active {
     max-width: 50%;
     margin: 10px;
 }
+.alert {
+    margin-bottom: 0;
+}
 .card-body {
-    padding: 0;
-    margin: 20px;
+    padding: 15px;
+    margin: 0;
     align-content: center;
 }
 .carousel-item>img {
@@ -498,9 +574,27 @@ button.explore-btn:active {
     color: var(--secundary);
 }
 
+.enterprise {
+    padding: 35px;
+}
+
+.enterprise, h5 {
+    margin-bottom: 12px;
+}
+
+.contact{
+    padding: 32px;
+}
 
 
+.partner h5{
+    margin-top: 27px;
+}
 
+.partner img{
+    height: 198px; 
+    width: 220px;
+}
 
 
 @media only screen and (max-width: 1065px) {
