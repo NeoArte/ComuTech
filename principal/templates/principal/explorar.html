@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_tags %}
 {% block head %}
   <nav class="navbar navbar-light bg-transparent">
     <form class="form-inline ml-auto">
@@ -33,11 +34,7 @@
           <!-- Criação dos cards -->
           {% for aid in aid_page %} 
               <div class="card mb-4 shadow-sm">
-                {% for img in aid.photos.all %}
-                <img src="{{MEDIA_URL}}{{img.image}}">
-                {% endfor %}
-                
-                <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
+                <img class="card-img-top img-fluid" src="{{ aid.id | get_thumbnail:'first'}}">
                 <h1 class="card-title text-center">{{aid.title}}</h1>
                 <div class="card-body">
                   <p class="description">{{aid.date}}</p>
