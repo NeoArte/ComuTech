@@ -36,17 +36,17 @@
           <!-- Criação dos cards -->
           {% for aid in aid_page %} 
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top img-fluid" src="{{ aid.id | get_thumbnail:'first'}}">
-                <h1 class="card-title text-center">{{aid.title}}</h1>
+                <a href="{{aid.id}}"><img class="card-img-top img-fluid" src="{% get_thumbnail aid.id %}"></a>
+                <a style="color: black;" href="{{aid.id}}"><h1 class="card-title text-center">{{aid.title}}</h1></a>
                 <div class="card-body">
                   <p class="description">{{aid.date}}</p>
                   <p class="card-text">{{aid.type}}</p>
                   <div class="user-block">
                     {% if aid.author.profile_picture != "" %}
-                    <img class="img-circle img-bordered-sm w-50" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image" style="height: 50px;">
+                    <a href="/user/{{aid.author.id}}"><img class="img-circle img-bordered-sm w-50" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image" style="height: 50px;"></a>
                     {% endif %}
                       <span class="username">
-                        <a href="#">{{aid.author.name}}</a>
+                        <a href="/user/{{aid.author.id}}">{{aid.author.name}}</a>
                       </span>
                     </div>
                 </div> 
