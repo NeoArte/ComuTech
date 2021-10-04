@@ -574,9 +574,27 @@ button.explore-btn:active {
     color: var(--secundary);
 }
 
+.enterprise {
+    padding: 35px;
+}
+
+.enterprise, h5 {
+    margin-bottom: 12px;
+}
+
+.contact{
+    padding: 32px;
+}
 
 
+.partner h5{
+    margin-top: 27px;
+}
 
+.partner img{
+    height: 198px; 
+    width: 220px;
+}
 
 
 @media only screen and (max-width: 1065px) {

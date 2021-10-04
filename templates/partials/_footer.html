@@ -1,4 +1,6 @@
-{% comment %} <div class="container py-5 col-md-6">
+{% load static %}
+{% comment %} 
+<div class="container py-5 col-md-6">
   <div class="row">
     <div class="col-12 col-md ">
       
@@ -6,9 +8,6 @@
     <div class="col-6 col-md">
       
       <ul class="list-unstyled text-small ">
-        
-        
-        
         
       </ul>
     </div>
@@ -18,35 +17,22 @@
   </div>
 </div> {% endcomment %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Footer -->
 <footer class="bg-dark text-center text-white">
     <!-- Section: Links -->
     <section class="col-12">
       <!--Grid row-->
       <div class="row">
+
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0 enterprise">
+                  <!--Inicio logo da empresa-->
+          <h5 class="text-uppercase">Empresa</h5>
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg> -->
+          <img src="{% static 'sources/images/ComutechLogo.png'%}"  alt="Comutech-logo">
+
+        </div>
         <!--Contatos-->
-        <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
+        <div class="col-lg-5 col-md-6 mb-4 mb-md-0 contact">
           <h5>Contato</h5>
 
           <ul class="list-unstyled mb-0">
@@ -58,21 +44,14 @@
         </div>
         <!--Fim Contatos-->
 
-        <!--Logo do entra 21-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <!--  -->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0 partner">
           <h5>Parceiro</h5>
-          <img src="data:image/jpeg;base64,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" alt="logo-entra21">
+          <!--Logo do entra 21-->
+          <img src="{% static 'sources/images/entra21_logo.png' %}" alt="logo-entra21">
+          <!--fim logo do entra21-->
         </div>
-        <!--fim logo do entra21-->
 
-        <!--Inicio logo da empresa-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase">Empresa</h5>
-
-          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg> -->
-          <img src="https://trello.com/1/cards/6141e863ee9fcc30b06c04c5/attachments/615214cd2e5eca67dbb24d55/download/comutech.png" alt="Comutech-logo">
-      
-        </div>
         <!--Grid column-->
       </div>
       <!--Grid row-->
@@ -82,7 +61,7 @@
   <!-- Fim container -->
 
   <!-- Mensagem de todos os direitos reservados -->
-  <div class="text-center pt-3 pb-1" style="background-color: rgba(0, 0, 0, 0.2);">
+  <div class="text-center pt-3 pb-1 bg-dark" style="background-color: rgba(0, 0, 0, 0.2);">
     <small class="d-block mb-3 text-muted">© Todos os direitos reservados a <strong>Comutech</strong></small>
   </div>
   <!-- Fim Mensagem de todos os direitos reservados -->
