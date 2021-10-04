@@ -20,7 +20,6 @@ urlpatterns = [
     path("user/<int:id>/", views.user), # Página para visualizar informações da conta. O int é o ID DA CONTA
     path("user/<int:id>/edit/", views.edit_account),
     
-    path("usuario/int/socorrosmeus/", views.socorros_meus, name="socorrosmeus"), # Em "meus socorros" pode criar, editar, visualizar ou deletar um socorro
     path("criacao", views.criacao, name="criacao"), # Página para criação do socorro.
     path("criar/int", views.criar), # Cria o o socorro e redireciona para "explorar/id_do_socorro" para visualiza-lo. O SEGUNDO INT é o id do socorro
     path("deletar/<int:pk>", views.deletar), # Deleta o socorro e redireciona para "socorrosmeus"

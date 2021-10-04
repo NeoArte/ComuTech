@@ -151,8 +151,9 @@ class Aid(models.Model): # Socorros
 class AidPhotos(models.Model):
     # Fotos usadas em um socorro, precisa estar associado a um socorro, conter uma imagem (salva em MEDIA/socorros/) e uma descrição usada em leitores de tela.
 
-    aid = models.ForeignKey(Aid, on_delete=models.CASCADE)
+    aid = models.ForeignKey(Aid, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to="socorros/", default="")
     description = models.TextField(null=True, blank=True) # Descrição na imagem para leitores de tela.
+
 
 

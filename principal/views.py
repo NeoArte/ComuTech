@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages # Vai importar as mensagens do django
+from django.conf import settings
+
+from django.core.paginator import Paginator
 
 from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
 from .models import AidType, Aid, AidPhotos, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
-from django.contrib import messages # Vai importar as mensagens do django
-from django.conf import settings
 
 
 def home(request):
@@ -67,46 +69,57 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
-def explorar(request):
+def explorar(request, extra_context=None):
     types = AidType.objects.all()
-    context = {'aidtypes': types}
+    aid = Aid.objects.all()
+    context = {'aidtypes': types, 'aid_list': aid}
 
-    # Filtro de dias
+
+
     if request.method == "GET":
-        if "#oneWeek":
+
+        # Filtro de dias =================
+
+        if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
             aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
-            context["aid"] = aid
-            return render (request, "principal/explorar.html", context)
+            context["aid_list"] = aid
 
-        elif "#twoWeeks":
+        elif request.GET.get('publicado', 'erro') == "2week":
             fourteen_days_ago = datetime.today() - timedelta(days=14)
             aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
-            context["aid"] = aid            
-            return render(request, "principal/explorar.html", context)
+            context["aid_list"] = aid            
         
-        elif "#oneMonth":
+        elif request.GET.get('publicado', 'erro') == "1month":
             one_month_ago = datetime.today() - timedelta(days=30)
             aid = Aid.objects.filter(creation_date__gt=one_month_ago)
-            context["aid"] = aid
-            return render(request, "principal/explorar.html", context)
+            context["aid_list"] = aid
 
-    # Barra de Pesquisa
-    if request.method == "GET":
-        aid = Aid.objects.all()
+        # Filtro por Tipo =================
+
+        type = request.GET.get('type')
+        if type:
+            aid = aid.filter(type=type)
+            context["aid_list"] = aid
+
+        # Filtro por titulo =================
+
         search = request.GET.get('search')
         if search:
             aid = aid.filter(title__icontains=search)
-        context = {"aid": aid}
+            context["aid_list"] = aid          
+            print("\n\n\n", context, "\n\n\n")  
 
+    # Paginação
+    paginator = Paginator(context['aid_list'], 16)
+    page = request.GET.get('page')
+
+    aid_page = paginator.get_page(page)
+    context["aid_page"] = aid_page
+    
+    print('\n\n\n\nCount: ', context["aid_page"].count, '\n\n\n\n')
 
     return render(request, "principal/explorar.html", context)
-
-# def search(request):
-
-#     search = request.GET
-#     return redirect()
-
 
 def visualizar(request):
     return render(request, "principal/socorro.html")
@@ -138,9 +151,6 @@ def edit_account(request, id):
     else:
         return redirect(f'/user/{id}/')
 
-@login_required(login_url="/login/")
-def socorros_meus(request):
-    return render(request, "principal/socorrosmeus.html")
 
 @login_required(login_url="/login/")
 def criacao(request):
@@ -151,7 +161,6 @@ def criacao(request):
 
 @login_required(login_url="/login/")
 def criar(request):
-
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
     # recuperada pelo request.FILES.getlist separadamente. 
@@ -176,7 +185,6 @@ def criar(request):
         return redirect('index')
 
     print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
-
 
 @login_required(login_url="/login/")
 def deletar(request, pk):

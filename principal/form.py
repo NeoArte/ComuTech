@@ -185,7 +185,6 @@ class AidForm(ModelForm):
             'title',
             'type',
             'description',
-            # photos, 
         )
         exclude = ['author']
     
