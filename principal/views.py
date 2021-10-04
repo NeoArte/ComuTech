@@ -121,8 +121,12 @@ def explorar(request, extra_context=None):
 
     return render(request, "principal/explorar.html", context)
 
-def visualizar(request):
-    return render(request, "principal/socorro.html")
+def visualizar(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    context = {
+        'aid': aid,
+    }
+    return render(request, "principal/socorro.html", context)
 
 @login_required(login_url="/login/")
 def user(request, id):
