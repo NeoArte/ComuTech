@@ -8,6 +8,9 @@
   <div class="card-body">
     <form action="/login/" method="POST">
     {% csrf_token %}
+      {% if request.GET.next %} <!--Se existe uma varíavel NEXT no GET-->
+      <input type="hidden" name="next" value="{{ request.GET.next }}"> <!--Adiciona o valor da variável NEXT em um input invisivel-->
+      {% endif %}
       <label class="input-group mb-3" for="email">
         <input name="email" type="email" class="form-control" placeholder="Email" id="email"/>
         <!--EMAIL-->
