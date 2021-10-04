@@ -621,7 +621,9 @@ button.explore-btn:active {
     border-radius: 15px;
     cursor: pointer;
     display: flex;
-
+    background-color: transparent;
+}
+.aid-img-box:hover {
     background-color: var(--help-low-contrast);
 }
 .aid-img-box>img {
@@ -669,7 +671,9 @@ button.explore-btn:active {
     display: flex;
     background-color: transparent;
 }
-
+#_plusAidIMG {
+    display: none;
+}
 
 
 
