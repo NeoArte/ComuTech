@@ -123,8 +123,10 @@ def explorar(request, extra_context=None):
 
 def visualizar(request, pk):
     aid = Aid.objects.get(pk=pk)
+    aid_photos = aid.photos.all()
     context = {
         'aid': aid,
+        'aid_photos': aid_photos
     }
     return render(request, "principal/socorro.html", context)
 
