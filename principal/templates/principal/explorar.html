@@ -5,16 +5,18 @@
   <nav class="navbar navbar-light bg-transparent">
     <form class="form-inline ml-auto">
       <select name="publicado" id="publicado" class="">
-        <option selected disabled hidden>Publicado há ?</option>
-        <option value="1week">1 semana</option>
-        <option value="2week">2 semanas</option>
-        <option value="1month">1 mês</option>
+        <option {% if not request.GET.publicado %}selected{% endif %} disabled hidden>Publicado há ?</option>
+        <option value="">---</option>
+        <option {% if request.GET.publicado == "1week" %}selected{% endif %} value="1week">1 semana</option>
+        <option {% if request.GET.publicado == "2week" %}selected{% endif %} value="2week">2 semanas</option>
+        <option {% if request.GET.publicado == "1month" %}selected{% endif %} value="1month">1 mês</option>
       </select>
       <select name="type" id="" class="">
-        <option selected disabled hidden>Classificado em</option>
+        <option {% if not request.GET.type %}selected{% endif %} disabled hidden>Classificado em</option>
         <!-- Busca os tipos do banco de dados -->
+        <option value="">---</option>
         {% for type in aidtypes %} 
-        <option value="{{type.id}}">{{type.name}}</option>
+        <option {% if request.GET.type == type.id %}selected{% endif %} value="{{type.id}}">{{type.name}}</option>
         {% endfor %}
       </select>
       <input name="search" class="form-control explore-btn" type="search" placeholder="Buscar por..." aria-label="SearchKeyWords">
