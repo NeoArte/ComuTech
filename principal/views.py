@@ -121,8 +121,14 @@ def explorar(request, extra_context=None):
 
     return render(request, "principal/explorar.html", context)
 
-def visualizar(request):
-    return render(request, "principal/socorro.html")
+def visualizar(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    aid_photos = aid.photos.all()
+    context = {
+        'aid': aid,
+        'aid_photos': aid_photos
+    }
+    return render(request, "principal/socorro.html", context)
 
 @login_required(login_url="/login/")
 def user(request, id):
@@ -182,7 +188,7 @@ def criar(request):
             print(img)
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
-        return redirect('index')
+        return redirect('home')
 
     print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
 
