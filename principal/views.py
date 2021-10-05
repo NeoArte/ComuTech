@@ -188,7 +188,7 @@ def criar(request):
             print(img)
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
-        return redirect('index')
+        return redirect('home')
 
     print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
 

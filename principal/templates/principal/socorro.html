@@ -53,7 +53,7 @@
                 <p class="card-text c-text mb-1">Classificação: {{aid.type | capfirst}}</p>
               </div>
               <div class="user-block my-2"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-                <img class="img-circle img-bordered-sm" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image"> <!--imagem do usuário-->
+                <a href="/user/{{aid.author.id}}"><img class="img-circle img-bordered-sm" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image"></a>  <!--imagem do usuário-->
                   <span class="username"><!--Nome Do Usuario-->
                     <a href="/user/{{aid.author.id}}" class="userName">{{aid.author.name}}</a>
                   </span><!--Fim Do Que Contém No Nome Do Usuario-->
