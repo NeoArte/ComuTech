@@ -603,7 +603,7 @@ button.explore-btn:active {
 .aid-card {
     width: 325px;
     border-radius: 15px;
-    height: 440px;
+    height: 460px;
 
     background-color: var(--secundary-low-contrast);
 }
@@ -611,7 +611,7 @@ button.explore-btn:active {
     width: 325px;
     height: 250px;
     border-radius: 15px 15px 0 0;
-    border: 3px solid var(--secundary-high-contrast);
+    border: 3px solid var(--strong-low-contrast);
     border-bottom: none;
 }
 .aid-title-section {
@@ -619,24 +619,24 @@ button.explore-btn:active {
     height: 55px;
     font-size: 36px;
     text-align: center;
-    background: var(--secundary-high-contrast);
+    background: var(--strong-low-contrast);
     font-weight: 900;
-    color: var(--strong);
+    color: var(--main);
 }
 .aid-title-section>p {
     margin: auto;
 }
 .aid-infos-section {
-    width: 86%;
-    margin: auto;
+    width: 90%;
+    margin: 10px auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: var(--strong-low-contrast);
+    background-color: var(--secundary-low-contrast);
     padding: 17px 10px;
-    border-radius: 0 0 15px 15px;
-    border: 2px solid var(--strong-high-contrast);
-    border-top: none;
+    border-radius: 15px;
+    border: 2px solid var(--secundary-high-contrast);
+    
 }
 .aid-infos-section>p {
     margin: 0;
@@ -646,17 +646,23 @@ button.explore-btn:active {
     margin-bottom: auto;
 }
 .aid-infos-section>.aid-type {
-    color: var(--main);
+    color: var(--strong-low-contrast);
     font-weight: bold;
+    font-size: 18px;
     margin: auto 0 auto auto;
 }
 .aid-profile-user {
     font-size: 17px;
     font-weight: bold;
-    color: var(--secundary-low-contrast);
+    color: var(--main-low-contrast);
+}
+.aid-profile-user:hover {
+    text-decoration: none;
+    color: var(--main-high-contrast);
 }
 .aid-profile-img {
     width: 30px;
+    height: 30px;
     border-radius: 25%;
     margin: auto;
 }
@@ -664,12 +670,15 @@ button.explore-btn:active {
     display: flex;
     flex-direction: row;
 }
-.aid-card>.aid-card-buttons > * {
+button.btn-aid {
     max-width: 40%;
     font-size: 17px;
     height: 45px;
     padding: 0;
     margin: 10px;
+}
+.dropdown>button.btn-aid {
+    max-width: none;
 }
 .btn-strong {
     background-color: var(--strong-low-contrast);
@@ -684,6 +693,54 @@ button.explore-btn:active {
 .btn-strong:focus {
     box-shadow: 2.5px 2.5px 0 1px var(--strong-high-contrast);
 }
+.aid-header-desc {
+    display: flex;
+}
+.aid-header-desc>.btn-form {
+    max-width: 40%;
+    font-size: 17px;
+    height: 45px;
+    padding: 0;
+    margin: 0;
+}
+.aid-header-desc>.card-title {
+    margin: auto auto auto 0;
+    font-weight: bold;
+    font-size: 28px;
+    color: var(--main);
+}
+.aid-card>.card, .card>.aid-header-desc {
+    border-radius: 15px 15px 0 0;
+}
+.aid-card .card-body {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--strong);
+}
+#aid-card-infos {
+}
+#aid-card-desc {
+    display: none;
+}
+.explore-bar {
+    background-color: var(--secundary-low-contrast);
+    padding: 13px 15px 20px 60px;
+    border-radius: 0 0 0 100px;
+}
+.aid-cards {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    grid-gap: 40px;
+    margin: 20px 40px;
+}
+.aid-cards > * {
+    margin: auto;
+}
+
+
 
 
 @media only screen and (max-width: 1065px) {

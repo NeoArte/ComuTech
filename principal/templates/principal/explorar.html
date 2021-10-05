@@ -2,8 +2,8 @@
 {% load static %}
 {% load custom_tags %}
 {% block head %}
-  <nav class="navbar navbar-light bg-transparent">
-    <form class="form-inline ml-auto">
+  <nav class="navbar navbar-light bg-transparent p-0">
+    <form class="form-inline ml-auto explore-bar">
       <select name="publicado" id="publicado" class="explore-btn">
         <option {% if not request.GET.publicado %}selected{% endif %} disabled hidden>Publicado há ?</option>
         <option value="">---</option>
@@ -30,73 +30,256 @@
 {% endblock %}
 
 {% block main %}
-  <div class="container">
-    <div class="row">
 
-          <!-- Criação dos cards -->
-          {% for aid in aid_page %} 
-              <div class="card mb-4 shadow-sm">
-                <a href="{{aid.id}}"><img class="card-img-top img-fluid" src="{% get_thumbnail aid.id %}"></a>
-                <a style="color: black;" href="{{aid.id}}"><h1 class="card-title text-center">{{aid.title}}</h1></a>
-                <div class="card-body">
-                  <p class="description">{{aid.date}}</p>
-                  <p class="card-text">{{aid.type}}</p>
-                  <div class="user-block">
-                    {% if aid.author.profile_picture != "" %}
-                    <a href="/user/{{aid.author.id}}"><img class="img-circle img-bordered-sm w-50" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image" style="height: 50px;"></a>
-                    {% endif %}
-                      <span class="username">
-                        <a href="/user/{{aid.author.id}}">{{aid.author.name}}</a>
-                      </span>
-                    </div>
-                </div> 
-              </div>
-          {% empty %}
-            <h1>Nenhum socorro encontrado.</h1>
-            <h4>Os filtros selecionados não correspondem a nenhum socorro, mude os filtros e tente novamente.</h4>
-          {% endfor %}
-    </div>
-    <!-- Paginação -->
-    {% if aid_list.count != 0 %}
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        {% for pagina in aid_page.paginator.page_range %}
-          {% if aid_page.number == pagina %}
-          <li class="page-item active">
-            <a class="page-link" href="?page={{pagina}}&publicado={{request.GET.publicado}}&type={{request.GET.type}}&search={{request.GET.search}}">{{pagina}}</a>
-          </li>
-          {% else %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{pagina}}&publicado={{request.GET.publicado}}&type={{request.GET.type}}&search={{request.GET.search}}">{{pagina}}</a>
-          </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </nav>
-    {% endif %} 
-    <div class="aid-card">
+<div class="aid-cards">
+  <div class="aid-card">
+    <div href="paracard/" id="aid-card-infos">
       <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
       <div class="aid-title-section">
         <p>Título Fodástico</p>
       </div>
       <div class="aid-infos-section">
         <a class="aid-profile-user" href="">
-          <img class="aid-profile-img" src="data:image/jpeg;base64,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" >
+          <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
           Usuario
         </a>
         <p class="aid-type">Classificação</p>
       </div>
       <div class="aid-card-buttons">
-        <button class="btn btn-block btn-form btn-strong">
-          Opções
-        </button>
-        <button class="btn btn-block btn-form ml-auto">
+        <div class="dropdown">
+          <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opções
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Desativar Públicação</a>
+            <a class="dropdown-item" href="#">Excluir Publicação</a>
+          </div>
+        </div>
+        <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
           Descrição
         </button>
       </div>
     </div>
-    <div class="aid-card">
-      p
+    <div id="aid-card-desc" class="card">
+      <div class="card-header aid-header-desc">
+        <h3 class="card-title">Descrição</h3>
+        <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+          Voltar
+        </button>
+      </div>
+      <div class="card-body">
+        BLablablablablablablablabla
+      </div>
+      <!-- /.card-body -->
     </div>
-  </div><!--Fim Div Container-->
+  </div>
+  <div class="aid-card">
+    <div href="paracard/" id="aid-card-infos">
+      <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
+      <div class="aid-title-section">
+        <p>Título Fodástico</p>
+      </div>
+      <div class="aid-infos-section">
+        <a class="aid-profile-user" href="">
+          <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
+          Usuario
+        </a>
+        <p class="aid-type">Classificação</p>
+      </div>
+      <div class="aid-card-buttons">
+        <div class="dropdown">
+          <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opções
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Desativar Públicação</a>
+            <a class="dropdown-item" href="#">Excluir Publicação</a>
+          </div>
+        </div>
+        <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+          Descrição
+        </button>
+      </div>
+    </div>
+    <div id="aid-card-desc" class="card">
+      <div class="card-header aid-header-desc">
+        <h3 class="card-title">Descrição</h3>
+        <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+          Voltar
+        </button>
+      </div>
+      <div class="card-body">
+        BLablablablablablablablabla
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <div class="aid-card">
+    <div href="paracard/" id="aid-card-infos">
+      <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
+      <div class="aid-title-section">
+        <p>Título Fodástico</p>
+      </div>
+      <div class="aid-infos-section">
+        <a class="aid-profile-user" href="">
+          <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
+          Usuario
+        </a>
+        <p class="aid-type">Classificação</p>
+      </div>
+      <div class="aid-card-buttons">
+        <div class="dropdown">
+          <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opções
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Desativar Públicação</a>
+            <a class="dropdown-item" href="#">Excluir Publicação</a>
+          </div>
+        </div>
+        <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+          Descrição
+        </button>
+      </div>
+    </div>
+    <div id="aid-card-desc" class="card">
+      <div class="card-header aid-header-desc">
+        <h3 class="card-title">Descrição</h3>
+        <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+          Voltar
+        </button>
+      </div>
+      <div class="card-body">
+        BLablablablablablablablabla
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <div class="aid-card">
+    <div href="paracard/" id="aid-card-infos">
+      <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
+      <div class="aid-title-section">
+        <p>Título Fodástico</p>
+      </div>
+      <div class="aid-infos-section">
+        <a class="aid-profile-user" href="">
+          <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
+          Usuario
+        </a>
+        <p class="aid-type">Classificação</p>
+      </div>
+      <div class="aid-card-buttons">
+        <div class="dropdown">
+          <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opções
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Desativar Públicação</a>
+            <a class="dropdown-item" href="#">Excluir Publicação</a>
+          </div>
+        </div>
+        <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+          Descrição
+        </button>
+      </div>
+    </div>
+    <div id="aid-card-desc" class="card">
+      <div class="card-header aid-header-desc">
+        <h3 class="card-title">Descrição</h3>
+        <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+          Voltar
+        </button>
+      </div>
+      <div class="card-body">
+        BLablablablablablablablabla
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <div class="aid-card">
+    <div href="paracard/" id="aid-card-infos">
+      <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
+      <div class="aid-title-section">
+        <p>Título Fodástico</p>
+      </div>
+      <div class="aid-infos-section">
+        <a class="aid-profile-user" href="">
+          <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
+          Usuario
+        </a>
+        <p class="aid-type">Classificação</p>
+      </div>
+      <div class="aid-card-buttons">
+        <div class="dropdown">
+          <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opções
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Desativar Públicação</a>
+            <a class="dropdown-item" href="#">Excluir Publicação</a>
+          </div>
+        </div>
+        <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+          Descrição
+        </button>
+      </div>
+    </div>
+    <div id="aid-card-desc" class="card">
+      <div class="card-header aid-header-desc">
+        <h3 class="card-title">Descrição</h3>
+        <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+          Voltar
+        </button>
+      </div>
+      <div class="card-body">
+        BLablablablablablablablabla
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <div class="aid-card">
+    <div href="paracard/" id="aid-card-infos">
+      <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
+      <div class="aid-title-section">
+        <p>Título Fodástico</p>
+      </div>
+      <div class="aid-infos-section">
+        <a class="aid-profile-user" href="">
+          <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
+          Usuario
+        </a>
+        <p class="aid-type">Classificação</p>
+      </div>
+      <div class="aid-card-buttons">
+        <div class="dropdown">
+          <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opções
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Desativar Públicação</a>
+            <a class="dropdown-item" href="#">Excluir Publicação</a>
+          </div>
+        </div>
+        <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+          Descrição
+        </button>
+      </div>
+    </div>
+    <div id="aid-card-desc" class="card">
+      <div class="card-header aid-header-desc">
+        <h3 class="card-title">Descrição</h3>
+        <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+          Voltar
+        </button>
+      </div>
+      <div class="card-body">
+        BLablablablablablablablabla
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  
+</div>
+
+<script src="{% static '/Sources/explore.js' %}"></script>
 {% endblock %}
