@@ -12,6 +12,8 @@
                     {% else %}
                       <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}}"></li>
                     {% endif %}
+                  {% empty %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                   {% endfor %}
                 </ol>
                 <div class="carousel-inner">
@@ -25,6 +27,10 @@
                       <img src="{{MEDIA_URL}}{{photo.image}}" class="d-block" alt="{{photo.description}}">
                     </div>
                     {% endif %}
+                  {% empty %}
+                    <div class="carousel-item active">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU}" class="d-block" alt="{{photo.description}}">
+                    </div>
                   {% endfor %}
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -91,5 +97,5 @@
             <p class="subtitle">Descrição</p>
             <p class="description c-text">{{aid.description}}</p>
           </div>
-        </div>
+      </div>
 {% endblock %}
