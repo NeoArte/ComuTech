@@ -416,9 +416,20 @@ a:hover {
     color: var(--secundary);
     box-shadow: 3px 3px 0 1px var(--main);
     flex: auto;
-}
-select.explore-btn:focus {
-    box-shadow: none;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    outline: none;
 }
 select.explore-btn:hover {
     color: var(--secundary);
@@ -573,27 +584,105 @@ button.explore-btn:active {
     display: inline;
     color: var(--secundary);
 }
-
 .enterprise {
     padding: 35px;
 }
-
 .enterprise, h5 {
     margin-bottom: 12px;
 }
-
 .contact{
     padding: 32px;
 }
-
-
 .partner h5{
     margin-top: 27px;
 }
-
 .partner img{
     height: 198px; 
     width: 220px;
+}
+.aid-card {
+    width: 325px;
+    border-radius: 15px;
+    height: 440px;
+
+    background-color: var(--secundary-low-contrast);
+}
+.aid-card-img {
+    width: 325px;
+    height: 250px;
+    border-radius: 15px 15px 0 0;
+    border: 3px solid var(--secundary-high-contrast);
+    border-bottom: none;
+}
+.aid-title-section {
+    width: 100%;
+    height: 55px;
+    font-size: 36px;
+    text-align: center;
+    background: var(--secundary-high-contrast);
+    font-weight: 900;
+    color: var(--strong);
+}
+.aid-title-section>p {
+    margin: auto;
+}
+.aid-infos-section {
+    width: 86%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--strong-low-contrast);
+    padding: 17px 10px;
+    border-radius: 0 0 15px 15px;
+    border: 2px solid var(--strong-high-contrast);
+    border-top: none;
+}
+.aid-infos-section>p {
+    margin: 0;
+}
+.aid-infos-section>* {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.aid-infos-section>.aid-type {
+    color: var(--main);
+    font-weight: bold;
+    margin: auto 0 auto auto;
+}
+.aid-profile-user {
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--secundary-low-contrast);
+}
+.aid-profile-img {
+    width: 30px;
+    border-radius: 25%;
+    margin: auto;
+}
+.aid-card-buttons {
+    display: flex;
+    flex-direction: row;
+}
+.aid-card>.aid-card-buttons > * {
+    max-width: 40%;
+    font-size: 17px;
+    height: 45px;
+    padding: 0;
+    margin: 10px;
+}
+.btn-strong {
+    background-color: var(--strong-low-contrast);
+    box-shadow: 2.5px 2.5px 0 1px var(--strong-high-contrast);
+}
+.btn-strong:hover {
+    background-color: var(--strong);
+}
+.btn-strong:active {
+    box-shadow: none;
+}
+.btn-strong:focus {
+    box-shadow: 2.5px 2.5px 0 1px var(--strong-high-contrast);
 }
 
 
