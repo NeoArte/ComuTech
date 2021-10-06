@@ -4,6 +4,11 @@
       <div class="card-body">
           <div id="help-box-st">
             <div class="help-boxes carousel-box">
+              
+              {% if user.id == aid.author.id %}
+                <h1>OPTIONS</h1>
+              {% endif %}
+
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                   {% for photo in aid_photos %}
