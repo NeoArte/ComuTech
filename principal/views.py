@@ -11,10 +11,15 @@ from .models import AidType, Aid, AidPhotos, User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
-
+import random
 
 def home(request):
-    return render(request, "principal/home.html")
+    tamanhoAid = list(Aid.objects.all())
+    aid = random.sample(tamanhoAid, 3)
+    
+    context = {'aid_list': aid}
+    
+    return render(request, "principal/home.html", context)
 
 def register(request):
     if request.method == 'POST':

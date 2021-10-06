@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_tags %}
 {% block main %}
 <link rel="stylesheet" href="{% static 'Sources/home.css' %}">
 <div class="u-body u-overlap w-100">
@@ -86,74 +87,26 @@
       <div class="u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
         <div class="u-gutter-0 u-layout">
           <div class="u-layout-row">
-            <a class="card-link" href="ParaCard" style="text-decoration: none;">
-              <div class="col-md-4"><!--Inicio Card-->
-                <div class="card mb-4 shadow-sm"><!--sombra do card-->
-                  <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-                  <h1 class="text-center c-text">Titulo</h1>
-                  <div class="card-body"><!--Inicio Corpo Do Card-->
-                    <div class="card-date-class">
-                      <p class="description c-text mb-1">DD/MM/AAAA</p>
-                      <p class="card-text c-text mb-1">Classificação</p>
-                    </div>
-                    <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-                      <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                        <span class="username"><!--Nome Do Usuario-->
-                          <a href="Usuario" class="userName">Usuario</a>
-                        </span><!--Fim Do Que Contém No Nome Do Usuario-->
+            {% for aid in aid_list %} 
+                <div class="card mb-4 shadow-sm">
+                  <a href="{{aid.id}}"><img class="card-img-top img-fluid" src="{% get_thumbnail aid.id %}"></a>
+                  <a style="color: black;" href="{{aid.id}}"><h1 class="card-title text-center">{{aid.title}}</h1></a>
+                  <div class="card-body">
+                    <p class="description">{{aid.date}}</p>
+                    <p class="card-text">{{aid.type}}</p>
+                    <div class="user-block">
+                      {% if aid.author.profile_picture != "" %}
+                      <a href="/user/{{aid.author.id}}"><img class="img-circle img-bordered-sm w-50" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image" style="height: 50px;"></a>
+                      {% endif %}
+                        <span class="username">
+                          <a href="/user/{{aid.author.id}}">{{aid.author.name}}</a>
+                        </span>
                       </div>
-                  </div><!--Fim Do Corpo Do Card-->
-                </div><!--Fim da Sombra Do Card-->
-              </div><!--Fim Card-->
-            </a>
-            <a class="card-link" href="ParaCard" style="text-decoration: none;">
-              <div class="col-md-4"><!--Inicio Card-->
-                <div class="card mb-4 shadow-sm"><!--sombra do card-->
-                  <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-                  <h1 class="text-center c-text">Titulo</h1>
-                  <div class="card-body"><!--Inicio Corpo Do Card-->
-                    <div class="card-date-class">
-                      <p class="description c-text mb-1">DD/MM/AAAA</p>
-                      <p class="card-text c-text mb-1">Classificação</p>
-                    </div>
-                    <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-                      <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                        <span class="username"><!--Nome Do Usuario-->
-                          <a href="Usuario" class="userName">Usuario</a>
-                        </span><!--Fim Do Que Contém No Nome Do Usuario-->
-                      </div>
-                  </div><!--Fim Do Corpo Do Card-->
-                </div><!--Fim da Sombra Do Card-->
-              </div><!--Fim Card-->
-            </a>
-            <a class="card-link" href="ParaCard" style="text-decoration: none;">
-              <div class="col-md-4"><!--Inicio Card-->
-                <div class="card mb-4 shadow-sm"><!--sombra do card-->
-                  <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-                  <h1 class="text-center c-text">Titulo</h1>
-                  <div class="card-body"><!--Inicio Corpo Do Card-->
-                    <div class="card-date-class">
-                      <p class="description c-text mb-1">DD/MM/AAAA</p>
-                      <p class="card-text c-text mb-1">Classificação</p>
-                    </div>
-                    <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-                      <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                        <span class="username"><!--Nome Do Usuario-->
-                          <a href="Usuario" class="userName">Usuario</a>
-                        </span><!--Fim Do Que Contém No Nome Do Usuario-->
-                      </div>
-                  </div><!--Fim Do Corpo Do Card-->
-                </div><!--Fim da Sombra Do Card-->
-              </div><!--Fim Card-->
-            </a>
+                  </div> 
+                </div>
+              {% empty %}
+            {% endfor %}            
           </div>
-          <a href="{% url 'explore' %}">
-            <button class="btn btn-block btn-form col-8 m-4 mx-auto p-2 ml-auto mb-0">
-                Ver mais Publicações
-            </button>
-          </a>
-        </div>
-      </div>
     </div>
   </section>
   <section class="u-clearfix u-image u-section-9" id="about-dev">
