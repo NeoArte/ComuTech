@@ -225,5 +225,6 @@ class AidPhotosForm(ModelForm):
         super(AidPhotosForm, self).__init__(*args, **kwargs)
         self.fields['image'].widget.attrs.update({
             'multiple': True,
-            'id':'_aidInputIMG'
+            'id':'_aidInputIMG',
+            'accept':'image/*',
         })

@@ -6,11 +6,11 @@
         <h1 class="h1 aid-create"><b>Criar Publicação</b></h1>
     </div>
     <div class="card-body">                     
-        <form enctype="multipart/form-data" action="/register/" method="POST">
+        <form enctype="multipart/form-data" action="/need-aid/create-aid/" method="POST">
             {% csrf_token %}
             <div class="column">
                 <div id="section-img">
-                  <input type="file" id="_plusAidIMG" multiple>
+                  <input type="file" id="_plusAidIMG" accept="image/*" multiple>
                     {{image_form.image}}
                     <div id="carouselExampleIndicators" class="carousel slide aid-slide" data-ride="carousel">
                         <ol id="aidCarouselIndicators" class="carousel-indicators">
