@@ -119,13 +119,32 @@ def explorar(request, extra_context=None):
 
     return render(request, "principal/explorar.html", context)
 
-def visualizar(request, id):
-    return render(request, "principal/socorro.html")
+def visualizar(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    aid_photos = aid.photos.all()
+    context = {
+        'aid': aid,
+        'aid_photos': aid_photos
+    }
+    return render(request, "principal/socorro.html", context)
 
 @login_required(login_url="/login/")
-def user(request, id):
-    userViewed = User.objects.get(pk=id)
-    return render(request, "principal/account.html", {'userViewed':userViewed})
+def user(request, pk):
+    user_viewed = User.objects.get(pk=pk)
+    
+    print("\n\n\n\n", user_viewed.id, " x ", request.user.id, "\n\n\n\n")
+    
+    user_age = date.today() - getattr(user_viewed, 'birth_date')
+    user_age = user_age.days // 365
+
+    aid_list = user_viewed.myaid.all()
+
+    context = {
+        'user_viewed': user_viewed,
+        'user_age': user_age,
+        'aid_list': aid_list
+    }
+    return render(request, "principal/account.html", context)
 
 @login_required(login_url="/login/")
 def edit_account(request, id):
@@ -180,7 +199,7 @@ def criar(request):
             print(img)
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
-        return redirect('index')
+        return redirect('home')
 
     print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
 
