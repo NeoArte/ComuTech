@@ -131,11 +131,19 @@ def visualizar(request, pk):
     return render(request, "principal/socorro.html", context)
 
 @login_required(login_url="/login/")
-def user(request, id):
-    user_viewed = User.objects.get(pk=id)
+def user(request, pk):
+    user_viewed = User.objects.get(pk=pk)
+    
+    print("\n\n\n\n", user_viewed.id, " x ", request.user.id, "\n\n\n\n")
+    
+    user_age = date.today() - getattr(user_viewed, 'birth_date')
+    user_age = user_age.days // 365
+
     aid_list = user_viewed.myaid.all()
+
     context = {
         'user_viewed': user_viewed,
+        'user_age': user_age,
         'aid_list': aid_list
     }
     return render(request, "principal/account.html", context)
