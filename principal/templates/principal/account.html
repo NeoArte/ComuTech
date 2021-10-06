@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
-
+{% load custom_tags %}
 {% block main %}
     <div class="card-body column m-0">
       <div id="help-box-st">
         <div class="col-md-6 m-auto help-boxes">
           <div class="col-12 carousel-item active user-image my-4">
-            <img src="{{ MEDIA_URL }}{{userViewed.profile_picture}}" alt="">
+            <img src="{{ MEDIA_URL }}{{user_viewed.profile_picture}}" alt="">
           </div>
         </div>
         <div class="col-md-6 user-second-box">
-          {% if user.id == userViewed.id %}
+          {% if user.id == user_viewed.id %}
            <a class="user-edit" href="edit/">
              Editar sua Conta
              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-gear-wide-connected" viewBox="0 0 16 16">
@@ -18,7 +18,7 @@
            </a>
           {% endif %}
           <h1 class="user-title">
-            {{userViewed.name}}
+            {{user_viewed.name}}
           </h1>
           <p class="subtitle m-3">Contatar</p>
                   <div class="social-buttons m-3">
@@ -47,9 +47,31 @@
                   </div>
           <div class="form-group row m-2 mt-5 user-info">
             <h4><b class="pr-2">Idade</b></h4>
-            <h4>{{userViewed.birth_date}}</h4>
+            <h4>{{user_viewed.birth_date}}</h4>
           </div>
+
         </div>
+      </div>
+      <hr> <!--Temporário, separação entre usuário e seção de meus socorros-->
+      <div class="row">
+        {% for aid in aid_list %} 
+              <div class="card mb-4 shadow-sm">
+                <a href="{{aid.id}}"><img class="card-img-top img-fluid" src="{% get_thumbnail aid.id %}"></a>
+                <a style="color: black;" href="{{aid.id}}"><h1 class="card-title text-center">{{aid.title}}</h1></a>
+                <div class="card-body">
+                  <p class="description">{{aid.date}}</p>
+                  <p class="card-text">{{aid.type}}</p>
+                  <div class="user-block">
+                    {% if aid.author.profile_picture != "" %}
+                    <a href="/user/{{aid.author.id}}"><img class="img-circle img-bordered-sm w-50" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" alt="user image" style="height: 50px;"></a>
+                    {% endif %}
+                      <span class="username">
+                        <a href="/user/{{aid.author.id}}">{{aid.author.name}}</a>
+                      </span>
+                    </div>
+                </div> 
+            </div>
+        {% endfor %}
       </div>
     </div>
 {% endblock %}

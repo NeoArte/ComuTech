@@ -132,8 +132,13 @@ def visualizar(request, pk):
 
 @login_required(login_url="/login/")
 def user(request, id):
-    userViewed = User.objects.get(pk=id)
-    return render(request, "principal/account.html", {'userViewed':userViewed})
+    user_viewed = User.objects.get(pk=id)
+    aid_list = user_viewed.myaid.all()
+    context = {
+        'user_viewed': user_viewed,
+        'aid_list': aid_list
+    }
+    return render(request, "principal/account.html", context)
 
 @login_required(login_url="/login/")
 def edit_account(request, id):

@@ -133,7 +133,7 @@ class Aid(models.Model): # Socorros
     # descrição (pode ficar em branco), data de criação, data_conclusão (por padrão estará em branco), estado (a letra de um dos estados em 'STATES') e
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="criador")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="myaid")
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(AidType, on_delete=models.CASCADE)
