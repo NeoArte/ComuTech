@@ -13,7 +13,6 @@ urlpatterns = [
 
     path("explorar/", views.explorar, name="explore"), # Página para Explorar
     path("explorar/<int:pk>/", views.visualizar, name="visualizar"), # Abre um socorro de acordo com o ID (<int>) para o visualizar.
-    # path("search/", views.search, name="search"),
 
     #TODO - ao acessar apenas "usuario" redireciona para "usuario/int" da própria pessoa
 
