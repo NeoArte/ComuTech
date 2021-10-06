@@ -69,7 +69,7 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
-def explorar(request, extra_context=None):
+def explore(request, extra_context=None):
     types = AidType.objects.all()
     aid = Aid.objects.all()
     context = {'aidtypes': types, 'aid_list': aid}
@@ -119,7 +119,7 @@ def explorar(request, extra_context=None):
 
     return render(request, "principal/explorar.html", context)
 
-def visualizar(request, pk):
+def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
     aid_photos = aid.photos.all()
     context = {
@@ -170,14 +170,15 @@ def edit_account(request, id):
 
 
 @login_required(login_url="/login/")
-def criacao(request):
+def needAid(request):
     context = {}
     context['form'] = AidForm(author=request.user)
     context['image_form'] = AidPhotosForm()
-    return render(request, "principal/criacao.html", context)
+    return render(request, "principal/needAid.html", context)
 
 @login_required(login_url="/login/")
-def criar(request):
+def createAid(request):
+
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
     # recuperada pelo request.FILES.getlist separadamente. 
