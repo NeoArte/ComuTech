@@ -416,9 +416,20 @@ a:hover {
     color: var(--secundary);
     box-shadow: 3px 3px 0 1px var(--main);
     flex: auto;
-}
-select.explore-btn:focus {
-    box-shadow: none;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    outline: none;
 }
 select.explore-btn:hover {
     color: var(--secundary);
@@ -573,28 +584,230 @@ button.explore-btn:active {
     display: inline;
     color: var(--secundary);
 }
-
 .enterprise {
     padding: 35px;
 }
-
 .enterprise, h5 {
     margin-bottom: 12px;
 }
-
 .contact{
     padding: 32px;
 }
-
-
 .partner h5{
     margin-top: 27px;
 }
-
 .partner img{
     height: 198px; 
     width: 220px;
 }
+.aid-card {
+    width: 325px;
+    border-radius: 15px;
+    height: 460px;
+
+    background-color: var(--secundary-low-contrast);
+}
+.aid-card-img {
+    width: 325px;
+    height: 250px;
+    border-radius: 15px 15px 0 0;
+    border: 3px solid var(--strong-low-contrast);
+    border-bottom: none;
+}
+.aid-title-section {
+    width: 100%;
+    height: 55px;
+    font-size: 36px;
+    text-align: center;
+    background: var(--strong-low-contrast);
+    font-weight: 900;
+    color: var(--main);
+}
+.aid-title-section>p {
+    margin: auto;
+}
+.aid-infos-section {
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--secundary-low-contrast);
+    padding: 17px 10px;
+    border-radius: 15px;
+    border: 2px solid var(--secundary-high-contrast);
+    
+}
+.aid-infos-section>p {
+    margin: 0;
+}
+.aid-infos-section>* {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.aid-infos-section>.aid-type {
+    color: var(--strong-low-contrast);
+    font-weight: bold;
+    font-size: 18px;
+    margin: auto 0 auto auto;
+}
+.aid-profile-user {
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--main-low-contrast);
+}
+.aid-profile-user:hover {
+    text-decoration: none;
+    color: var(--main-high-contrast);
+}
+.aid-profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 25%;
+    margin: auto;
+}
+.aid-card-buttons {
+    display: flex;
+    flex-direction: row;
+}
+button.btn-aid {
+    max-width: 40%;
+    font-size: 17px;
+    height: 45px;
+    padding: 0;
+    margin: 10px;
+}
+.dropdown>button.btn-aid {
+    max-width: none;
+}
+.btn-strong {
+    background-color: var(--strong-low-contrast);
+    box-shadow: 2.5px 2.5px 0 1px var(--strong-high-contrast);
+}
+.btn-strong:hover {
+    background-color: var(--strong);
+}
+.btn-strong:active {
+    box-shadow: none;
+}
+.btn-strong:focus {
+    box-shadow: 2.5px 2.5px 0 1px var(--strong-high-contrast);
+}
+.aid-header-desc {
+    display: flex;
+}
+.aid-header-desc>.btn-form {
+    max-width: 40%;
+    font-size: 17px;
+    height: 45px;
+    padding: 0;
+    margin: 0;
+}
+.aid-header-desc>.card-title {
+    margin: auto auto auto 0;
+    font-weight: bold;
+    font-size: 28px;
+    color: var(--main);
+}
+.aid-card>.card, .card>.aid-header-desc {
+    border-radius: 15px 15px 0 0;
+}
+.aid-card .card-body {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--strong);
+}
+.aid-card-desc {
+    display: none;
+}
+.aid-route:hover {
+    text-decoration: none;
+}
+.explore-bar {
+    background-color: var(--secundary-low-contrast);
+    padding: 13px 15px 20px 60px;
+    border-radius: 0 0 0 100px;
+}
+.aid-cards {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    grid-gap: 20px;
+    margin: 20px 0;
+}
+.aid-cards > * {
+    margin: auto;
+}
+.page-item {
+    width: 35px;
+    display: inline-block;
+}
+@media only screen and (max-width: 405px) {.aid-cards {grid-template-columns: repeat( 1,1fr);grid-gap: calc((100vh- 325px)/2);align-items: center;}}
+@media only screen and (min-width: 405px) {.aid-cards {grid-template-columns: repeat( 1,1fr);}}
+@media only screen and (min-width: 810px) {.aid-cards {grid-template-columns: repeat( 2,1fr);}}
+@media only screen and (min-width: 1215px) {.aid-cards {grid-template-columns: repeat( 3,1fr);}}
+@media only screen and (min-width: 1620px) {.aid-cards {grid-template-columns: repeat( 4,1fr);}}
+@media only screen and (min-width: 2025px) {.aid-cards {grid-template-columns: repeat( 5,1fr);}}
+@media only screen and (min-width: 2430px) {.aid-cards {grid-template-columns: repeat( 6,1fr);}}
+@media only screen and (min-width: 2835px) {.aid-cards {grid-template-columns: repeat( 7,1fr);}}
+.explore-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.nav-pagination {
+    display: flex;
+    margin: 15px 0;
+}
+.nav-pagination-ul {
+    display: flex;
+    margin: auto;
+}
+.page-item > .page-link {
+    background-color: var(--main-low-contrast);
+    color: var(--strong);
+}
+.page-item > .page-link:hover {
+    background-color: var(--main);
+    color: var(--strong-high-contrast);
+}
+.page-item.active > .page-link {
+    background-color: var(--strong);
+    color: var(--main);
+    border-color: var(--strong);
+}
+.page-item.active > .page-link:hover {
+    background-color: var(--strong-high-contrast);
+    color: var(--main-low-contrast);
+    border-color: var(--strong-high-contrast);
+}
+.page-link:focus {
+    box-shadow: none;
+}
+@media only screen and (max-width: 680px) {
+    .second-nav-selects, .second-nav-searchs {width: 100%;}
+    .explore-bar {
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 2%;
+    }
+    .second-nav-selects {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 2%;
+    }
+    .second-nav-searchs {
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+        grid-gap: 2%;
+    }
+}
+
+
 
 
 @media only screen and (max-width: 1065px) {

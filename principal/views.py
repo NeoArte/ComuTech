@@ -74,8 +74,6 @@ def explorar(request, extra_context=None):
     aid = Aid.objects.all()
     context = {'aidtypes': types, 'aid_list': aid}
 
-
-
     if request.method == "GET":
 
         # Filtro de dias =================
