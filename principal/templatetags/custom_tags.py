@@ -1,4 +1,6 @@
 from django import template
+from django.conf import settings
+from comutech.settings import MEDIA_URL
 from principal.models import Aid
 
 register = template.Library()
@@ -13,5 +15,5 @@ def get_thumbnail(pk):
     if not img.exists():
         return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU"
     img = img.first().image
-    return "/media/" + img.name
+    return MEDIA_URL + img.name
 
