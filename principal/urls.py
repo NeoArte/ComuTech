@@ -12,7 +12,7 @@ urlpatterns = [
     path("logout/", views.log_out, name="logout"),
 
     path("explorar/", views.explorar, name="explore"), # Página para Explorar
-    path("explorar/int/", views.visualizar, name="visualizar"), # Abre um socorro de acordo com o ID (<int>) para o visualizar.
+    path("explorar/<int:id>/", views.visualizar, name="visualizar"), # Abre um socorro de acordo com o ID (<int>) para o visualizar.
     # path("search/", views.search, name="search"),
 
     #TODO - ao acessar apenas "usuario" redireciona para "usuario/int" da própria pessoa

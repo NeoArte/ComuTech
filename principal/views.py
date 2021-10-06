@@ -119,7 +119,7 @@ def explorar(request, extra_context=None):
 
     return render(request, "principal/explorar.html", context)
 
-def visualizar(request):
+def visualizar(request, id):
     return render(request, "principal/socorro.html")
 
 @login_required(login_url="/login/")
