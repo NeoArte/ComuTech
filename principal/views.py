@@ -222,3 +222,15 @@ def delete(request, pk): #Deletar Usuário
     if request.user.id == getattr(user, 'id'):
         user.delete()
     return redirect('home')
+
+def openAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    creation_date = datetime.today()
+
+    if request.method == "GET":
+        open = request.GET.get('open')
+    if open:
+        aid.state = "A"
+        aid.creation_date = creation_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')    
