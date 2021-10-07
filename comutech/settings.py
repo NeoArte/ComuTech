@@ -77,6 +77,8 @@ TEMPLATES = [
 
 # Django_Q, usado para automátizaçãqo de tarefas
 Q_CLUSTER = {
+    'timeout': 60,
+    'retry': 65,
     'name': 'comutech',
     'orm': 'default'
 }
