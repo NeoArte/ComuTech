@@ -117,7 +117,7 @@ def explore(request, extra_context=None):
     
     print('\n\n\n\nCount: ', context["aid_page"].count, '\n\n\n\n')
 
-    return render(request, "principal/explorar.html", context)
+    return render(request, "principal/explore.html", context)
 
 def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
@@ -126,7 +126,7 @@ def seeAid(request, pk):
         'aid': aid,
         'aid_photos': aid_photos
     }
-    return render(request, "principal/socorro.html", context)
+    return render(request, "principal/aid.html", context)
 
 @login_required(login_url="/login/")
 def user(request, pk):
