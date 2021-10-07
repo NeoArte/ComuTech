@@ -12,7 +12,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
 
-
 def home(request):
     return render(request, "principal/home.html")
 
@@ -183,15 +182,16 @@ def criar(request):
     # recuperada pelo request.FILES.getlist separadamente. 
     # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
+    user = User.objects.get(pk=request.user.id)
+    aid = user.myaid.count()
 
     form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
-    
+    print("\n\n\n\n\n\n", form, "\n\n\n\n\n\n")
     img_form = AidPhotosForm(request.POST, request.FILES) # Contém os dados do form de imagens (seu ImageField pode conter apenas 1 imagem)
     images = request.FILES.getlist('image') # Contém a lista de imagens pegas pelo request
-
+    print(request.POST)
     print('\n\n\n\nRequest: ', request.FILES.getlist('image'), '\n\n\n\n') 
-
-    if form.is_valid() and img_form.is_valid():
+    if form.is_valid() and img_form.is_valid() and aid <= 8:
         print('\n\n\n\nEntrou\n\n\n\n') 
         form = form.save()
         description = img_form.cleaned_data['description']
@@ -200,8 +200,13 @@ def criar(request):
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
         return redirect('home')
-
-    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
+    else:
+        messages.add_message(request, messages.ERROR, 'Você já excedeu o limite de 8 socorros ativos!')
+        print("- - -  id  - - -")
+        print(user.id)
+        print("- - - Fim id - - -\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        return redirect("criacao")
+    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n')
 
 @login_required(login_url="/login/")
 def deletar(request, pk):
