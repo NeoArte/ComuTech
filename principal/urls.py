@@ -22,5 +22,6 @@ urlpatterns = [
     path("need-aid/", views.needAid, name="need_aid"), # Página para criação do socorro.
     path("need-aid/create-aid/", views.createAid), # Cria o o socorro e redireciona para "explorar/id_do_socorro" para visualiza-lo. O SEGUNDO INT é o id do socorro
     path("deletar/<int:pk>", views.deletar), # Deleta o socorro e redireciona para "socorrosmeus"
-    path("delete/<int:pk>", views.delete, name="delete") # Deleta o usuário
+    path("delete/<int:pk>", views.delete, name="delete"), # Deleta o usuário
+    path("open/<int:pk>", views.openAid), # Descongela o Socorro que estava Congelado
 ]
