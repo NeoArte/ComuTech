@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+<div class="form card-outline card-primary my-5">
+    <div class="card-header text-center">
+        <h1 class="h1 aid-create"><b>Criar Publicação</b></h1>
+    </div>
+    <div class="card-body">                     
+        <form enctype="multipart/form-data" action="/need-aid/create-aid/" method="POST">
+            {% csrf_token %}
+            <div class="column">
+                <div id="section-img">
+                  <input type="file" id="_plusAidIMG" accept="image/*" multiple>
+                    {{image_form.image}}
+                    <div id="carouselExampleIndicators" class="carousel slide aid-slide" data-ride="carousel">
+                        <ol id="aidCarouselIndicators" class="carousel-indicators">
+                        </ol>
+                        <div id="aidCarouselInner" class="carousel-inner">
+                        </div>
+                        <a id="aid-control-prev" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="chevron-compact" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+                          </svg>
+                        </a>
+                        <a id="aid-control-next" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="chevron-compact" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+                          </svg>
+                        </a>
+                      </div>
+                    <label id="file-imgs" class="input-icon" for="_aidInputIMG">
+                        <div id="fileDefault" class="file-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                            </svg>
+                            <p>Adicionar Imagens</p>
+                        </div>
+                        <div id="fileAdd" class="file-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            <p>Adicionar Imagens</p>
+                        </div>
+                    </label>
+                </div>
+                <div id="aid-imgs-section" class="row aid-imgs-section my-3">
+                </div>
+            </div>
+            <label class="input-group mb-3 big-input" for="title">
+                {{form.title}}
+                <div class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z"/>
+                    </svg>
+                </div>
+            </label>
+            <label class="input-group mb-3 p-0" for="name">
+              {{form.type}}  
+          </label>
+            <label class="w-100" for="aid-desc">
+                <div class="card card-danger">
+                  <div class="card-header desc-header">
+                    <h3 class="card-title desc-title">Descrição</h3>
+                  </div>
+                  <div class="card-body p-0">
+                    {{form.description}}
+                  </div>
+                </div>
+            </label>
+            
+            <button type="submit" class="btn btn-block btn-form col-12 p-1 aid-create">
+                Publicar
+            </button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'Sources/aidCreate.js' %}"></script>
+{% endblock %}

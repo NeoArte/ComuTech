@@ -16,9 +16,13 @@ from datetime import datetime, timedelta, date
 def home(request):
     return render(request, "principal/home.html")
 
+# REGISTRA O USUÁRIO
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
+        print("\n\n\n\n\n\n\n\n\n\n", request.POST)
+        print(request.POST["password1"])
+        print(request.POST["password2"], "\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Cadastro concluido com sucesso!')
@@ -33,7 +37,10 @@ def register(request):
                 return redirect('home')
             return redirect('home')
         else:
-            messages.add_message(request, messages.ERROR, 'Formulário inválido!')
+            if request.POST["password1"] != request.POST["password2"]:
+                messages.add_message(request, messages.ERROR, 'As senhas não correspodem!')
+            else:
+                messages.add_message(request, messages.ERROR, 'Algo no formulário está incorreto!')
 
     form = RegistrationForm() 
     context = {
@@ -69,7 +76,7 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
-def explorar(request, extra_context=None):
+def explore(request, extra_context=None):
     types = AidType.objects.all()
     aid = Aid.objects.all()
     aid = aid.exclude(state="C")
@@ -118,16 +125,16 @@ def explorar(request, extra_context=None):
     
     print('\n\n\n\nCount: ', context["aid_page"].count, '\n\n\n\n')
 
-    return render(request, "principal/explorar.html", context)
+    return render(request, "principal/explore.html", context)
 
-def visualizar(request, pk):
+def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
     aid_photos = aid.photos.all()
     context = {
         'aid': aid,
         'aid_photos': aid_photos
     }
-    return render(request, "principal/socorro.html", context)
+    return render(request, "principal/aid.html", context)
 
 @login_required(login_url="/login/")
 def user(request, pk):
@@ -171,14 +178,15 @@ def edit_account(request, id):
 
 
 @login_required(login_url="/login/")
-def criacao(request):
+def needAid(request):
     context = {}
     context['form'] = AidForm(author=request.user)
     context['image_form'] = AidPhotosForm()
-    return render(request, "principal/criacao.html", context)
+    return render(request, "principal/needAid.html", context)
 
 @login_required(login_url="/login/")
-def criar(request):
+def createAid(request):
+
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
     # recuperada pelo request.FILES.getlist separadamente. 
@@ -222,3 +230,15 @@ def delete(request, pk): #Deletar Usuário
     if request.user.id == getattr(user, 'id'):
         user.delete()
     return redirect('home')
+
+def openAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    creation_date = datetime.today()
+
+    if request.method == "GET":
+        open = request.GET.get('open')
+    if open:
+        aid.state = "A"
+        aid.creation_date = creation_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')    

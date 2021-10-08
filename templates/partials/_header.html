@@ -43,7 +43,7 @@
         </div>
         {% endif %}
         <li class="nav-item active">
-          <a class="text-danger nav-text" href="{% url 'criacao' %}">
+          <a class="text-danger nav-text" href="{% url 'need_aid' %}">
             <button class="btn-help" >
               <p class="m-0">Pedir Ajuda</p>
             </button>
@@ -52,14 +52,13 @@
       </ul>
     </div>
   </nav>
-  {% if messages %}
-    {% for message in messages %}
-    <div class="alert {{message.tags}} alert-dismissible fade show d-flex justify-content-center" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert {{message.tags}} alert-dismissible fade show text-center" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-
-    {% endfor %}
-  {% endif %}
+  {% endfor %}
+{% endif %}
