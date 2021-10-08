@@ -597,14 +597,27 @@ button.explore-btn:active {
 .partner div{
     background-color: white;
     border-radius: 30px;
-    margin-right: 100px;
-    margin-left: 100px;
+
+    display: inline-block;
+
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .partner img{
     height: 188px;
     width: 203px;
+    padding: 22px;
 }
+
+.contact div{
+    text-align: left;
+}
+
+.contact h5{
+    text-align: center;
+}
+
 .aid-card {
     width: 325px;
     border-radius: 15px;
