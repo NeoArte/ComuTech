@@ -73,7 +73,7 @@
                 Oferecer-se
               </div>
               {% endif %}
-              {% if not aid.author.facebook == aid.author.twitter == aid.author.whatsapp == aid.author.instagram == "" %}
+              {% if aid.author.facebook != "" or aid.author.twitter != "" or aid.author.whatsapp != "" or aid.author.instagram != "" %}
               <div class="m-3">
                 <p class="subtitle user-social-contact">Contatar</p>
                 <div class="social-buttons mt-3 user-social-networks">
