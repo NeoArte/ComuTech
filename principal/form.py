@@ -121,7 +121,7 @@ class EditProfileForm(UserChangeForm):
     
     class Meta:
         model = User
-        fields = ('profile_picture', 'name', 'email', 'phone', 'facebook', 'whatsapp', 'instagram', 'twitter', 'cep', 'password')
+        fields = ('profile_picture', 'name', 'email', 'phone', 'facebook', 'whatsapp', 'instagram', 'twitter', 'cpf', 'cep', 'birth_date', 'password')
 
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -144,10 +144,20 @@ class EditProfileForm(UserChangeForm):
             'type':'text',
             'id':'phone',
         })
+        self.fields['cpf'].widget.attrs.update({
+            'placeholder':'CPF',
+            'type':'text',
+            'id':'cpf',
+        })
         self.fields['cep'].widget.attrs.update({
             'placeholder':'CEP',
             'type':'text',
             'id':'cep',
+        })
+        self.fields['birth_date'].widget.attrs.update({
+            'placeholder':'Data de nascimento',
+            'type':'text',
+            'id':'birth_date',
         })
         self.fields['facebook'].widget.attrs.update({
             'placeholder':'Informe seu facebook',
