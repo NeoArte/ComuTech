@@ -144,14 +144,23 @@
                     </label>
                 </section>
             </div>
-            <div class="form-group row m-2 mt-5 user-info">
-                <h4><b class="pr-2">CPF</b></h4>
-                <h4>{{userData.cpf}}</h4>
-            </div>
-            <div class="form-group row m-2 my-2 user-info">
-                <h4><b class="pr-2">Data de nascimento</b></h4>
-                <h4>{{userData.birth_date}}</h4>
-            </div>
+            <label class="input-group mb-3" for="phone">
+                {{userForm.cpf}}
+                <div class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+                    </svg>
+                </div>
+            </label>
+            <label class="input-group mb-3" for="phone">
+                {{userForm.birth_date}}
+                <div class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                    </svg>
+                </div>
+            </label>
             <label class="input-group mb-3" for="cep">
                 {{userForm.cep}}
                 <div class="input-group-text">
