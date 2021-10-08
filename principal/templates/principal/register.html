@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
-
 {% block main %}
+<style>
+  .instruction-font{
+    font-weight: bolder;
+    color: #8eb5d6;
+  }
+</style>
             <div class="form card-outline card-primary my-5">
                 <div class="card-header text-center">
                     <h1 class="h1"><b>Cadastrar-se</b></h1>
@@ -141,7 +146,7 @@
                                 </svg>
                             </div>
                         </label>
-                        <span class="text-center"><p class="font-font-weight-bold">Informe sua data de nascimento abaixo, Ex: aaaa-mm-dd </p></span>
+                        <span class="text-center instruction-font"><p class="font-font-weight-bold mb-0">Informe sua data de nascimento abaixo, Ex: aaaa-mm-dd </p></span>
                         <label class="input-group mb-3" for="birth-date">
                             {{form.birth_date}}
                             <div class="input-group-text">
@@ -157,7 +162,7 @@
                                 }
                             </script>
                         </label>
-                        <span class="text-center"><p class="font-font-weight-bold">Informe seu número de telefone, ex: 554791848923</p></span>
+                        <span class="text-center instruction-font"><p class="font-font-weight-bold mb-0">Informe seu número de telefone, ex: 554791848923</p></span>
                         <label class="input-group mb-3" for="phone">
                             {{form.phone}}
                             <div class="input-group-text">
@@ -175,7 +180,7 @@
                                 </svg>
                             </div>
                         </label>
-                        <span class="text-center"><p class="font-font-weight-bold">A senha deve conter no mínimo 8 caracteres, letras, números</p></span>
+                        <span class="text-center instruction-font"><p class="font-font-weight-bold mb-0">A senha deve conter no mínimo 8 caracteres, letras, números</p></span>
                         <label class="input-group mb-3" for="password">
                             {{form.password1}}
                             <div class="input-group-text">
@@ -185,7 +190,7 @@
                                 </svg>
                             </div>
                         </label>
-                        <span class="text-center"><p class="font-font-weight-bold">Este campo deve ter a mesma senha que o campo anterior</p></span>
+                        <span class="text-center instruction-font"><p class="font-font-weight-bold mb-0">Este campo deve ter a mesma senha que o campo anterior</p></span>
                         <label class="input-group mb-3" for="ConfirmPassword">
                             {{form.password2}}
                             <div class="input-group-text">
