@@ -16,9 +16,13 @@ from datetime import datetime, timedelta, date
 def home(request):
     return render(request, "principal/home.html")
 
+# REGISTRA O USUÁRIO
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
+        print("\n\n\n\n\n\n\n\n\n\n", request.POST)
+        print(request.POST["password1"])
+        print(request.POST["password2"], "\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Cadastro concluido com sucesso!')
@@ -33,7 +37,10 @@ def register(request):
                 return redirect('home')
             return redirect('home')
         else:
-            messages.add_message(request, messages.ERROR, 'Formulário inválido!')
+            if request.POST["password1"] != request.POST["password2"]:
+                messages.add_message(request, messages.ERROR, 'As senhas não correspodem!')
+            else:
+                messages.add_message(request, messages.ERROR, 'Algo no formulário está incorreto!')
 
     form = RegistrationForm() 
     context = {
