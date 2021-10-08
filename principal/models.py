@@ -82,7 +82,13 @@ class User(AbstractBaseUser): # Usuários
     cpf = models.CharField(max_length=11, validators=[validators.MinLengthValidator(11)], unique=True)
     phone = models.CharField(max_length=13)
 
-    
+    country = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    neighborhood = models.CharField(max_length=255)
+    street = models.CharField(max_length=255)
+    house_number = models.CharField(max_length=255)
+    complementary_info = models.CharField(max_length=255)
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
 
     birth_date = models.DateField()
@@ -105,7 +111,10 @@ class User(AbstractBaseUser): # Usuários
     is_superuser = models.BooleanField(default=False) # É um super usuário (privilégios especiais)
 
     USERNAME_FIELD = 'email' # O que será usado para realizar o login
-    REQUIRED_FIELDS = ['name', 'cpf', 'phone', 'cep', 'birth_date', 'whatsapp', 'twitter', 'facebook', 'instagram', 'profile_picture']
+    REQUIRED_FIELDS = [
+        'name', 'cpf', 'phone', 'country', 'state', 'city', 'neighborhood', 'street', 'house_number', 
+        'complementary_info', 'cep', 'birth_date', 'whatsapp', 'twitter', 'facebook', 'instagram', 'profile_picture'
+        ]
 
     objects = UserManager()
 
