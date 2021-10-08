@@ -84,7 +84,14 @@
     color: var(--main-low-contrast);
 }
 footer {
-    background-color: var(--main);
+    background-color: var(--strong);
+}
+
+.row{
+    background-color: var(--strong);
+}
+.background{
+    background-color: var(--strong);
 }
 .input-img {
 
@@ -586,9 +593,17 @@ button.explore-btn:active {
 .partner h5{
     margin-top: 27px;
 }
+
+.partner div{
+    background-color: white;
+    border-radius: 30px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
 .partner img{
-    height: 198px; 
-    width: 220px;
+    height: 188px;
+    width: 203px;
 }
 .aid-card {
     width: 325px;
