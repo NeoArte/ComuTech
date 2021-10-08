@@ -84,7 +84,7 @@ class User(AbstractBaseUser): # Usuários
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='users/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='users/', default='users/profile_empty.jpg')
 
     whatsapp = models.CharField(max_length=13, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])

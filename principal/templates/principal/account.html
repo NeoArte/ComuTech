@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+
 {% load custom_tags %}
 {% load static %}
+
 {% block main %}
     <div class="card-body">
       <div class="user-first-section">
@@ -17,7 +19,7 @@
           <h1 class="user-title">
             {{user_viewed.name}}
           </h1>
-          {% if user_viewed.facebook != "" or user_viewed.twitter != "" or user_viewed.whatsapp != "" or user_viewed.instagram != "" %}
+          {% if user_viewed.facebook or user_viewed.whatsapp or user_viewed.instagram or user_viewed.twitter %}
           <div class="m-3">
             <p class="subtitle user-social-contact">Contatar</p>
             <div class="social-buttons mt-3 user-social-networks">
@@ -57,7 +59,7 @@
             </div>
           </div>
           {% endif %}
-          <div class="page-user-information">
+          <div class="page-user-information my-3">
             <div class="form-group row m-2 user-info">
               <h4><b class="pr-2">Idade: </b></h4>
               <h4>{{user_age}} anos</h4>
@@ -84,61 +86,64 @@
         </div>
       </div>
 
-      <hr> <!--Temporário, separação entre usuário e seção de meus socorros-->
-      {% if user_viewed.id == request.user.id %}
-      <h1>Meus Socorros</h1>
-      {% else %}
-      <h1>Socorros de {{user_viewed.name}}</h1>
-      {% endif %}
-      <div class="row">
-      {% for aid in aid_list %}
-            <div class="aid-card">
-              <div>
-                <a href="/explore/{{aid.id}}" class="aid-route">
-                  <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
-                  <div class="aid-title-section">
-                    <p>
-                      {{aid.title}}
-                    </p>
-                  </div>
+      {% if aid_list %}
+      <div class="user-second-section">
+        {% if user_viewed.id == request.user.id %}
+        <h1 class="title-user-aids">Meus Socorros</h1>
+        {% else %}
+        <h1 class="user-second-section">Socorros de {{user_viewed.name}}</h1>
+        {% endif %}
+        <div class="aid-cards">
+          {% for aid in aid_list %}
+          <div class="aid-card">
+            <div>
+              <a href="/explore/{{aid.id}}" class="aid-route">
+                <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
+                <div class="aid-title-section">
+                  <p>
+                    {{aid.title}}
+                  </p>
+                </div>
+              </a>
+              <div class="aid-infos-section">
+                <a class="aid-profile-user" href="/user/{{aid.author.id}}">
+                  <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
+                  {{aid.author.name}}
                 </a>
-                <div class="aid-infos-section">
-                  <a class="aid-profile-user" href="/user/{{aid.author.id}}">
-                    <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
-                    {{aid.author.name}}
-                  </a>
-                  <p class="aid-type">{{aid.type}}</p>
-                </div>
-                <div class="aid-card-buttons">
-                  {% if aid.author.id == user.id %}
-                  <div class="dropdown">
-                    <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Opções
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Desativar Públicação</a>
-                      <a class="dropdown-item" href="#">Finalizar Publicação</a>
-                    </div>
-                  </div>
-                  {% endif %}
-                  <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
-                    Descrição
-                  </button>
-                </div>
+                <p class="aid-type">{{aid.type}}</p>
               </div>
-              <div class="card aid-card-desc">
-                <div class="card-header aid-header-desc">
-                  <h3 class="card-title">Descrição</h3>
-                  <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
-                    Voltar
+              <div class="aid-card-buttons">
+                {% if aid.author.id == user.id %}
+                <div class="dropdown">
+                  <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Opções
                   </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Desativar Públicação</a>
+                    <a class="dropdown-item" href="#">Finalizar Publicação</a>
+                  </div>
                 </div>
-                <div class="card-body">
-                  {{aid.description}}
-                </div>
+                {% endif %}
+                <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+                  Descrição
+                </button>
               </div>
             </div>
-      {% endfor %}
+            <div class="card aid-card-desc">
+              <div class="card-header aid-header-desc">
+                <h3 class="card-title">Descrição</h3>
+                <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+                  Voltar
+                </button>
+              </div>
+              <div class="card-body">
+                {{aid.description}}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
     </div>
     <script src="{% static 'Sources/account.js' %}"></script>
