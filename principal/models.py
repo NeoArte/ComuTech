@@ -145,8 +145,6 @@ class Aid(models.Model): # Socorros
     STATES = (("A", "Aberto"), ("C", "Congelado"), ("F", "Finalizado"))
     state = models.CharField(max_length=1, choices=STATES, default="A")
 
-    # Contribuidores é "Muitos para Muitos" pois muitos socorros podem ser ajudos por muitos usuários diferentes.
-    contributors = models.ManyToManyField(User, related_name="contribuidores", blank=True)
 
 class AidPhotos(models.Model):
     # Fotos usadas em um socorro, precisa estar associado a um socorro, conter uma imagem (salva em MEDIA/socorros/) e uma descrição usada em leitores de tela.
