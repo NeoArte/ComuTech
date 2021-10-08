@@ -87,7 +87,7 @@ class User(AbstractBaseUser): # Usuários
 
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='usuarios/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='users/', default='users/profile_empty.jpg')
 
     whatsapp = models.CharField(max_length=13, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
@@ -155,6 +155,3 @@ class AidPhotos(models.Model):
     aid = models.ForeignKey(Aid, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to="socorros/", default="")
     description = models.TextField(null=True, blank=True) # Descrição na imagem para leitores de tela.
-
-
-

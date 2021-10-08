@@ -537,7 +537,6 @@ button.explore-btn:active {
     font-size: 55px;
     font-weight: bolder;
     color: var(--strong);
-    text-align: center;
 }
 .user-second-box {
     display: flex;
@@ -1001,24 +1000,6 @@ button.btn-aid {
     font-weight: 700;
     font-size: 35px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .user-first-section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1028,17 +1009,25 @@ button.btn-aid {
 .page-user-img {
     width: 100%;
     height: 500px;
+    border-radius: 40px;
 }
 @media only screen and (max-width: 1050px) {.user-first-section {grid-template-columns: 5fr 3fr;}}
-@media only screen and (max-width: 750px) {.user-first-section {grid-template-columns: 1fr;padding: 10px 100px;}}
-@media only screen and (max-width: 700px) {.user-first-section {padding: 10px 70px;}}
-@media only screen and (max-width: 650px) {.user-first-section {padding: 10px 40px;}}
-@media only screen and (max-width: 600px) {.user-first-section {padding: 1.5%;}}
+@media only screen and (max-width: 750px) {.user-first-section {grid-template-columns: 1fr;padding: 10px 100px;}.user-second-section{padding: 10px 100px;}}
+@media only screen and (max-width: 700px) {.user-first-section, .user-second-section {padding: 10px 70px;}}
+@media only screen and (max-width: 650px) {.user-first-section, .user-second-section {padding: 10px 40px;}}
+@media only screen and (max-width: 600px) {.user-first-section, .user-second-section {padding: 1.5%;}}
 
 @media only screen and (max-width: 900px) {.page-user-img {height: 400px;}}
 @media only screen and (max-width: 500px) {.page-user-img {height: 350px;}}
-
-
+.page-user-information {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.title-user-aids {
+    margin: 20px auto 30px 40px;
+    font-weight: 700;
+    color: var(--main);
+}
 
 
 
