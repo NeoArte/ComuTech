@@ -1,5 +1,6 @@
 from .models import Aid
-from datetime import time, timedelta, date
+from datetime import time, timedelta
+from django.utils import timezone
 
 
 # Para iniciar use: python manage.py qcluster
@@ -9,15 +10,14 @@ def aid_checker():
     aid_list  = Aid.objects.all()
     for aid in aid_list:
 
-        aid_date = aid.creation_date
         pause_time = aid.creation_date + timedelta(days=60)
         delete_time = aid.creation_date + timedelta(days=74)
 
-        print("Today: ", date.today(), " | ", "PT: ", pause_time, " | ", "DT: ", delete_time)
+        print("Aid ID: ", aid.id, " | ","Today: ", timezone.now(), " | ", "PT: ", pause_time, " | ", "DT: ", delete_time)
 
-        if date.today() >= pause_time:
+        if timezone.now() >= pause_time and aid.state is not "C":
             aid.state = "C"
             aid = aid.save()
         
-        if aid.state == "C" and aid_date >= delete_time:
+        if aid.state == "C" and timezone.now() >= delete_time:
             aid.delete()
