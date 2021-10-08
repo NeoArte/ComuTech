@@ -138,7 +138,7 @@ def user(request, pk):
     user_age = user_age.days // 365
 
     aid_list = user_viewed.myaid.all()
-
+    
     context = {
         'user_viewed': user_viewed,
         'user_age': user_age,
