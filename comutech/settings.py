@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'principal.apps.PrincipalConfig',
+    'django_q',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,15 @@ TEMPLATES = [
         },
     },
 ]
+
+# Django_Q, usado para automátizaçãqo de tarefas
+Q_CLUSTER = {
+    'timeout': 60,
+    'retry': 65,
+    'name': 'comutech',
+    'orm': 'default'
+}
+
 
 # Determinar qual o modelo para usuários
 AUTH_USER_MODEL = 'principal.User'

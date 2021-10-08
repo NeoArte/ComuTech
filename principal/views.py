@@ -79,6 +79,7 @@ def log_out(request):
 def explore(request, extra_context=None):
     types = AidType.objects.all()
     aid = Aid.objects.all()
+    aid = aid.exclude(state="C")
     context = {'aidtypes': types, 'aid_list': aid}
 
     if request.method == "GET":
