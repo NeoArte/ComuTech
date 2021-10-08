@@ -133,6 +133,7 @@ class EditProfileForm(UserChangeForm):
             'placeholder':'Nome Completo',
             'type':'text',
             'id':'name',
+            'class':'form-control big-input',
         })
         self.fields['email'].widget.attrs.update({
             'placeholder':'Email',
