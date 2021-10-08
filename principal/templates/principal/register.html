@@ -33,7 +33,7 @@
                                     <p>Adicionar Foto</p>
                                 </div>
                             </label>
-                        </div>
+                        </div>  
                         <label class="input-group mb-3" for="name">
                             <!--<input type="text" class="form-control" placeholder="Nome Completo" id="name"/>-->
                             {{form.name}}
@@ -141,6 +141,7 @@
                                 </svg>
                             </div>
                         </label>
+                        <span class="text-center"><p class="font-font-weight-bold">Informe sua data de nascimento abaixo, Ex: aaaa-mm-dd </p></span>
                         <label class="input-group mb-3" for="birth-date">
                             {{form.birth_date}}
                             <div class="input-group-text">
@@ -156,6 +157,7 @@
                                 }
                             </script>
                         </label>
+                        <span class="text-center"><p class="font-font-weight-bold">Informe seu número de telefone, ex: 554791848923</p></span>
                         <label class="input-group mb-3" for="phone">
                             {{form.phone}}
                             <div class="input-group-text">
@@ -173,6 +175,7 @@
                                 </svg>
                             </div>
                         </label>
+                        <span class="text-center"><p class="font-font-weight-bold">A senha deve conter no mínimo 8 caracteres, letras, números</p></span>
                         <label class="input-group mb-3" for="password">
                             {{form.password1}}
                             <div class="input-group-text">
@@ -182,6 +185,7 @@
                                 </svg>
                             </div>
                         </label>
+                        <span class="text-center"><p class="font-font-weight-bold">Este campo deve ter a mesma senha que o campo anterior</p></span>
                         <label class="input-group mb-3" for="ConfirmPassword">
                             {{form.password2}}
                             <div class="input-group-text">

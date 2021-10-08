@@ -6,6 +6,7 @@ from django.contrib.admin import widgets
 
 
 class RegistrationForm(UserCreationForm):
+    name = forms.CharField(max_length=255, help_text="Seu nome")
     class Meta:
         model = User
         fields = (
