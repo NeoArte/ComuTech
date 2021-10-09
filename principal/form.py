@@ -133,6 +133,7 @@ class EditProfileForm(UserChangeForm):
             'placeholder':'Nome Completo',
             'type':'text',
             'id':'name',
+            'class':'form-control big-input',
         })
         self.fields['email'].widget.attrs.update({
             'placeholder':'Email',
@@ -158,6 +159,7 @@ class EditProfileForm(UserChangeForm):
             'placeholder':'Data de nascimento',
             'type':'text',
             'id':'birth_date',
+            'class':'form-control datepicker',
         })
         self.fields['facebook'].widget.attrs.update({
             'placeholder':'Informe seu facebook',
@@ -180,8 +182,9 @@ class EditProfileForm(UserChangeForm):
             'id':'twitter-input',
         })
         self.fields['profile_picture'].widget.attrs.update({
-            'class':'',
-            'id':'_inputIMG'
+            'class':'edit-img',
+            'id':'_inputIMG',
+            'accept':'image/*',
             })
 
 
