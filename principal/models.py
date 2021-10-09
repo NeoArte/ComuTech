@@ -81,7 +81,10 @@ class User(AbstractBaseUser): # Usuários
     email = models.EmailField(max_length=255, unique=True)
     cpf = models.CharField(max_length=11, validators=[validators.MinLengthValidator(11)], unique=True)
     phone = models.CharField(max_length=13)
+
+    
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
+
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
     profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.jpg')

@@ -7,6 +7,7 @@ db.sqlite3
 media/users/*
 !media/users/empty-img-profile.jpg
 
+
 # Backup files # 
 *.bak 
 
