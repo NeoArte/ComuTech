@@ -1,6 +1,6 @@
 {% load static %} 
  <nav class="navbar navbar-expand-md navbar-dark bg-nav">
-    <a class="navbar-brand" href="{% url 'home' %}">
+    <a class="navbar-brand mx-2" href="{% url 'home' %}">
       <img src="{% static 'Sources/images/ComuTechLogo.png' %}" alt="Logo" width="175" height="50" class="">
     </a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,6 +11,9 @@
       <ul class="navbar-nav ml-auto nav-items">
         <li class="nav-item active">
           <a class="nav-form nav-text" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="link-about-dev" href="/#about-dev">Quem somos nós?</a>
         </li>
         <li class="nav-item">
           <a class="link-explore" href="{% url 'explore' %}">
@@ -25,7 +28,7 @@
           <a class="nav-form nav-text" href="{% url 'register' %}">Cadastro</a>
         </li>
         {% elif user.is_authenticated %}
-        <div class="dropdown mx-2">
+        <div class="dropdown mx-3">
           <div id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="user-profile-btn">
               <svg class="user-profile-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -35,7 +38,7 @@
               <p class="user-profile-text">Perfil</p>
             </div>
           </div>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="/user/{{user.id}}/">Ver meu perfil</a>
             <a class="dropdown-item" href="/user/{{user.id}}/edit/">Editar</a>
             <a class="dropdown-item" href="/logout/">Sair da conta</a>
@@ -44,7 +47,7 @@
         {% endif %}
         <li class="nav-item active">
           <a class="text-danger nav-text" href="{% url 'need_aid' %}">
-            <button class="btn-help" >
+            <button class="btn btn-form my-0" >
               <p class="m-0">Pedir Ajuda</p>
             </button>
           </a>
