@@ -141,6 +141,12 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+# Email Settings
+
+EMAIL_PORT = 465 #587
+EMAIL_HOST = "gmail"
+EMAIL_HOST_USER = ""
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
