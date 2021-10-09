@@ -103,7 +103,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser): # Usuários
 
-    # Define um úsuario dentro da plataforma. Esse possui: nome, email, cpf (apenas números), telefone, cep (apenas números), 
+    # Define um úsuario dentro da plataforma. Esse possui: nome, email, cpf (apenas números), telefone, um conjunto de campos para localização descritos abaixo, 
     # data de nascimento (s/ horário, formato padrão é AAAA-MM-DD-hh-mm-ss-ms, Ano-Mês-Dia-Hora-Minuto-Segundo-Milisegundo), senha,
     # foto de perfil (salvo em MEDIA/usuarios/), whatsapp, data de criação e 3 campos não obrigátorios que são 
     # twitter (nome de úsuario sem o @), facebook (nome de perfil) e instagram (nome de úsuario)
@@ -113,6 +113,9 @@ class User(AbstractBaseUser): # Usuários
     cpf = models.CharField(max_length=11, validators=[validators.MinLengthValidator(11)], unique=True)
     phone = models.CharField(max_length=13)
 
+    # Campos ligados a localização, traduzindo se tratam respectivamente de:
+    # País - Estado - Cidade - Bairro - Número da casa (ou prédio) - Informações adicionais (como o número do apartamento) - CEP
+    
     country = models.CharField(max_length=255, default="")
     state = models.CharField(max_length=255, default="")
     city = models.CharField(max_length=255, default="")
