@@ -618,6 +618,11 @@ button.explore-btn:active {
     text-align: center;
 }
 
+.u-section-3 .u-text-4{
+    font-size:1.30rem;
+    margin:-82px 20px 90px
+}
+
 .aid-card {
     width: 325px;
     border-radius: 15px;
