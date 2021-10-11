@@ -275,6 +275,7 @@ footer {
     width: 95%;
     
 }
+
 .btn-form:hover {
     color: var(--secundary);
     background-color: var(--main);
@@ -288,6 +289,36 @@ footer {
     top: 2.5px;
     left: 2.5px;
 }
+
+.btn-back {
+    background-color: var(--secundary-high-contrast);
+    padding: 10px 20px;
+    height: 60px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: 550;
+    color: var(--secundary);
+    box-shadow: 2.5px 2.5px 0px 1px var(--secundary-low-contrast);
+    margin: 10px;
+    width: 95%;
+} 
+
+.btn-back:hover {
+    color: var(--secundary);
+    background-color: var(--secundary-high-contrast);
+    text-decoration: none;
+}
+.btn-back:focus {
+    box-shadow: 2.5px 2.5px 0px 1px var(--secundary-low-contrast);
+    text-decoration: none;
+}
+.btn-back:active {
+    background-color: var(--secundary-high-contrast);
+    position: relative;
+    top: 2.5px;
+    left: 2.5px;
+}
+
 .card-link {
     text-decoration: none;
     color: initial;

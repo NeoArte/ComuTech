@@ -70,9 +70,15 @@
                 </div>
             </label>
             
-            <button type="submit" class="btn btn-block btn-form col-12 p-1 aid-create">
+            <button type="submit" class="btn btn-block btn-form col-12 p-1">
                 Publicar
             </button>
+            
+            <a href="/user/{{ request.user.id }}">
+              <button type="button" class="btn btn-back btn-form  col-12 p-1 ">
+                <p class="m-0 p-0">Voltar</p>
+              </button>
+            </a>
         </form>
     </div>
 </div>
