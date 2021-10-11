@@ -82,13 +82,13 @@ class User(AbstractBaseUser): # Usuários
     cpf = models.CharField(max_length=11, validators=[validators.MinLengthValidator(11)], unique=True)
     phone = models.CharField(max_length=13)
 
-    country = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    neighborhood = models.CharField(max_length=255)
-    street = models.CharField(max_length=255)
-    house_number = models.CharField(max_length=255)
-    complementary_info = models.CharField(max_length=255)
+    # country = models.CharField(max_length=255)
+    # state = models.CharField(max_length=255)
+    # city = models.CharField(max_length=255)
+    # neighborhood = models.CharField(max_length=255)
+    # street = models.CharField(max_length=255)
+    # house_number = models.CharField(max_length=255)
+    # complementary_info = models.CharField(max_length=255)
     cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
 
     birth_date = models.DateField()
@@ -146,7 +146,7 @@ class Aid(models.Model): # Socorros
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="myaid")
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=14)
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(AidType, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
