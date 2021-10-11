@@ -222,6 +222,7 @@ footer {
 .input-group {
     min-width: 100%;
     margin: 0;
+    margin-bottom: 1rem;
     padding: 5px 10px;
 }   
 .input-group > * {
@@ -239,6 +240,10 @@ footer {
     outline: none;
     transition: none;
     padding: 8px 20px 8px 12px;
+    border-radius: 15px;
+}
+.form-control.without-icon {
+    margin: 5px 10px;
 }
 .form-control::placeholder {
     color: var(--secundary-high-contrast);
@@ -354,7 +359,7 @@ a:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    padding: 0 10px;
+    padding: 10px;
 }
 .social-medias {
     width: 60px;
@@ -1119,19 +1124,67 @@ button.btn-aid {
         height: 32px;
     }
 }
-@media only screen and (max-width: 840px) {
-    .nav-item a.link-about-dev, .link-explore, .nav-item .nav-text, .nav-item button {
-        font-size: 15px;
+@media only screen and (max-width: 920px) {
+    .nav-item a.link-about-dev {
+        display: none;
     }
     .user-profile-icon {
         width: 32px;
         height: 32px;
     }
 }
-
-
-
-
+@media only screen and (max-width: 767px) {
+    .nav-item a.link-about-dev {
+        display: initial;
+    }
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 380px);
+}
+#register-form {
+    min-width: none;
+    max-width: none;
+}
+@media only screen and (max-width: 830px) {
+    .form-grid {grid-template-columns: repeat(1, 380px);}
+}
+.grid-uf-city {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 5px 10px;
+    grid-gap: 10px;
+}
+.grid-uf-city>.form-control.without-icon, .grid-neighborhood-street>.form-control.without-icon {
+    margin: 0;
+}
+.grid-neighborhood-street {
+    display: grid;
+    grid-template-columns: 7fr 15fr 5fr;
+    margin: 5px 10px;
+    grid-gap: 10px;
+}
+.form-control.without-icon:focus {
+    border-color: var(--main-low-contrast);
+}
+.passwordIcon {
+    cursor: pointer;
+}
+#house_number, #neighborhood {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#house_number::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+#addressJSON {
+    display: none;
+}
+input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
+    border-color: var(--help);
+    color: var(--help-low-contrast);
+}
+input.form-control.wrong-form-control
 
 
 @media only screen and (max-width: 1065px) {

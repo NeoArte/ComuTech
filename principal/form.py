@@ -22,13 +22,18 @@ class RegistrationForm(UserCreationForm):
             'profile_picture',
             'password1', # Campo - Senha
             'password2', # Campo - Confirme sua senha
+            'state', 
+            'city', 
+            'neighborhood', 
+            'street',
+            'house_number',
         )
     
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class':'form-control'})
+            self.fields[field].widget.attrs.update({'class':'form-control','autocomplete':'off'})
 
         self.fields['name'].widget.attrs.update({
             'placeholder':'Nome Completo',
@@ -54,6 +59,7 @@ class RegistrationForm(UserCreationForm):
             'placeholder':'CEP',
             'type':'text',
             'id':'cep',
+            'maxlenght':'9',
         })
         self.fields['password1'].widget.attrs.update({
             'placeholder':'Senha',
@@ -61,7 +67,7 @@ class RegistrationForm(UserCreationForm):
             'id':'password',
         })
         self.fields['password2'].widget.attrs.update({
-            'placeholder':'Senha',
+            'placeholder':'Confirmar Senha',
             'type':'password',
             'id':'ConfirmPassword',
         })
@@ -94,7 +100,34 @@ class RegistrationForm(UserCreationForm):
         self.fields['profile_picture'].widget.attrs.update({
             'class':'',
             'id':'_inputIMG'
-            })
+        })
+        self.fields['state'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'state',
+            'placeholder':'UF',
+        })
+        self.fields['city'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'city',
+            'placeholder':'Cidade',
+        })
+        self.fields['neighborhood'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'neighborhood',
+            'placeholder':'Bairro',
+        })
+        self.fields['street'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'street',
+            'placeholder':'Rua',
+        })
+        self.fields['house_number'].widget.attrs.update({
+            'class':'form-control without-icon inputNumber',
+            'id':'house_number',
+            'placeholder':'Casa',
+            'type':'number',
+        })
+        
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
@@ -121,7 +154,20 @@ class EditProfileForm(UserChangeForm):
     
     class Meta:
         model = User
-        fields = ('profile_picture', 'name', 'email', 'phone', 'facebook', 'whatsapp', 'instagram', 'twitter', 'cpf', 'cep', 'birth_date', 'password')
+        fields = (
+            'profile_picture',
+            'name',
+            'email',
+            'phone', 
+            'facebook', 
+            'whatsapp', 
+            'instagram', 
+            'twitter', 
+            'cpf', 
+            'cep', 
+            'birth_date', 
+            'password', 
+            )
 
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -185,9 +231,8 @@ class EditProfileForm(UserChangeForm):
             'class':'edit-img',
             'id':'_inputIMG',
             'accept':'image/*',
-            })
-
-
+        })
+        
 
 
 class AidForm(ModelForm):
@@ -218,6 +263,7 @@ class AidForm(ModelForm):
         })
         self.fields['type'].widget.attrs.update({
             'class':'form-control',
+            'id':'aid-type',
         })
 
     def save(self, commit=True):

@@ -45,15 +45,23 @@
 <script src="{% static 'AdminLTE/dist/js/pages/dashboard2.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'AdminLTE/dist/js/pages/dashboard3.js' %}"></script>
-
+<script src="{% static 'Sources/jquery.mask.min.js' %}"></script>
+<script>
+  $('#cep').mask('99999-999')
+  $('#cpf').mask('999.999.999-99')
+  $('#phone').mask('+99 (99) 99999-9999')
+  $('#whatsapp-input').mask('+99 (99) 99999-9999')
+</script>
 
 <!--Date Picker Script-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
 <script>
 $('.datepicker').datepicker({
     format: 'yyyy-mm-dd',
     language: 'pt-BR',
+    endDate: '-4y',
 });
 </script>
 <!------------------------------------------------------------------>
