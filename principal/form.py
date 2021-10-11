@@ -72,24 +72,28 @@ class RegistrationForm(UserCreationForm):
             'id':'ConfirmPassword',
         })
         self.fields['facebook'].widget.attrs.update({
-            'placeholder':'Informe seu facebook',
+            'placeholder':'Link do seu facebook',
             'type':'text',
             'id':'facebook-input',
+            'input-valid':'true',
         })
         self.fields['whatsapp'].widget.attrs.update({
             'placeholder':'Informe seu número de whatsapp',
             'type':'text',
             'id':'whatsapp-input',
+            'input-valid':'true',
         })
         self.fields['instagram'].widget.attrs.update({
-            'placeholder':'Informe seu Instagram',
+            'placeholder':'Nome de perfil. Ex: d_machado12',
             'type':'text',
             'id':'instagram-input',
+            'input-valid':'true',
         })
         self.fields['twitter'].widget.attrs.update({
-            'placeholder':'Informe seu twitter',
+            'placeholder':'Informe sua tag. Ex: @pedro',
             'type':'text',
             'id':'twitter-input',
+            'input-valid':'true',
         })
         self.fields['birth_date'].widget.attrs.update({
             'placeholder':'Data de nascimento',

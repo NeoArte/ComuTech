@@ -69,16 +69,15 @@ document.getElementById('cep').onkeyup = function() {
 }
 document.getElementById('cep').onfocusout = function() {
     let cep = this.value.replace(/\D/g, '')
-    let cepValidation = /^[0-9]{8}$/
-    
-    console.log(cepValidation.test(cep))
-    if (!(cepValidation.test(cep))) {
-        this.parentElement.setAttribute('class','input-group wrong-form-control')
-        this.setAttribute('input-valid','false')
+        cepValidation = /^[0-9]{8}$/
+
+    if ((cepValidation.test(cep)) && (cep.length === 8)) {
+        this.setAttribute('input-valid','true')
+        this.parentElement.classList.remove('wrong-form-control')
     }
     else {
-        this.parentElement.setAttribute('class','input-group')
-        this.setAttribute('input-valid','true')
+        this.setAttribute('input-valid','false')
+        this.parentElement.classList.add('wrong-form-control')
     }
 }
 function getAddressFromCep(cep) {
@@ -110,15 +109,23 @@ function getAddressFromCep(cep) {
                 let street = document.getElementById('street')
                 if ((addressJSON.uf !== null) && (addressJSON.uf !== undefined)) {
                     state.value = addressJSON.uf
+                    state.setAttribute('input-valid','true')
+                    state.classList.remove('wrong-form-control')
                 }
                 if ((addressJSON.localidade !== null) && (addressJSON.localidade !== undefined)) {
                     city.value = addressJSON.localidade
+                    city.setAttribute('input-valid','true')
+                    city.classList.remove('wrong-form-control')
                 }
                 if ((addressJSON.bairro !== null) && (addressJSON.bairro !== undefined)) {
                     neighborhood.value = addressJSON.bairro
+                    neighborhood.setAttribute('input-valid','true')
+                    neighborhood.classList.remove('wrong-form-control')
                 }
                 if ((addressJSON.logradouro !== null) && (addressJSON.logradouro !== undefined)) {
                     street.value = addressJSON.logradouro
+                    street.setAttribute('input-valid','true')
+                    street.classList.remove('wrong-form-control')
                 }
             }
         }
@@ -200,15 +207,13 @@ function isCpf(cpf) {
 }
 function validateInputCPF(element) {
     let valueCPF = element.value.replace(/\D/g, '')
-    if (valueCPF.length == 11) {
-        if (!(isCpf(valueCPF))) {
-            element.parentElement.setAttribute('class','input-group wrong-form-control')
-            element.setAttribute('input-valid','false')
-        }
-        else {
-            element.parentElement.setAttribute('class','input-group')
-            element.setAttribute('input-valid','true')
-        }
+    if ((valueCPF.length == 11) && (isCpf(valueCPF))) {
+        element.parentElement.setAttribute('class','input-group')
+        element.setAttribute('input-valid','true')
+    }
+    else {
+        element.parentElement.setAttribute('class','input-group wrong-form-control')
+        element.setAttribute('input-valid','false')
     }
 }
 
@@ -348,10 +353,98 @@ function validateAddres() {
                     street.setAttribute('class','form-control wrong-form-control')
                     street.setAttribute('input-valid','false')
                 }
+
+                if (addressJSON.erro) {
+                    state.classList.remove('wrong-form-control')
+                    state.setAttribute('input-valid','true')
+
+                    city.classList.remove('wrong-form-control')
+                    city.setAttribute('input-valid','true')
+
+                    neighborhood.classList.remove('wrong-form-control')
+                    neighborhood.setAttribute('input-valid','true')
+
+                    street.classList.remove('wrong-form-control')
+                    street.setAttribute('input-valid','true')
+                }
+                console.log(addressJSON)
         }
     }
 }
 
 document.getElementById('state').onchange = document.getElementById('city').onchange = document.getElementById('neighborhood').onchange = document.getElementById('street').onchange = function() {  
     validateAddres()
+}
+
+function ableSubmitButton() {
+    let form_inputs = document.getElementsByClassName('form-control')
+        form_valid = true
+
+    for (i=0; i < form_inputs.length; i++) {
+        if (form_inputs[i].getAttribute('input-valid') !== 'true') {
+            form_valid = false
+            if(form_inputs[i].classList.contains('without-icon')) {
+                form_inputs[i].classList.add('wrong-form-control')
+            }
+            else {
+                form_inputs[i].parentElement.classList.add('wrong-form-control')
+            }
+        }
+    }
+}
+
+document.getElementById('register-btn').onclick = function() {
+    ableSubmitButton()
+}
+
+document.getElementById('name').onfocusout = function() {
+    if (this.value.length >= 10) {
+        this.setAttribute('input-valid','true')
+        this.parentElement.classList.remove('wrong-form-control')
+    }
+    else {
+        this.setAttribute('input-valid','false')
+        this.parentElement.classList.add('wrong-form-control')
+    }
+}
+document.getElementById('email').onfocusout = function() {
+    if ((this.value.length > 5) && (this.value.indexOf('@') != -1)) {
+        this.setAttribute('input-valid','true')
+        this.parentElement.classList.remove('wrong-form-control')
+    }
+    else {
+        this.setAttribute('input-valid','false')
+        this.parentElement.classList.add('wrong-form-control')
+    }
+}
+document.getElementById('birth-date').onfocusout = function() {
+    if (this.value.length === 10) {
+        this.setAttribute('input-valid','true')
+        this.parentElement.classList.remove('wrong-form-control')
+    }
+    else {
+        this.setAttribute('input-valid','false')
+        this.parentElement.classList.add('wrong-form-control')
+    }
+}
+document.getElementById('phone').onfocusout = function() {
+    let phone = this.value.replace(/\D/g, '')
+    if (phone.length === 13) {
+        this.setAttribute('input-valid','true')
+        this.parentElement.classList.remove('wrong-form-control')
+    }
+    else {
+        this.setAttribute('input-valid','false')
+        this.parentElement.classList.add('wrong-form-control')
+    }
+}
+document.getElementById('house_number').onfocusout = function() {
+    if (this.value.length > 0) {
+        this.setAttribute('input-valid','true')
+        this.classList.remove('wrong-form-control')
+    }
+    else {
+        this.setAttribute('input-valid','false')
+        this.classList.add('wrong-form-control')
+    }
 }
