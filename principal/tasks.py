@@ -50,10 +50,10 @@ def aid_checker():
                 html_email = \
                     f"""
                     <h1>ComuTech</h1>
-                    <p>Boa tarde, XXX.</p>
+                    <p>Boa tarde, {aid.author.name}.</p>
                     <p>Esse é um e-mail automático do sistema da ComuTech para te comunicar que seu socorro {aid.title} foi congelado após seus 2 meses de atividade, caso deseje descongela-lo para que volte a aparecer para as pessoas, siga os seguintes passos:</p>
                     <ol>
-                    <li>Procure pelo seu socorro (você pode encontra-lo como um cartão no seu perfil (127.0.0.1:8000/user/ZZZ) ou na página do mesmo em 127.0.0.1:8000/explorar/AAA)</li>
+                    <li>Acesse seu socorro (você pode encontra-lo como um cartão no seu perfil (127.0.0.1:8000/user/{aid.author.id}) ou acessar a página do mesmo em 127.0.0.1:8000/explorar/{aid.id})</li>
                     <li>Clique no botão "Opções" no canto inferior direito do cartão ou no superior direito da página</li>
                     <li>Selecione "Descongelar"</li>
                     </ol>
@@ -64,8 +64,9 @@ def aid_checker():
 
 
                 send = send_mail(
-                    subject= 'Teste Nome',
-                    message= f'Olá, {aid.author.name}!\n',
+                    subject= 'Aviso: Seu socorro foi congelado',
+                    message=text_email,
+                    html_message=html_email,
                     from_email= settings.EMAIL_HOST_USER,
                     recipient_list= [aid.author.email],
                 )
