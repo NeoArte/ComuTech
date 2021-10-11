@@ -34,6 +34,35 @@ def aid_checker():
             print("Not None", end="")
             if timezone.now() >= pause_time and aid.state != "C":
                 print("CONGELA")
+
+                text_email = "ComuTech\n\n" \
+                "Boa tarde, {aid.author.name}.\n" \
+                "Esse é uma e-mail automático do sistema da ComuTech para te comunicar que seu socorro {aid.title} foi congelado após seus 2 meses de atividade, " \
+                "caso deseje descongela-lo para que volte a aparecer para as pessoas, siga os seguintes passos:\n" \
+                "1. Procure pelo seu socorro (você pode encontra-lo como um cartão no seu perfil (127.0.0.1:8000/user/{aid.author.id}) ou na página do mesmo em" \
+                "127.0.0.1:8000/explorar/{aid.id})\n" \
+                '2. Clique no botão "Opções" no canto inferior direito do cartão ou no superior direito da página\n' \
+                '3. Selecione "Descongelar"\n\n' \
+                "Em 2 semanas seu socorro será removido de nossos sistemas, por isso pedimos que caso queira que ele continue, siga as instruções" \
+                "acima o quanto antes.\n\n\n" \
+                "Agradecemos pelo sua atenção, abraços da equipe do ComuTech."
+                
+                html_email = \
+                    f"""
+                    <h1>ComuTech</h1>
+                    <p>Boa tarde, XXX.</p>
+                    <p>Esse é um e-mail automático do sistema da ComuTech para te comunicar que seu socorro {aid.title} foi congelado após seus 2 meses de atividade, caso deseje descongela-lo para que volte a aparecer para as pessoas, siga os seguintes passos:</p>
+                    <ol>
+                    <li>Procure pelo seu socorro (você pode encontra-lo como um cartão no seu perfil (127.0.0.1:8000/user/ZZZ) ou na página do mesmo em 127.0.0.1:8000/explorar/AAA)</li>
+                    <li>Clique no botão "Opções" no canto inferior direito do cartão ou no superior direito da página</li>
+                    <li>Selecione "Descongelar"</li>
+                    </ol>
+                    <p>Em 2 semanas seu socorro será removido de nossos sistemas, por isso pedimos que caso queira que ele continue, siga as instruções acima o quanto antes.</p>
+                    <p>Agradecemos pelo sua atenção, abraços da equipe do ComuTech.</p>
+                    """
+
+
+
                 send = send_mail(
                     subject= 'Teste Nome',
                     message= f'Olá, {aid.author.name}!\n',
