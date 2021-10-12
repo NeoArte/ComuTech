@@ -110,26 +110,28 @@ class User(AbstractBaseUser): # Usuários
 
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
-    cpf = models.CharField(max_length=11, validators=[validators.MinLengthValidator(11)], unique=True)
-    phone = models.CharField(max_length=13)
+    cpf = models.CharField(max_length=14, validators=[validators.MinLengthValidator(11)], unique=True)
+    phone = models.CharField(max_length=19)
 
     # Campos ligados a localização, traduzindo se tratam respectivamente de:
     # País - Estado - Cidade - Bairro - Número da casa (ou prédio) - Informações adicionais (como o número do apartamento) - CEP
     
     country = models.CharField(max_length=255, default="")
-    state = models.CharField(max_length=255, default="")
-    city = models.CharField(max_length=255, default="")
-    neighborhood = models.CharField(max_length=255, default="")
-    street = models.CharField(max_length=255, default="")
-    house_number = models.CharField(max_length=255, default="")
+    
+    state = models.CharField(max_length=2)
+    city = models.CharField(max_length=255)
+    neighborhood = models.CharField(max_length=255)
+    street = models.CharField(max_length=255)
+    house_number = models.CharField(max_length=4)
+
     add_info = models.CharField(max_length=255, blank=True, null=True, default="")
-    cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
+    cep = models.CharField(max_length=9, validators=[validators.MinLengthValidator(8)])
 
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
     profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.jpg')
 
-    whatsapp = models.CharField(max_length=13, null=True, blank=True)
+    whatsapp = models.CharField(max_length=19, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
     facebook = models.CharField(null=True, blank=True, max_length=255)
     instagram = models.CharField(null=True, blank=True, max_length=30)
