@@ -220,6 +220,9 @@ function validateInputCPF(element) {
 document.getElementById('password').onblur = function() {
     validatePassword(this)
 }
+document.getElementById('password').onkeyup = function() {
+    validateConfirmPassword(document.getElementById('ConfirmPassword'))
+}
 function isAlphaNumeric(value = String ) {
     let hasLowLetter = false
     let hasHighLetter = false
@@ -448,3 +451,18 @@ document.getElementById('house_number').onfocusout = function() {
         this.classList.add('wrong-form-control')
     }
 }
+
+function createPasswordVerificationSVG(clasification, defs) {
+    let svgVerification = document.createElementNS('http://www.w3.org/2000/svg','svg')
+        pathVerification = document.createElementNS('http://www.w3.org/2000/svg','path')
+  
+        svgVerification.setAttribute('viewBox','0 0 16 16')
+        svgVerification.setAttribute('fill','currentColor')
+        svgVerification.classList.add(clasification)
+  
+        pathVerification.setAttribute('d', defs)
+  
+        svgVerification.appendChild(pathVerification)
+        
+        return svgVerification
+  }

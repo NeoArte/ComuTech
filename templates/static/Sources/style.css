@@ -1184,7 +1184,30 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
     border-color: var(--help);
     color: var(--help-low-contrast);
 }
-input.form-control.wrong-form-control
+
+.password-verification-has {
+    color: green;
+    width: 20px;
+    height: 20px;
+    margin: 0 3px 0 0;
+}
+.password-verification-hasnt {
+    color: red;
+    width: 20px;
+    height: 20px;
+    margin: 0 3px 0 0;
+}
+.popover-body {
+    border-radius: 15px;
+}
+.popover {
+    border-radius: 15px;
+    background-color: var(--secundary-low-contrast);
+    border-color: var(--secundary-high-contrast);
+}
+.popover>.arrow::after {
+    border-top-color: var(--secundary-low-contrast);
+  }
 
 
 @media only screen and (max-width: 1065px) {

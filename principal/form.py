@@ -65,11 +65,13 @@ class RegistrationForm(UserCreationForm):
             'placeholder':'Senha',
             'type':'password',
             'id':'password',
+            'class':'password form-control',
         })
         self.fields['password2'].widget.attrs.update({
             'placeholder':'Confirmar Senha',
             'type':'password',
             'id':'ConfirmPassword',
+            'class':'password form-control',
         })
         self.fields['facebook'].widget.attrs.update({
             'placeholder':'Link do seu facebook',
