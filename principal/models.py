@@ -172,6 +172,12 @@ class AidType(models.Model):
     def __str__(self):
         return self.name
 
+
+class IpModel(models.Model):
+    ip = models.CharField(max_length=100)
+    def __str__(self):
+        return self.ip
+
 class Aid(models.Model): # Socorros
 
     # O socorro é a principal engrenagem da plataforma, ele necessita e apenas existe caso tenha um criador (usuário), necessita de um tipo, titulo, 
@@ -189,6 +195,11 @@ class Aid(models.Model): # Socorros
     # congelado quando esse tempo acaba e finalizado quando o usuário finaliza aquele pedido.
     STATES = (("A", "Aberto"), ("C", "Congelado"), ("F", "Finalizado"))
     state = models.CharField(max_length=1, choices=STATES, default="A")
+
+    views = models.ManyToManyField(IpModel, related_name="post_hits", blank=True)
+
+    def total_views(self):
+        return self.views.count()
 
 
 class AidPhotos(models.Model):
