@@ -180,6 +180,7 @@ class IpModel(models.Model):
     def __str__(self):
         return self.ip
 
+
 class Aid(models.Model): # Socorros
 
     # O socorro é a principal engrenagem da plataforma, ele necessita e apenas existe caso tenha um criador (usuário), necessita de um tipo, titulo, 
@@ -210,3 +211,7 @@ class AidPhotos(models.Model):
     aid = models.ForeignKey(Aid, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to="socorros/", default="")
     description = models.TextField(null=True, blank=True) # Descrição na imagem para leitores de tela.
+
+
+class Review(models.Model):
+    pass
