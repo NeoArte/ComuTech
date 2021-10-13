@@ -17,7 +17,7 @@ def aid_checker():
 
         if timezone.now() >= pause_time and aid.state is not "C":
             aid.state = "C"
-            aid = aid.save()
+            aid.save()
         
         if aid.state == "C" and timezone.now() >= delete_time:
             aid.delete()
