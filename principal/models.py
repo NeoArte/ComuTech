@@ -214,4 +214,12 @@ class AidPhotos(models.Model):
 
 
 class Review(models.Model):
-    pass
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    aid = models.OneToOneField(Aid, on_delete=models.CASCADE)
+
+    RESULT = (("F", "Funcionou"),("NF", "Não Funcionou"), ("NN", "Não é mas necessário"), ("O", "Outro"))
+    result = models.CharField(max_length=2, choices=RESULT)
+    other_text = models.CharField(max_length=255, blank=True, null=True)
+    reason = models.TextField(null=True, blank=True)
+
+
