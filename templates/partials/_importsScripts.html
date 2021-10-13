@@ -136,7 +136,12 @@ for (i=0; i < socialRadio.length; i++) {
             }
             this.classList.add('selected')
             aidHelp.removeAttribute('disabled')
-            aidHelp.parentElement.setAttribute('href',this.getAttribute('href'))
+            if (this.getAttribute('mensage')) {
+              aidHelp.parentElement.setAttribute('href',this.getAttribute('href') + '&text=' + this.getAttribute('mensage'))              
+            }
+            else {
+              aidHelp.parentElement.setAttribute('href',this.getAttribute('href'))
+            }
         }
         $('#whatsapp').popover('hide')
     }
@@ -144,16 +149,69 @@ for (i=0; i < socialRadio.length; i++) {
 
 $('#whatsapp').popover({
   html:true,
-  placement:'bottom',
-  content: function() {
-    return $('#teste')
-  },
+  placement:'top',
+  content: whatsappMensage($('#whatsapp').attr('mensage')),
 })
 $('#whatsapp').click(function() {
   if (!($(this).hasClass('selected'))) {
     $(this).popover('hide')
   }
+  else {
+    $('#whatsapp-close').click(function() {
+      $('#whatsapp').popover('hide')
+    })
+    $('#whatsapp-mensage').keyup(function() {
+      $('#aid-help').parent().attr('href',$('#whatsapp').attr('href') + '&text=' + $(this).val() )
+    })
+  }
 })
 
+
+
+function whatsappMensage(mensage) {
+  let label = document.createElement('label')
+  let div_card = document.createElement('div')
+  let card_header = document.createElement('div')
+  let mensage_title = document.createElement('h3')
+  let mensage_close = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let mensage_close_path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+  let close_path_defines = 'M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'
+  let textarea = document.createElement('textarea')
+  let card_body = document.createElement('div')
+  
+  label.setAttribute('for','whatsapp-mensage')
+  
+  card_header.classList.add('mensage-header')
+  
+  mensage_title.classList.add('mensage-title')
+  mensage_title.innerText = 'Mensagem'
+  
+  mensage_close.classList.add('x-close')
+  mensage_close.setAttribute('id','whatsapp-close')
+  mensage_close.setAttribute('viewBox','0 0 16 16')
+  mensage_close.setAttribute('fill','currentColor')
+  mensage_close_path.setAttribute('d',close_path_defines)
+  
+  card_body.classList.add('card-body')
+  card_body.classList.add('p-0')
+  
+  textarea.setAttribute('id','whatsapp-mensage')
+  textarea.classList.add('form-control')
+  textarea.classList.add('desc-textarea')
+  textarea.setAttribute('cols','25')
+  textarea.setAttribute('rows','5')
+  textarea.innerText = mensage
+  
+  
+  mensage_close.appendChild(mensage_close_path)
+  card_header.appendChild(mensage_title)
+  card_header.appendChild(mensage_close)
+  div_card.appendChild(card_header)
+  card_body.appendChild(textarea)
+  div_card.appendChild(card_body)
+  label.appendChild(div_card)
+
+  return label
+}
 </script>
 <!------------------------------------------------------------------>

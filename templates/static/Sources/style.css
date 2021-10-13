@@ -1229,6 +1229,25 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
 #whatsapp-mensage {
     resize: none;
 }
+.mensage-header {
+    border: 2px solid var(--secundary-high-contrast);
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
+    background-color: var(--secundary-low-contrast);
+    display: flex;
+    flex-direction: row;
+    padding: 7.5px 15px;
+}
+.x-close {
+    color: var(--secundary-high-contrast);
+    width: 32px;
+    height: 32px;
+}
+.x-close:hover {
+    color: var(--strong);
+    cursor: pointer;
+}
+
 
 
 @media only screen and (max-width: 1065px) {
