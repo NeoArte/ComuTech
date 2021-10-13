@@ -1205,9 +1205,30 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
     background-color: var(--secundary-low-contrast);
     border-color: var(--secundary-high-contrast);
 }
-.popover>.arrow::after {
-    border-top-color: var(--secundary-low-contrast);
-  }
+.bs-popover-top .arrow::after {border-top-color: var(--secundary-low-contrast);}
+.bs-popover-bottom .arrow::after {border-bottom-color: var(--secundary-low-contrast);}
+.bs-popover-left .arrow::after {border-left-color: var(--secundary-low-contrast);}
+.bs-popover-right .arrow::after {border-right-color: var(--secundary-low-contrast);}
+.social-radio>.social-medias {
+    margin: auto;
+    color: var(--secundary-high-contrast);
+    cursor: pointer;
+}
+.social-medias.selected {
+    color: var(--main);
+}
+.popover * {
+    width: 100%;
+}
+.mensage-title {
+    margin: auto;
+    font-size: 20px;
+    font-weight: 550;
+    color: var(--main-high-contrast);
+}
+#whatsapp-mensage {
+    resize: none;
+}
 
 
 @media only screen and (max-width: 1065px) {

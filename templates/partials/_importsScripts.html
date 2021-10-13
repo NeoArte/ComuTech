@@ -51,6 +51,7 @@
   $('#cpf').mask('999.999.999-99')
   $('#phone').mask('+99 (99) 99999-9999')
   $('#whatsapp-input').mask('+99 (99) 99999-9999')
+  $('#birth-date').mask('9999-99-99')
 </script>
 
 <!--Date Picker Script-->
@@ -115,10 +116,44 @@ $('.password').keyup(function() {
   })
   $(this).popover('show')
 })
+</script>
 
-$('#eie').popover({
-  html: true,
-  content: $('#divado')
+<script>
+  //Script de aid.html
+let socialRadio = document.getElementsByClassName('social-medias')
+
+for (i=0; i < socialRadio.length; i++) {
+    socialRadio[i].onclick = function() {
+        let aidHelp = document.getElementById('aid-help')
+        if (this.classList.contains('selected')) {
+            this.classList.remove('selected')
+            aidHelp.setAttribute('disabled','')
+            aidHelp.parentElement.removeAttribute('href')
+        }
+        else {
+            for (i=0; i < socialRadio.length; i++) {
+                socialRadio[i].classList.remove('selected')
+            }
+            this.classList.add('selected')
+            aidHelp.removeAttribute('disabled')
+            aidHelp.parentElement.setAttribute('href',this.getAttribute('href'))
+        }
+        $('#whatsapp').popover('hide')
+    }
+}
+
+$('#whatsapp').popover({
+  html:true,
+  placement:'bottom',
+  content: function() {
+    return $('#teste')
+  },
 })
+$('#whatsapp').click(function() {
+  if (!($(this).hasClass('selected'))) {
+    $(this).popover('hide')
+  }
+})
+
 </script>
 <!------------------------------------------------------------------>
