@@ -5,10 +5,16 @@
     <div class="card-header text-center">
         <h1 class="h1 aid-create"><b>Criar Publicação</b></h1>
     </div>
-    <div class="card-body">                     
+    <div class="card-body just">                     
         <form enctype="multipart/form-data" action="/need-aid/create-aid/" method="POST">
             {% csrf_token %}
-            <div class="column">
+            <div class="column text-center">
+              <div class="alert d-block error alert-dismissible fade show text-center btn btn-danger" role="alert">
+                <p>Obrigatório inserir ao menos uma imagem!</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
                 <div id="section-img">
                   <input type="file" id="_plusAidIMG" accept="image/*" multiple>
                     {{image_form.image}}
