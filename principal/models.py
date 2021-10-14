@@ -149,7 +149,8 @@ class User(AbstractBaseUser): # Usuários
     USERNAME_FIELD = 'email' # O que será usado para realizar o login
     REQUIRED_FIELDS = [
         'name', 'cpf', 'phone', 'country', 'state', 'city', 'neighborhood', 'street', 'house_number', 'add_info', 'cep', 'birth_date', 
-        'whatsapp', 'twitter', 'facebook', 'instagram', 'profile_picture']
+        'whatsapp', 'twitter', 'facebook', 'instagram', 'profile_picture'
+    ]
 
     objects = UserManager()
 
@@ -187,7 +188,7 @@ class Aid(models.Model): # Socorros
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="myaid")
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=14)
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(AidType, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
