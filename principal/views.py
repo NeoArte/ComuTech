@@ -146,6 +146,7 @@ def seeAid(request, pk):
 
 
     aid_photos = aid.photos.all()
+
     context = {
         'aid': aid,
         'aid_photos': aid_photos
@@ -220,6 +221,7 @@ def createAid(request):
     if form.is_valid() and img_form.is_valid() and aid <= 8:
         print('\n\n\n\nEntrou\n\n\n\n') 
         form = form.save()
+        messages.add_message(request, messages.SUCCESS, 'Socorro criado com sucesso!')
         description = img_form.cleaned_data['description']
         for img in images:
             print(img)
