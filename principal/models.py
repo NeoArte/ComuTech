@@ -77,23 +77,35 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser): # Usuários
 
-    # Define um úsuario dentro da plataforma. Esse possui: nome, email, cpf (apenas números), telefone, cep (apenas números), 
+    # Define um úsuario dentro da plataforma. Esse possui: nome, email, cpf (apenas números), telefone, um conjunto de campos para localização descritos abaixo, 
     # data de nascimento (s/ horário, formato padrão é AAAA-MM-DD-hh-mm-ss-ms, Ano-Mês-Dia-Hora-Minuto-Segundo-Milisegundo), senha,
     # foto de perfil (salvo em MEDIA/usuarios/), whatsapp, data de criação e 3 campos não obrigátorios que são 
     # twitter (nome de úsuario sem o @), facebook (nome de perfil) e instagram (nome de úsuario)
 
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
-    cpf = models.CharField(max_length=11, validators=[validators.MinLengthValidator(11)], unique=True)
-    phone = models.CharField(max_length=13)
+    cpf = models.CharField(max_length=14, validators=[validators.MinLengthValidator(11)], unique=True)
+    phone = models.CharField(max_length=19)
+    
+    # Campos ligados a localização, traduzindo se tratam respectivamente de:
+    # País - Estado - Cidade - Bairro - Número da casa (ou prédio) - Informações adicionais (como o número do apartamento) - CEP
+    
+    country = models.CharField(max_length=255, default="")
+    
+    state = models.CharField(max_length=2)
+    city = models.CharField(max_length=255)
+    neighborhood = models.CharField(max_length=255)
+    street = models.CharField(max_length=255)
+    house_number = models.CharField(max_length=4)
 
-    cep = models.CharField(max_length=8, validators=[validators.MinLengthValidator(8)])
+    add_info = models.CharField(max_length=255, blank=True, null=True, default="")
+    cep = models.CharField(max_length=9, validators=[validators.MinLengthValidator(8)])
 
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.jpg')
+    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.svg')
 
-    whatsapp = models.CharField(max_length=13, null=True, blank=True)
+    whatsapp = models.CharField(max_length=19, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
     facebook = models.CharField(null=True, blank=True, max_length=255)
     instagram = models.CharField(null=True, blank=True, max_length=30)
@@ -110,7 +122,7 @@ class User(AbstractBaseUser): # Usuários
 
     USERNAME_FIELD = 'email' # O que será usado para realizar o login
     REQUIRED_FIELDS = [
-        'name', 'cpf', 'phone', 'cep', 'birth_date', 
+        'name', 'cpf', 'phone', 'country', 'state', 'city', 'neighborhood', 'street', 'house_number', 'add_info', 'cep', 'birth_date', 
         'whatsapp', 'twitter', 'facebook', 'instagram', 'profile_picture']
 
     objects = UserManager()
@@ -136,6 +148,12 @@ class AidType(models.Model):
     def __str__(self):
         return self.name
 
+
+class IpModel(models.Model):
+    ip = models.CharField(max_length=100)
+    def __str__(self):
+        return self.ip
+
 class Aid(models.Model): # Socorros
 
     # O socorro é a principal engrenagem da plataforma, ele necessita e apenas existe caso tenha um criador (usuário), necessita de um tipo, titulo, 
@@ -153,6 +171,11 @@ class Aid(models.Model): # Socorros
     # congelado quando esse tempo acaba e finalizado quando o usuário finaliza aquele pedido.
     STATES = (("A", "Aberto"), ("C", "Congelado"), ("F", "Finalizado"))
     state = models.CharField(max_length=1, choices=STATES, default="A")
+
+    views = models.ManyToManyField(IpModel, related_name="post_hits", blank=True)
+
+    def total_views(self):
+        return self.views.count()
 
 
 class AidPhotos(models.Model):

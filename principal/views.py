@@ -7,11 +7,12 @@ from django.conf import settings
 from django.core.paginator import Paginator
 
 from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, AidPhotos, User, UserManager
+from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
 
+from ipware import get_client_ip
 
 def home(request):
     return render(request, "principal/home.html")
@@ -129,6 +130,21 @@ def explore(request, extra_context=None):
 
 def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
+
+    ip, is_routable = get_client_ip(request)
+    print('\n\nIP: ', ip, " ", is_routable, '\n')
+
+    if IpModel.objects.filter(ip=ip).exists():
+        print('\nIp existe em IpModel\n')
+        # Caso esse ip já esteja em IpModel
+        aid.views.add(IpModel.objects.get(ip=ip))
+    else:
+        # Caso esse ip ainda precise ser adicionado ao IpModel
+        print('\nIp não existe em IpModel\n')
+        IpModel.objects.create(ip=ip)
+        aid.views.add(IpModel.objects.get(ip=ip))
+
+
     aid_photos = aid.photos.all()
 
     context = {
@@ -193,15 +209,16 @@ def createAid(request):
     # recuperada pelo request.FILES.getlist separadamente. 
     # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
+    user = User.objects.get(pk=request.user.id)
+    aid = user.myaid.count()
 
     form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
-    
+    print("\n\n\n\n\n\n", form, "\n\n\n\n\n\n")
     img_form = AidPhotosForm(request.POST, request.FILES) # Contém os dados do form de imagens (seu ImageField pode conter apenas 1 imagem)
     images = request.FILES.getlist('image') # Contém a lista de imagens pegas pelo request
-
+    print(request.POST)
     print('\n\n\n\nRequest: ', request.FILES.getlist('image'), '\n\n\n\n') 
-
-    if form.is_valid() and img_form.is_valid():
+    if form.is_valid() and img_form.is_valid() and aid <= 8:
         print('\n\n\n\nEntrou\n\n\n\n') 
         form = form.save()
         messages.add_message(request, messages.SUCCESS, 'Socorro criado com sucesso!')
@@ -211,8 +228,13 @@ def createAid(request):
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
         return redirect('home')
-
-    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
+    else:
+        messages.add_message(request, messages.ERROR, 'Você já excedeu o limite de 8 socorros ativos!')
+        print("- - -  id  - - -")
+        print(user.id)
+        print("- - - Fim id - - -\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        return redirect("criacao")
+    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n')
 
 @login_required(login_url="/login/")
 def deletar(request, pk):
@@ -244,3 +266,15 @@ def openAid(request, pk):
         aid.creation_date = creation_date
         aid.save()
     return redirect(f'/user/{request.user.id}/')    
+
+def closeAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    ending_date = datetime.today()
+
+    if request.method == "GET":
+        close = request.GET.get('close')
+    if close:
+        aid.state = "F"
+        aid.ending_date = ending_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')

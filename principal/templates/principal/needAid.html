@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main %}
+<style>
+  .instruction-font{
+    font-weight: bolder;
+    color: #8eb5d6;
+  }
+</style>
 <div class="form card-outline card-primary my-5">
     <div class="card-header text-center">
         <h1 class="h1 aid-create"><b>Criar Publicação</b></h1>
@@ -62,9 +68,11 @@
                     </svg>
                 </div>
             </label>
-            <label class="input-group mb-3 p-0" for="name">
+            <span class="text-center"><p class="font-font-weight-bold mb-0 instruction-font">Insira qual tipo de ajuda se adéqua ao seu pedido</p></span>
+            <label class="input-group mb-3 p-0" for="aid-type">
               {{form.type}}  
-          </label>
+            </label>
+            <span class="text-center"><p class="font-font-weight-bold mb-0 instruction-font">Explique para as pessoas sobre seu problema!</p></span>
             <label class="w-100" for="aid-desc">
                 <div class="card card-danger">
                   <div class="card-header desc-header">
@@ -75,8 +83,7 @@
                   </div>
                 </div>
             </label>
-            
-            <button type="submit" class="btn btn-block btn-form col-12 p-1 aid-create">
+            <button type="submit" class="btn btn-block btn-form col-12 p-1">
                 Publicar
             </button>
         </form>

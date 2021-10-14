@@ -222,6 +222,7 @@ footer {
 .input-group {
     min-width: 100%;
     margin: 0;
+    margin-bottom: 1rem;
     padding: 5px 10px;
 }   
 .input-group > * {
@@ -239,6 +240,10 @@ footer {
     outline: none;
     transition: none;
     padding: 8px 20px 8px 12px;
+    border-radius: 15px;
+}
+.form-control.without-icon {
+    margin: 5px 10px;
 }
 .form-control::placeholder {
     color: var(--secundary-high-contrast);
@@ -354,7 +359,7 @@ a:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    padding: 0 10px;
+    padding: 10px;
 }
 .social-medias {
     width: 60px;
@@ -1119,18 +1124,129 @@ button.btn-aid {
         height: 32px;
     }
 }
-@media only screen and (max-width: 840px) {
-    .nav-item a.link-about-dev, .link-explore, .nav-item .nav-text, .nav-item button {
-        font-size: 15px;
+@media only screen and (max-width: 920px) {
+    .nav-item a.link-about-dev {
+        display: none;
     }
     .user-profile-icon {
         width: 32px;
         height: 32px;
     }
 }
+@media only screen and (max-width: 767px) {
+    .nav-item a.link-about-dev {
+        display: initial;
+    }
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 380px);
+}
+#register-form {
+    min-width: none;
+    max-width: none;
+}
+@media only screen and (max-width: 830px) {
+    .form-grid {grid-template-columns: repeat(1, 380px);}
+}
+.grid-uf-city {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 5px 10px;
+    grid-gap: 10px;
+}
+.grid-uf-city>.form-control.without-icon, .grid-neighborhood-street>.form-control.without-icon {
+    margin: 0;
+}
+.grid-neighborhood-street {
+    display: grid;
+    grid-template-columns: 7fr 15fr 5fr;
+    margin: 5px 10px;
+    grid-gap: 10px;
+}
+.form-control.without-icon:focus {
+    border-color: var(--main-low-contrast);
+}
+.passwordIcon {
+    cursor: pointer;
+}
+#house_number, #neighborhood {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#house_number::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+#addressJSON {
+    display: none;
+}
+input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
+    border-color: var(--help);
+    color: var(--help-low-contrast);
+}
 
-
-
+.password-verification-has {
+    color: green;
+    width: 20px;
+    height: 20px;
+    margin: 0 3px 0 0;
+}
+.password-verification-hasnt {
+    color: red;
+    width: 20px;
+    height: 20px;
+    margin: 0 3px 0 0;
+}
+.popover-body {
+    border-radius: 15px;
+}
+.popover {
+    border-radius: 15px;
+    background-color: var(--secundary-low-contrast);
+    border-color: var(--secundary-high-contrast);
+}
+.bs-popover-top .arrow::after {border-top-color: var(--secundary-low-contrast);}
+.bs-popover-bottom .arrow::after {border-bottom-color: var(--secundary-low-contrast);}
+.bs-popover-left .arrow::after {border-left-color: var(--secundary-low-contrast);}
+.bs-popover-right .arrow::after {border-right-color: var(--secundary-low-contrast);}
+.social-radio>.social-medias {
+    margin: auto;
+    color: var(--secundary-high-contrast);
+    cursor: pointer;
+}
+.social-medias.selected {
+    color: var(--main);
+}
+.popover * {
+    width: 100%;
+}
+.mensage-title {
+    margin: auto;
+    font-size: 20px;
+    font-weight: 550;
+    color: var(--main-high-contrast);
+}
+#whatsapp-mensage {
+    resize: none;
+}
+.mensage-header {
+    border: 2px solid var(--secundary-high-contrast);
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
+    background-color: var(--secundary-low-contrast);
+    display: flex;
+    flex-direction: row;
+    padding: 7.5px 15px;
+}
+.x-close {
+    color: var(--secundary-high-contrast);
+    width: 32px;
+    height: 32px;
+}
+.x-close:hover {
+    color: var(--strong);
+    cursor: pointer;
+}
 
 
 
