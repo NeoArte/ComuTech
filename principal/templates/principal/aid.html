@@ -57,8 +57,10 @@
               </div>
               <div class="user-block my-2 px-3 py-1"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
                 <a class="aid-profile-user aid-page-user" href="/user/{{aid.author.id}}">
-                  <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
-                  {{aid.author.name}}
+                  <img class="aid-profile-img m-0" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
+                  <p class="m-0 ml-2">
+                    {{aid.author.name}}
+                  </p>
                 </a>
               </div>
               {% if aid.author.id == user.id %}
