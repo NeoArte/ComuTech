@@ -14,6 +14,8 @@ from datetime import datetime, timedelta, date
 
 from ipware import get_client_ip
 
+import re
+
 
 def home(request):
     return render(request, "principal/home.html")
@@ -21,10 +23,22 @@ def home(request):
 # REGISTRA O USUÁRIO
 def register(request):
     if request.method == 'POST':
+        cpf = re.sub("\D", "", request.POST.get('cpf')).replace(" ", "")
+        email = re.sub("\D", "", request.POST.get('email')).replace(" ", "")
+        # Verifica se o cpf já existe   
+        if User.objects.filter(cpf=cpf).exists():
+            # Mensagem de Erro
+            messages.add_message(request, messages.ERROR, 'O cpf já está cadastrado')
+            return redirect('register')
+        # Verifica se o email já existe 
+        if User.objects.filter(email=email).exists():
+            messages.add_message(request, messages.ERROR, 'O email já está cadastrado')
+            return redirect('register')
+
         form = RegistrationForm(request.POST, request.FILES)
         print("\n\n\n\n\n\n\n\n\n\n", request.POST)
         print(request.POST["password1"])
-        print(request.POST["password2"], "\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Cadastro concluido com sucesso!')
