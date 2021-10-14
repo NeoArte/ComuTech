@@ -114,15 +114,19 @@
               </div>
               <div class="aid-card-buttons">
                 {% if aid.author.id == user.id %}
+                  {% if aid.state != "F" %}
                 <div class="dropdown">
                   <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Opções
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Desativar Públicação</a>
-                    <a class="dropdown-item" href="#">Finalizar Publicação</a>
+                    {% if aid.state == "C" %}
+                    <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
+                    {% endif%}
+                    <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
                   </div>
                 </div>
+                  {% endif %}
                 {% endif %}
                 <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
                   Descrição

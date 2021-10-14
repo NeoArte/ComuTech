@@ -6,6 +6,7 @@ from django.contrib.admin import widgets
 
 
 class RegistrationForm(UserCreationForm):
+    name = forms.CharField(max_length=255, help_text="Seu nome")
     class Meta:
         model = User
         fields = (
@@ -22,13 +23,22 @@ class RegistrationForm(UserCreationForm):
             'profile_picture',
             'password1', # Campo - Senha
             'password2', # Campo - Confirme sua senha
+            'state', 
+            'city', 
+            'neighborhood', 
+            'street',
+            'house_number',
         )
     
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class':'form-control'})
+            self.fields[field].widget.attrs.update({
+                'class':'form-control',
+                'autocomplete':'off',
+                'autofocus':'false',
+            })
 
         self.fields['name'].widget.attrs.update({
             'placeholder':'Nome Completo',
@@ -54,36 +64,43 @@ class RegistrationForm(UserCreationForm):
             'placeholder':'CEP',
             'type':'text',
             'id':'cep',
+            'maxlenght':'9',
         })
         self.fields['password1'].widget.attrs.update({
             'placeholder':'Senha',
             'type':'password',
             'id':'password',
+            'class':'password form-control',
         })
         self.fields['password2'].widget.attrs.update({
-            'placeholder':'Senha',
+            'placeholder':'Confirmar Senha',
             'type':'password',
             'id':'ConfirmPassword',
+            'class':'password form-control',
         })
         self.fields['facebook'].widget.attrs.update({
-            'placeholder':'Informe seu facebook',
+            'placeholder':'Link do seu facebook',
             'type':'text',
             'id':'facebook-input',
+            'input-valid':'true',
         })
         self.fields['whatsapp'].widget.attrs.update({
             'placeholder':'Informe seu número de whatsapp',
             'type':'text',
             'id':'whatsapp-input',
+            'input-valid':'true',
         })
         self.fields['instagram'].widget.attrs.update({
-            'placeholder':'Informe seu Instagram',
+            'placeholder':'Nome de perfil. Ex: d_machado12',
             'type':'text',
             'id':'instagram-input',
+            'input-valid':'true',
         })
         self.fields['twitter'].widget.attrs.update({
-            'placeholder':'Informe seu twitter',
+            'placeholder':'Informe sua tag. Ex: @pedro',
             'type':'text',
             'id':'twitter-input',
+            'input-valid':'true',
         })
         self.fields['birth_date'].widget.attrs.update({
             'placeholder':'Data de nascimento',
@@ -94,7 +111,34 @@ class RegistrationForm(UserCreationForm):
         self.fields['profile_picture'].widget.attrs.update({
             'class':'',
             'id':'_inputIMG'
-            })
+        })
+        self.fields['state'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'state',
+            'placeholder':'UF',
+        })
+        self.fields['city'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'city',
+            'placeholder':'Cidade',
+        })
+        self.fields['neighborhood'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'neighborhood',
+            'placeholder':'Bairro',
+        })
+        self.fields['street'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'street',
+            'placeholder':'Rua',
+        })
+        self.fields['house_number'].widget.attrs.update({
+            'class':'form-control without-icon inputNumber',
+            'id':'house_number',
+            'placeholder':'Casa',
+            'type':'number',
+        })
+        
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
@@ -121,7 +165,20 @@ class EditProfileForm(UserChangeForm):
     
     class Meta:
         model = User
-        fields = ('profile_picture', 'name', 'email', 'phone', 'facebook', 'whatsapp', 'instagram', 'twitter', 'cpf', 'cep', 'birth_date', 'password')
+        fields = (
+            'profile_picture',
+            'name',
+            'email',
+            'phone', 
+            'facebook', 
+            'whatsapp', 
+            'instagram', 
+            'twitter', 
+            'cpf', 
+            'cep', 
+            'birth_date', 
+            'password', 
+            )
 
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -133,6 +190,7 @@ class EditProfileForm(UserChangeForm):
             'placeholder':'Nome Completo',
             'type':'text',
             'id':'name',
+            'class':'form-control big-input',
         })
         self.fields['email'].widget.attrs.update({
             'placeholder':'Email',
@@ -158,6 +216,7 @@ class EditProfileForm(UserChangeForm):
             'placeholder':'Data de nascimento',
             'type':'text',
             'id':'birth_date',
+            'class':'form-control datepicker',
         })
         self.fields['facebook'].widget.attrs.update({
             'placeholder':'Informe seu facebook',
@@ -180,11 +239,11 @@ class EditProfileForm(UserChangeForm):
             'id':'twitter-input',
         })
         self.fields['profile_picture'].widget.attrs.update({
-            'class':'',
-            'id':'_inputIMG'
-            })
-
-
+            'class':'edit-img',
+            'id':'_inputIMG',
+            'accept':'image/*',
+        })
+        
 
 
 class AidForm(ModelForm):
@@ -215,6 +274,7 @@ class AidForm(ModelForm):
         })
         self.fields['type'].widget.attrs.update({
             'class':'form-control',
+            'id':'aid-type',
         })
 
     def save(self, commit=True):

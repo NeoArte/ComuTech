@@ -4,8 +4,10 @@
 *.pyc
 __pycache__
 db.sqlite3
-media/socorros/*
-media/usuarios/*
+media/users/*
+!media/users/empty-img-profile.jpg
+comutech/.env
+
 
 # Backup files # 
 *.bak 
