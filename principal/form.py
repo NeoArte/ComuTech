@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm, fields, widgets
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, Aid, AidPhotos
+from .models import Review, User, Aid, AidPhotos
 from django.contrib.admin import widgets
 
 
@@ -293,3 +293,15 @@ class AidPhotosForm(ModelForm):
             'id':'_aidInputIMG',
             'accept':'image/*',
         })
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = "__all__"
+        exclude = ['aid']
+    
+    def __init__(self, *args, **kwargs):
+        self._author = kwargs.pop('author')
+        super(AidPhotosForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class':'form-control'})
