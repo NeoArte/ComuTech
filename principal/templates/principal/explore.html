@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block head %}
+  <nav class="navbar navbar-light bg-transparent p-0">
+    <form class="form-inline ml-auto explore-bar">
+      <div class="second-nav-selects">
+        <select name="publicado" class="explore-btn second-nav-published">
+          <option {% if not request.GET.publicado %}selected{% endif %} disabled hidden>Publicado há ?</option>
+          <option value="">---</option>
+          <option {% if request.GET.publicado == "1week" %}selected{% endif %} value="1week">1 semana</option>
+          <option {% if request.GET.publicado == "2week" %}selected{% endif %} value="2week">2 semanas</option>
+          <option {% if request.GET.publicado == "1month" %}selected{% endif %} value="1month">1 mês</option>
+        </select>
+        <select name="type" class="explore-btn second-nav-type">
+          <option {% if not request.GET.type %}selected{% endif %} disabled hidden>Classificado em</option>
+          <!-- Busca os tipos do banco de dados -->
+          <option value="">---</option>
+          {% for type in aidtypes %} 
+          <option {% if request.GET.type == type.id %}selected{% endif %} value="{{type.id}}">{{type.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="second-nav-searchs">
+        <input name="search" class="form-control explore-btn second-nav-search" type="search" placeholder="Buscar por...">
+        <button class="btn explore-btn second-nav-submit" type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </nav>
+{% endblock %}
+
+{% block main %}
+<div class="explore-content">
+  <div class="aid-cards">
+    {% for aid in aid_page %} 
+    <div class="aid-card">
+      <div>
+        <a href="{{aid.id}}" class="aid-route">
+          <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
+          <div class="aid-title-section">
+            <p>
+              {{aid.title}}
+            </p>
+          </div>
+        </a>
+        <div class="aid-infos-section">
+          <a class="aid-profile-user" href="/user/{{aid.author.id}}">
+            <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
+            {{aid.author.name}}
+          </a>
+          <p class="aid-type">{{aid.type}}</p>
+        </div>
+        <div class="aid-card-buttons">
+          {% if aid.author.id == user.id %}
+          <div class="dropdown">
+            <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Opções
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Desativar Públicação</a>
+              <a class="dropdown-item" href="#">Finalizar Publicação</a>
+            </div>
+          </div>
+          {% endif %}
+          <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+            Descrição
+          </button>
+        </div>
+      </div>
+      <div class="card aid-card-desc">
+        <div class="card-header aid-header-desc">
+          <h3 class="card-title">Descrição</h3>
+          <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+            Voltar
+          </button>
+        </div>
+        <div class="card-body">
+          {{aid.description}}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <h1>Nenhum socorro encontrado.</h1>
+    <h4>Os filtros selecionados não correspondem a nenhum socorro, mude os filtros e tente novamente.</h4>
+    {% endfor %}
+  
+  <!--  <div class="aid-card">
+      <div href="paracard/" id="aid-card-infos">
+        <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
+        <div class="aid-title-section">
+          <p>Título Fodástico</p>
+        </div>
+        <div class="aid-infos-section">
+          <a class="aid-profile-user" href="">
+            <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
+            Usuario
+          </a>
+          <p class="aid-type">Classificação</p>
+        </div>
+        <div class="aid-card-buttons">
+          <div class="dropdown">
+            <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Opções
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Desativar Públicação</a>
+              <a class="dropdown-item" href="#">Excluir Publicação</a>
+            </div>
+          </div>
+          <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+            Descrição
+          </button>
+        </div>
+      </div>
+      <div id="aid-card-desc" class="card">
+        <div class="card-header aid-header-desc">
+          <h3 class="card-title">Descrição</h3>
+          <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+            Voltar
+          </button>
+        </div>
+        <div class="card-body">
+          BLablablablablablablablabla
+        </div>
+      </div>
+    </div>-->
+  </div>
+  
+  <!-- Paginação -->
+  {% if aid_list.count != 0 %}
+  <nav class="nav-pagination">
+    <ul class="nav-pagination-ul">
+      {% for pagina in aid_page.paginator.page_range %}
+        {% if aid_page.number == pagina %}
+        <li class="page-item active">
+          <a class="page-link" href="?page={{pagina}}&publicado={{request.GET.publicado}}&type={{request.GET.type}}&search={{request.GET.search}}">{{pagina}}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{pagina}}&publicado={{request.GET.publicado}}&type={{request.GET.type}}&search={{request.GET.search}}">{{pagina}}</a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+
+<script src="{% static '/Sources/explore.js' %}"></script>
+{% endblock %}

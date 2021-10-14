@@ -7,17 +7,23 @@ from django.conf import settings
 from django.core.paginator import Paginator
 
 from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, AidPhotos, User, UserManager
+from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
 
+from ipware import get_client_ip
+
 def home(request):
     return render(request, "principal/home.html")
 
+# REGISTRA O USUÁRIO
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
+        print("\n\n\n\n\n\n\n\n\n\n", request.POST)
+        print(request.POST["password1"])
+        print(request.POST["password2"], "\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Cadastro concluido com sucesso!')
@@ -32,7 +38,10 @@ def register(request):
                 return redirect('home')
             return redirect('home')
         else:
-            messages.add_message(request, messages.ERROR, 'Formulário inválido!')
+            if request.POST["password1"] != request.POST["password2"]:
+                messages.add_message(request, messages.ERROR, 'As senhas não correspodem!')
+            else:
+                messages.add_message(request, messages.ERROR, 'Algo no formulário está incorreto!')
 
     form = RegistrationForm() 
     context = {
@@ -68,9 +77,10 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
-def explorar(request, extra_context=None):
+def explore(request, extra_context=None):
     types = AidType.objects.all()
     aid = Aid.objects.all()
+    aid = aid.exclude(state="C")
     context = {'aidtypes': types, 'aid_list': aid}
 
     if request.method == "GET":
@@ -116,16 +126,31 @@ def explorar(request, extra_context=None):
     
     print('\n\n\n\nCount: ', context["aid_page"].count, '\n\n\n\n')
 
-    return render(request, "principal/explorar.html", context)
+    return render(request, "principal/explore.html", context)
 
-def visualizar(request, pk):
+def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
+
+    ip, is_routable = get_client_ip(request)
+    print('\n\nIP: ', ip, " ", is_routable, '\n')
+
+    if IpModel.objects.filter(ip=ip).exists():
+        print('\nIp existe em IpModel\n')
+        # Caso esse ip já esteja em IpModel
+        aid.views.add(IpModel.objects.get(ip=ip))
+    else:
+        # Caso esse ip ainda precise ser adicionado ao IpModel
+        print('\nIp não existe em IpModel\n')
+        IpModel.objects.create(ip=ip)
+        aid.views.add(IpModel.objects.get(ip=ip))
+
+
     aid_photos = aid.photos.all()
     context = {
         'aid': aid,
         'aid_photos': aid_photos
     }
-    return render(request, "principal/socorro.html", context)
+    return render(request, "principal/aid.html", context)
 
 @login_required(login_url="/login/")
 def user(request, pk):
@@ -137,7 +162,7 @@ def user(request, pk):
     user_age = user_age.days // 365
 
     aid_list = user_viewed.myaid.all()
-
+    
     context = {
         'user_viewed': user_viewed,
         'user_age': user_age,
@@ -169,14 +194,15 @@ def edit_account(request, id):
 
 
 @login_required(login_url="/login/")
-def criacao(request):
+def needAid(request):
     context = {}
     context['form'] = AidForm(author=request.user)
     context['image_form'] = AidPhotosForm()
-    return render(request, "principal/criacao.html", context)
+    return render(request, "principal/needAid.html", context)
 
 @login_required(login_url="/login/")
-def criar(request):
+def createAid(request):
+
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
     # recuperada pelo request.FILES.getlist separadamente. 
@@ -226,3 +252,27 @@ def delete(request, pk): #Deletar Usuário
     if request.user.id == getattr(user, 'id'):
         user.delete()
     return redirect('home')
+
+def openAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    creation_date = datetime.today()
+
+    if request.method == "GET":
+        open = request.GET.get('open')
+    if open:
+        aid.state = "A"
+        aid.creation_date = creation_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')    
+
+def closeAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    ending_date = datetime.today()
+
+    if request.method == "GET":
+        close = request.GET.get('close')
+    if close:
+        aid.state = "F"
+        aid.ending_date = ending_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')
