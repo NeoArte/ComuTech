@@ -270,6 +270,7 @@ class AidForm(ModelForm):
         self.fields['description'].widget.attrs.update({
             'class':'form-control desc-textarea',
             'id':'aid-desc',
+            'cols':'25',
         })
         self.fields['type'].widget.attrs.update({
             'class':'form-control',

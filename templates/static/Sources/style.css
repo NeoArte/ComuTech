@@ -661,6 +661,10 @@ button.explore-btn:active {
     font-size: 17px;
     font-weight: bold;
     color: var(--main-low-contrast);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: max-content;
 }
 .aid-profile-user:hover {
     text-decoration: none;
@@ -733,18 +737,6 @@ button.btn-aid {
     background-color: var(--secundary-low-contrast);
     padding: 13px 15px 20px 60px;
     border-radius: 0 0 0 100px;
-}
-.aid-cards {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    grid-gap: 20px;
-    margin: 20px 0;
-}
-.aid-cards > * {
-    margin: auto;
 }
 .page-item {
     width: 35px;
@@ -879,15 +871,25 @@ button.btn-aid {
 .btn-form.aid-create:active {
     box-shadow: none;
 }
-
-@media only screen and (max-width: 405px) {.aid-cards {grid-template-columns: repeat( 1,1fr);grid-gap: calc((100vh- 325px)/2);align-items: center;}}
-@media only screen and (min-width: 405px) {.aid-cards {grid-template-columns: repeat( 1,1fr);}}
-@media only screen and (min-width: 810px) {.aid-cards {grid-template-columns: repeat( 2,1fr);}}
-@media only screen and (min-width: 1215px) {.aid-cards {grid-template-columns: repeat( 3,1fr);}}
-@media only screen and (min-width: 1620px) {.aid-cards {grid-template-columns: repeat( 4,1fr);}}
-@media only screen and (min-width: 2025px) {.aid-cards {grid-template-columns: repeat( 5,1fr);}}
-@media only screen and (min-width: 2430px) {.aid-cards {grid-template-columns: repeat( 6,1fr);}}
-@media only screen and (min-width: 2835px) {.aid-cards {grid-template-columns: repeat( 7,1fr);}}
+.aid-cards {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(3, 325px);
+    grid-gap: 50px;
+    margin: 20px auto;
+}
+.aid-cards > * {
+    margin: auto;
+}
+@media only screen and (max-width: 405px) {.aid-cards {grid-template-columns: repeat( 1,325px);}}
+@media only screen and (min-width: 405px) {.aid-cards {grid-template-columns: repeat( 1,325px);}}
+@media only screen and (min-width: 810px) {.aid-cards {grid-template-columns: repeat( 2,325px);}}
+@media only screen and (min-width: 1215px) {.aid-cards {grid-template-columns: repeat( 3,325px);}}
+@media only screen and (min-width: 1620px) {.aid-cards {grid-template-columns: repeat( 4,325px);}}
+@media only screen and (min-width: 2025px) {.aid-cards {grid-template-columns: repeat( 5,325px);}}
+@media only screen and (min-width: 2430px) {.aid-cards {grid-template-columns: repeat( 6,325px);}}
+@media only screen and (min-width: 2835px) {.aid-cards {grid-template-columns: repeat( 7,325px);}}
 .explore-content {
     width: 100%;
     display: flex;
@@ -922,7 +924,7 @@ button.btn-aid {
 .page-link:focus {
     box-shadow: none;
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 740px) {
     .second-nav-selects, .second-nav-searchs {width: 100%;}
     .explore-bar {
         border-radius: 0;
@@ -1247,6 +1249,41 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
     color: var(--strong);
     cursor: pointer;
 }
+.explore-empty-search {
+    width: 80%;
+    margin: 10% auto;
+}
+.explore-empty-search h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: var(--strong-high-contrast);
+}
+.explore-empty-search h4 {
+    text-align: center;
+    padding: 0 35px;
+    color: var(--strong-low-contrast);
+}
+#aid-desc {
+    font-size: 20px;
+}
+.desc-link {
+    color: var(--main);
+}
+.desc-link:hover {
+    color: var(--main);
+    cursor: pointer;
+    text-decoration: none;
+}
+.card-body {
+    max-width: 100%;
+}
+.aid-card-text-desc {
+    overflow-y: auto;
+    max-height: 375px;
+}
+
+
 
 
 
