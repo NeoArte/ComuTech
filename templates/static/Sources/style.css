@@ -871,12 +871,16 @@ button.btn-aid {
 .btn-form.aid-create:active {
     box-shadow: none;
 }
+.f-column {
+    display: flex !important;
+    flex-direction: column !important;
+}
 .aid-cards {
     display: grid;
     align-items: center;
     justify-items: center;
     grid-template-columns: repeat(3, 325px);
-    grid-gap: 50px;
+    grid-gap: 75px;
     margin: 20px auto;
 }
 .aid-cards > * {
