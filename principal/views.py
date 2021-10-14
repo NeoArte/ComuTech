@@ -7,10 +7,12 @@ from django.conf import settings
 from django.core.paginator import Paginator
 
 from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, AidPhotos, User, UserManager
+from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
+
+from ipware import get_client_ip
 
 
 def home(request):
@@ -129,6 +131,21 @@ def explore(request, extra_context=None):
 
 def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
+
+    ip, is_routable = get_client_ip(request)
+    print('\n\nIP: ', ip, " ", is_routable, '\n')
+
+    if IpModel.objects.filter(ip=ip).exists():
+        print('\nIp existe em IpModel\n')
+        # Caso esse ip já esteja em IpModel
+        aid.views.add(IpModel.objects.get(ip=ip))
+    else:
+        # Caso esse ip ainda precise ser adicionado ao IpModel
+        print('\nIp não existe em IpModel\n')
+        IpModel.objects.create(ip=ip)
+        aid.views.add(IpModel.objects.get(ip=ip))
+
+
     aid_photos = aid.photos.all()
     context = {
         'aid': aid,
@@ -146,7 +163,7 @@ def user(request, pk):
     user_age = user_age.days // 365
 
     aid_list = user_viewed.myaid.all()
-
+    
     context = {
         'user_viewed': user_viewed,
         'user_age': user_age,
@@ -242,3 +259,15 @@ def openAid(request, pk):
         aid.creation_date = creation_date
         aid.save()
     return redirect(f'/user/{request.user.id}/')    
+
+def closeAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    ending_date = datetime.today()
+
+    if request.method == "GET":
+        close = request.GET.get('close')
+    if close:
+        aid.state = "F"
+        aid.ending_date = ending_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')
