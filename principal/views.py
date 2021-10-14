@@ -259,3 +259,15 @@ def openAid(request, pk):
         aid.creation_date = creation_date
         aid.save()
     return redirect(f'/user/{request.user.id}/')    
+
+def closeAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    ending_date = datetime.today()
+
+    if request.method == "GET":
+        close = request.GET.get('close')
+    if close:
+        aid.state = "F"
+        aid.ending_date = ending_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')
