@@ -61,8 +61,6 @@ def aid_checker():
                     <p>Agradecemos pelo sua atenção, abraços da equipe do ComuTech.</p>
                     """
 
-
-
                 send = send_mail(
                     subject= 'Aviso: Seu socorro foi congelado',
                     message=text_email,

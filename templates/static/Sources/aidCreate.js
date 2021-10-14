@@ -1,4 +1,4 @@
-//Aid pre-render images system
+//Aid pre-render images system//////////////////////////////////////////////////////////////////////////////////
 document.getElementById('_plusAidIMG').onchange = function() {
     let aidMainInput  = document.getElementById('_aidInputIMG')
     let aidImagesInput = aidMainInput.files
@@ -201,4 +201,4 @@ function createAid_EmptyBox() {
     box.setAttribute('class','aid-img-empty-box')
     return box
 }
-//Events to box remove 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
