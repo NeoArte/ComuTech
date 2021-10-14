@@ -6,6 +6,7 @@ from django.contrib.admin import widgets
 
 
 class RegistrationForm(UserCreationForm):
+    name = forms.CharField(max_length=255, help_text="Seu nome")
     class Meta:
         model = User
         fields = (
@@ -33,7 +34,11 @@ class RegistrationForm(UserCreationForm):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class':'form-control','autocomplete':'off'})
+            self.fields[field].widget.attrs.update({
+                'class':'form-control',
+                'autocomplete':'off',
+                'autofocus':'false',
+            })
 
         self.fields['name'].widget.attrs.update({
             'placeholder':'Nome Completo',

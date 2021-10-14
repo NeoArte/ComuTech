@@ -6,6 +6,7 @@ __pycache__
 db.sqlite3
 media/users/*
 !media/users/empty-img-profile.jpg
+comutech/.env
 
 
 # Backup files # 
