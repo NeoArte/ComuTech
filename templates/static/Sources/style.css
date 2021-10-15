@@ -1224,7 +1224,7 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
     color: var(--main);
 }
 .mensage-title {
-    margin: auto;
+    margin: auto auto auto 0;
     font-size: 20px;
     font-weight: 550;
     color: var(--main-high-contrast);
