@@ -180,6 +180,7 @@ class IpModel(models.Model):
     def __str__(self):
         return self.ip
 
+
 class Aid(models.Model): # Socorros
 
     # O socorro é a principal engrenagem da plataforma, ele necessita e apenas existe caso tenha um criador (usuário), necessita de um tipo, titulo, 
