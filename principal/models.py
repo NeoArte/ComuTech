@@ -112,7 +112,7 @@ class User(AbstractBaseUser): # Usuários
     email = models.EmailField(max_length=255, unique=True)
     cpf = models.CharField(max_length=14, validators=[validators.MinLengthValidator(11)], unique=True)
     phone = models.CharField(max_length=19)
-
+    
     # Campos ligados a localização, traduzindo se tratam respectivamente de:
     # País - Estado - Cidade - Bairro - Número da casa (ou prédio) - Informações adicionais (como o número do apartamento) - CEP
     
@@ -129,7 +129,7 @@ class User(AbstractBaseUser): # Usuários
 
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.jpg')
+    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.svg')
 
     whatsapp = models.CharField(max_length=19, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
@@ -179,6 +179,7 @@ class IpModel(models.Model):
     ip = models.CharField(max_length=100)
     def __str__(self):
         return self.ip
+
 
 class Aid(models.Model): # Socorros
 

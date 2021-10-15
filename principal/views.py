@@ -14,7 +14,6 @@ from datetime import datetime, timedelta, date
 
 from ipware import get_client_ip
 
-
 def home(request):
     return render(request, "principal/home.html")
 
@@ -147,6 +146,7 @@ def seeAid(request, pk):
 
 
     aid_photos = aid.photos.all()
+
     context = {
         'aid': aid,
         'aid_photos': aid_photos
@@ -209,25 +209,32 @@ def createAid(request):
     # recuperada pelo request.FILES.getlist separadamente. 
     # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
+    user = User.objects.get(pk=request.user.id)
+    total_aid = user.myaid.count()
 
     form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
-    
+    print("\n\n\n\n\n\n", form, "\n\n\n\n\n\n")
     img_form = AidPhotosForm(request.POST, request.FILES) # Contém os dados do form de imagens (seu ImageField pode conter apenas 1 imagem)
     images = request.FILES.getlist('image') # Contém a lista de imagens pegas pelo request
-
+    print(request.POST)
     print('\n\n\n\nRequest: ', request.FILES.getlist('image'), '\n\n\n\n') 
-
-    if form.is_valid() and img_form.is_valid():
+    if form.is_valid() and img_form.is_valid() and total_aid <= 8:
         print('\n\n\n\nEntrou\n\n\n\n') 
         form = form.save()
+        messages.add_message(request, messages.SUCCESS, 'Socorro criado com sucesso!')
         description = img_form.cleaned_data['description']
         for img in images:
             print(img)
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
         return redirect('home')
-
-    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
+    else:
+        messages.add_message(request, messages.ERROR, 'Você já excedeu o limite de 8 socorros ativos!')
+        print("- - -  id  - - -")
+        print(user.id)
+        print("- - - Fim id - - -\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        return redirect("criacao")
+    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n')
 
 @login_required(login_url="/login/")
 def deletar(request, pk):
@@ -259,3 +266,15 @@ def openAid(request, pk):
         aid.creation_date = creation_date
         aid.save()
     return redirect(f'/user/{request.user.id}/')    
+
+def closeAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    ending_date = datetime.today()
+
+    if request.method == "GET":
+        close = request.GET.get('close')
+    if close:
+        aid.state = "F"
+        aid.ending_date = ending_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')

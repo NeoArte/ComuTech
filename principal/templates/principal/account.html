@@ -24,7 +24,7 @@
             <p class="subtitle user-social-contact">Contatar</p>
             <div class="social-buttons mt-3 user-social-networks">
               {% if user_viewed.facebook %}
-              <a href="{{aid.facebook}}">
+              <a href="{{aid.facebook}}" target="_blank">
                 <svg id="facebook" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 9 23" fill="currentColor">
                   <path d="M8.638 9.98h-2.67V20H1.924V9.98H0V6.46h1.924V4.18c0-1.63.755-4.181 4.08-4.181L9 .013V3.43H6.826c-.356 0-.858.182-.858.96v2.072h3.023L8.638 9.98z"/>
                 </svg>
@@ -42,7 +42,7 @@
               <!--Fim do link para o whatsapp-->
 
               {% if user_viewed.instagram %}
-              <a href="https://www.instagram.com/{{user_viewed.instagram}}">
+              <a href="https://www.instagram.com/{{user_viewed.instagram}}" target="_blank">
                 <svg id="instagram" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 18 17" fill="currentColor">
                   <path d="M11.214 0a4.764 4.764 0 0 1 4.758 4.758v6.456a4.764 4.764 0 0 1-4.758 4.758H4.758A4.764 4.764 0 0 1 0 11.214V4.758A4.764 4.764 0 0 1 4.758 0h6.456zm3.151 11.214V4.758c0-1.74-1.41-3.151-3.151-3.151H4.758a3.151 3.151 0 0 0-3.151 3.151v6.456c0 1.74 1.41 3.151 3.151 3.151h6.456c1.74 0 3.151-1.41 3.151-3.151zM7.986 3.855a4.136 4.136 0 0 1 4.13 4.131 4.136 4.136 0 0 1-4.13 4.13 4.136 4.136 0 0 1-4.13-4.13 4.136 4.136 0 0 1 4.13-4.13zm0 6.655a2.524 2.524 0 1 0 0-5.048 2.524 2.524 0 0 0 0 5.048zm4.139-5.634a.99.99 0 1 1 0-1.98.99.99 0 0 1 0 1.98z"/>
                 </svg>
@@ -50,7 +50,7 @@
               {% endif %}
 
               {% if user_viewed.twitter %}
-              <a href="https://www.twitter.com/{{user_viewed.twitter}}">
+              <a href="https://www.twitter.com/{{user_viewed.twitter}}" target="_blank">
                 <svg id="twitter" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 14" fill="currentColor">
                   <path d="M18 1.657a7.628 7.628 0 0 1-2.121.556A3.576 3.576 0 0 0 17.503.258a7.597 7.597 0 0 1-2.345.858A3.768 3.768 0 0 0 12.462 0c-2.04 0-3.693 1.583-3.693 3.534 0 .277.032.547.096.806-3.07-.148-5.79-1.555-7.612-3.693-.318.521-.5 1.129-.5 1.777 0 1.226.652 2.308 1.642 2.941a3.793 3.793 0 0 1-1.672-.442v.045c0 1.712 1.273 3.14 2.962 3.465a3.835 3.835 0 0 1-1.667.061c.47 1.404 1.833 2.426 3.45 2.455A7.623 7.623 0 0 1 .88 12.46c-.297 0-.592-.016-.88-.05A10.789 10.789 0 0 0 5.66 14c6.793 0 10.508-5.385 10.508-10.056 0-.153-.004-.306-.011-.457A7.319 7.319 0 0 0 18 1.657z"/>
                 </svg>
@@ -114,15 +114,19 @@
               </div>
               <div class="aid-card-buttons">
                 {% if aid.author.id == user.id %}
+                  {% if aid.state != "F" %}
                 <div class="dropdown">
                   <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Opções
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Desativar Públicação</a>
-                    <a class="dropdown-item" href="#">Finalizar Publicação</a>
+                    {% if aid.state == "C" %}
+                    <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
+                    {% endif%}
+                    <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
                   </div>
                 </div>
+                  {% endif %}
                 {% endif %}
                 <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
                   Descrição

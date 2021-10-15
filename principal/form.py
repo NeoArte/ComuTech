@@ -6,6 +6,7 @@ from django.contrib.admin import widgets
 
 
 class RegistrationForm(UserCreationForm):
+    name = forms.CharField(max_length=255, help_text="Seu nome")
     class Meta:
         model = User
         fields = (
@@ -27,6 +28,7 @@ class RegistrationForm(UserCreationForm):
             'neighborhood', 
             'street',
             'house_number',
+            'add_info'
         )
     
     def __init__(self, *args, **kwargs):
@@ -154,29 +156,41 @@ class RegistrationForm(UserCreationForm):
         user.twitter = self.cleaned_data['twitter']
         user.instagram = self.cleaned_data['facebook']
         user.profile_picture = self.cleaned_data['profile_picture']
+        user.country = "Brasil"
+        user.state = self.cleaned_data['state']
+        user.city = self.cleaned_data['city']
+        user.neighborhood = self.cleaned_data['neighborhood']
+        user.street = self.cleaned_data['street']
+        user.house_number = self.cleaned_data['house_number']
+        user.add_info = self.cleaned_data['add_info']
 
         if commit:
             user.save()
-        
         return user
+
 
 class EditProfileForm(UserChangeForm):
     
     class Meta:
         model = User
         fields = (
-            'profile_picture',
             'name',
             'email',
-            'phone', 
-            'facebook', 
-            'whatsapp', 
-            'instagram', 
-            'twitter', 
-            'cpf', 
-            'cep', 
-            'birth_date', 
-            'password', 
+            'phone',
+            'cpf',
+            'cep',
+            'birth_date',
+            'facebook',
+            'whatsapp',
+            'twitter',
+            'instagram',
+            'profile_picture',
+            'state', 
+            'city', 
+            'neighborhood', 
+            'street',
+            'house_number',
+            'add_info'
             )
 
     def __init__(self, *args, **kwargs):
@@ -241,6 +255,32 @@ class EditProfileForm(UserChangeForm):
             'class':'edit-img',
             'id':'_inputIMG',
             'accept':'image/*',
+        })
+        self.fields['state'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'state',
+            'placeholder':'UF',
+        })
+        self.fields['city'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'city',
+            'placeholder':'Cidade',
+        })
+        self.fields['neighborhood'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'neighborhood',
+            'placeholder':'Bairro',
+        })
+        self.fields['street'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'street',
+            'placeholder':'Rua',
+        })
+        self.fields['house_number'].widget.attrs.update({
+            'class':'form-control without-icon inputNumber',
+            'id':'house_number',
+            'placeholder':'Casa',
+            'type':'number',
         })
         
 
