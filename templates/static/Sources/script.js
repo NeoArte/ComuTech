@@ -272,11 +272,12 @@ document.getElementById('ConfirmPassword').onblur = function() {
 }
 function validateConfirmPassword(element) {
     let password = document.getElementById('password').value
-    let confirmPassword = element.value
+    let confirmPassword = element
     let diversity = isAlphaNumeric(element.value).result
 
     if (element.value.length > 0) {    
-        if (diversity && element.value.length > 7 && password == confirmPassword) {
+        if (diversity && element.value.length > 7 && password == confirmPassword.value) {
+            console.log('é validdooooooooooooooooooooo')
             element.parentElement.setAttribute('class','input-group')
             element.setAttribute('input-valid','true')
         }
@@ -292,6 +293,12 @@ document.getElementById('phone').onblur = function() {
     let whatsapp = document.getElementById('whatsapp-input')
     if ((phoneNumber.length === 13) && (whatsapp.value == "")) {
         whatsapp.value = this.value
+    }
+}
+document.getElementById('house_number').onblur = function() {
+    let houseNumber = this.value
+    if (houseNumber.length != 13) {
+        this.setAttribute('input-valid','true')
     }
 }
 
@@ -381,23 +388,30 @@ document.getElementById('state').onchange = document.getElementById('city').onch
 
 function ableSubmitButton() {
     let form_inputs = document.getElementsByClassName('form-control')
-        form_valid = true
-
+    form_valid = true
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+    console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+    console.log('ccccccccccccccccccccccccccccccccccc')
     for (i=0; i < form_inputs.length; i++) {
-        if (form_inputs[i].getAttribute('input-valid') !== 'true') {
+        if (form_inputs[i].getAttribute('input-valid') != 'true') {
             form_valid = false
-            if(form_inputs[i].classList.contains('without-icon')) {
-                form_inputs[i].classList.add('wrong-form-control')
-            }
-            else {
-                form_inputs[i].parentElement.classList.add('wrong-form-control')
-            }
         }
+        console.log(form_valid)
+        console.log(form_inputs[i])
+    }
+    console.log(form_valid)
+    if (form_valid) {
+        document.getElementById('register-btn').removeAttribute('disabled')
+    }
+    else {
+        document.getElementById('register-btn').setAttribute('disabled','')
     }
 }
-
-document.getElementById('register-btn').onclick = function() {
-    ableSubmitButton()
+let form_inputs = document.getElementsByClassName('form-control')
+for (i=0; i < form_inputs.length; i++) {
+    form_inputs[i].onkeydown = function() {
+        ableSubmitButton()
+    }
 }
 
 document.getElementById('name').onfocusout = function() {

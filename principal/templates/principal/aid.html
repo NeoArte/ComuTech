@@ -7,7 +7,7 @@
           <div class="aid-first-section">
             <div class="carousel-box slide-aid-page">
               <div id="carouselExampleIndicators" class="carousel slide h-100" data-ride="carousel">
-                <ol class="carousel-indicators">
+                <ol id="_aid-carousel-indicators" class="carousel-indicators">
                   {% for photo in aid_photos %}
                     {% if forloop.first %}
                       <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
@@ -35,12 +35,12 @@
                     </div>
                   {% endfor %}
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <a id="aid-control-prev" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="chevron-compact" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
                   </svg>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <a id="aid-control-next" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="chevron-compact" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
                   </svg>
@@ -122,4 +122,12 @@
             </div>
           </div>
       </div>
+
+      <script>
+        if (document.getElementById('_aid-carousel-indicators').children.length == 1 ) {
+          document.getElementById('_aid-carousel-indicators').style.display = 'none';
+          document.getElementById('aid-control-prev').style.display = 'none';
+          document.getElementById('aid-control-next').style.display = 'none';
+        }
+      </script>
 {% endblock %}
