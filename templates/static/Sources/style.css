@@ -1223,9 +1223,6 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
 .social-medias.selected {
     color: var(--main);
 }
-.popover * {
-    width: 100%;
-}
 .mensage-title {
     margin: auto;
     font-size: 20px;

@@ -381,23 +381,29 @@ document.getElementById('state').onchange = document.getElementById('city').onch
 
 function ableSubmitButton() {
     let form_inputs = document.getElementsByClassName('form-control')
-        form_valid = true
-
+    form_valid = true
+    
     for (i=0; i < form_inputs.length; i++) {
         if (form_inputs[i].getAttribute('input-valid') !== 'true') {
             form_valid = false
-            if(form_inputs[i].classList.contains('without-icon')) {
-                form_inputs[i].classList.add('wrong-form-control')
-            }
-            else {
-                form_inputs[i].parentElement.classList.add('wrong-form-control')
-            }
+        }
+        else {
+            form_valid = true
         }
     }
+    console.log(form_valid)
+    if (form_valid) {
+        document.getElementById('register-btn').removeAttribute('disabled')
+    }
+    else {
+        document.getElementById('register-btn').setAttribute('disabled','')
+    }
 }
-
-document.getElementById('register-btn').onclick = function() {
-    ableSubmitButton()
+let form_inputs = document.getElementsByClassName('form-control')
+for (i=0; i < form_inputs.length; i++) {
+    form_inputs[i].onkeydown = function() {
+        ableSubmitButton()
+    }
 }
 
 document.getElementById('name').onfocusout = function() {
