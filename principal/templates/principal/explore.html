@@ -35,6 +35,7 @@
 
 {% block main %}
 <div class="explore-content">
+  {% if aid_page %}
   <div class="aid-cards">
     {% for aid in aid_page %} 
     <div class="aid-card">
@@ -50,7 +51,9 @@
         <div class="aid-infos-section">
           <a class="aid-profile-user" href="/user/{{aid.author.id}}">
             <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
-            {{aid.author.name}}
+            <p class="m-0 ml-1">
+              {{aid.author.name}}
+            </p>
           </a>
           <p class="aid-type">{{aid.type}}</p>
         </div>
@@ -60,7 +63,7 @@
             <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Opções
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">Desativar Públicação</a>
               <a class="dropdown-item" href="#">Finalizar Publicação</a>
             </div>
@@ -78,20 +81,24 @@
             Voltar
           </button>
         </div>
-        <div class="card-body">
+        <div class="card-body aid-card-text-desc">
           {{aid.description}}
         </div>
       </div>
     </div>
-    {% empty %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="explore-empty-search">
     <h1>Nenhum socorro encontrado.</h1>
     <h4>Os filtros selecionados não correspondem a nenhum socorro, mude os filtros e tente novamente.</h4>
     {% endfor %}
   </div>
+  {% endif %}
   
   <!-- Paginação -->
   {% if aid_list.count != 0 %}
-  <nav class="nav-pagination">
+  <nav id="explore-pagination" class="nav-pagination">
     <ul class="nav-pagination-ul">
       {% for pagina in aid_page.paginator.page_range %}
         {% if aid_page.number == pagina %}

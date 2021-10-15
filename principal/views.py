@@ -7,18 +7,23 @@ from django.conf import settings
 from django.core.paginator import Paginator
 
 from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, AidPhotos, User, UserManager
+from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
 
+from ipware import get_client_ip
 
 def home(request):
     return render(request, "principal/home.html")
 
+# REGISTRA O USUÁRIO
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
+        print("\n\n\n\n\n\n\n\n\n\n", request.POST)
+        print(request.POST["password1"])
+        print(request.POST["password2"], "\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Cadastro concluido com sucesso!')
@@ -33,7 +38,10 @@ def register(request):
                 return redirect('home')
             return redirect('home')
         else:
-            messages.add_message(request, messages.ERROR, 'Formulário inválido!')
+            if request.POST["password1"] != request.POST["password2"]:
+                messages.add_message(request, messages.ERROR, 'As senhas não correspodem!')
+            else:
+                messages.add_message(request, messages.ERROR, 'Algo no formulário está incorreto!')
 
     form = RegistrationForm() 
     context = {
@@ -72,6 +80,7 @@ def log_out(request):
 def explore(request, extra_context=None):
     types = AidType.objects.all()
     aid = Aid.objects.all()
+    aid = aid.exclude(state="C")
     context = {'aidtypes': types, 'aid_list': aid}
 
     if request.method == "GET":
@@ -121,7 +130,23 @@ def explore(request, extra_context=None):
 
 def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
+
+    ip, is_routable = get_client_ip(request)
+    print('\n\nIP: ', ip, " ", is_routable, '\n')
+
+    if IpModel.objects.filter(ip=ip).exists():
+        print('\nIp existe em IpModel\n')
+        # Caso esse ip já esteja em IpModel
+        aid.views.add(IpModel.objects.get(ip=ip))
+    else:
+        # Caso esse ip ainda precise ser adicionado ao IpModel
+        print('\nIp não existe em IpModel\n')
+        IpModel.objects.create(ip=ip)
+        aid.views.add(IpModel.objects.get(ip=ip))
+
+
     aid_photos = aid.photos.all()
+
     context = {
         'aid': aid,
         'aid_photos': aid_photos
@@ -138,7 +163,7 @@ def user(request, pk):
     user_age = user_age.days // 365
 
     aid_list = user_viewed.myaid.all()
-
+    
     context = {
         'user_viewed': user_viewed,
         'user_age': user_age,
@@ -184,25 +209,32 @@ def createAid(request):
     # recuperada pelo request.FILES.getlist separadamente. 
     # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
+    user = User.objects.get(pk=request.user.id)
+    total_aid = user.myaid.count()
 
     form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
-    
+    print("\n\n\n\n\n\n", form, "\n\n\n\n\n\n")
     img_form = AidPhotosForm(request.POST, request.FILES) # Contém os dados do form de imagens (seu ImageField pode conter apenas 1 imagem)
     images = request.FILES.getlist('image') # Contém a lista de imagens pegas pelo request
-
+    print(request.POST)
     print('\n\n\n\nRequest: ', request.FILES.getlist('image'), '\n\n\n\n') 
-
-    if form.is_valid() and img_form.is_valid():
+    if form.is_valid() and img_form.is_valid() and total_aid <= 8:
         print('\n\n\n\nEntrou\n\n\n\n') 
         form = form.save()
+        messages.add_message(request, messages.SUCCESS, 'Socorro criado com sucesso!')
         description = img_form.cleaned_data['description']
         for img in images:
             print(img)
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
         return redirect('home')
-
-    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
+    else:
+        messages.add_message(request, messages.ERROR, 'Você já excedeu o limite de 8 socorros ativos!')
+        print("- - -  id  - - -")
+        print(user.id)
+        print("- - - Fim id - - -\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        return redirect("criacao")
+    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n')
 
 @login_required(login_url="/login/")
 def deletar(request, pk):
@@ -234,3 +266,15 @@ def openAid(request, pk):
         aid.creation_date = creation_date
         aid.save()
     return redirect(f'/user/{request.user.id}/')    
+
+def closeAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    ending_date = datetime.today()
+
+    if request.method == "GET":
+        close = request.GET.get('close')
+    if close:
+        aid.state = "F"
+        aid.ending_date = ending_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')
