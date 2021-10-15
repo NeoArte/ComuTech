@@ -11,7 +11,7 @@ import datetime
 # User Manager é a classe responsável por lidar com o que ocorre durante a criação de um usuario (create_user) e super usuario (create_super_user)
 class UserManager(BaseUserManager):
     def create_user(
-        self, cpf, name, email, phone, cep, birth_date, 
+        self, cpf, name, email, phone, country, state, city, neighborhood, street, house_number, add_info, cep, birth_date, 
         facebook, whatsapp, instagram, twitter, profile_picture, password=None,):
         
         if not cpf: 
@@ -26,6 +26,18 @@ class UserManager(BaseUserManager):
         if not phone:
             raise ValueError("Usuários precisam ter um número de celular - Users must have a phone number")
 
+        if not country:
+            raise ValueError("Usuários precisam ter um pais - Users must have a country")
+        if not state:
+            raise ValueError("Usuários precisam ter um estado - Users must have a state")
+        if not city:
+            raise ValueError("Usuários precisam ter uma city - Users must have a city")
+        if not neighborhood:
+            raise ValueError("Usuários precisam ter um bairro - Users must have a neighborhood")
+        if not street:
+            raise ValueError("Usuários precisam ter uma rua - Users must have a street")
+        if not house_number:
+            raise ValueError("Usuários precisam ter um número de casa - Users must have a house number")
         if not cep:
             raise ValueError("Usuários precisam ter um CEP - Users must have a CEP")
 
@@ -38,6 +50,13 @@ class UserManager(BaseUserManager):
             name=name,
             email=self.normalize_email(email), # Normalize -> deixa tudo em letra minúscula
             phone=phone,
+            country=country,
+            state=state,
+            city=city,
+            neighborhood=neighborhood,
+            street=street,
+            house_number=house_number,
+            add_info=add_info,
             cep=cep,
             birth_date=birth_date,
             facebook=facebook,
@@ -52,13 +71,20 @@ class UserManager(BaseUserManager):
         return user
     
     def create_superuser(
-        self, cpf, name, email, phone, cep, birth_date, 
+        self, cpf, name, email, phone, country, state, city, neighborhood, street, house_number, add_info, cep, birth_date, 
         facebook, whatsapp, instagram, twitter, profile_picture, password):
         user = self.create_user(
             cpf=cpf,
             name=name,
             email=self.normalize_email(email), # Normalize -> deixa tudo em letra minúscula
             phone=phone,
+            country=country,
+            state=state,
+            city=city,
+            neighborhood=neighborhood,
+            street=street,
+            house_number=house_number,
+            add_info=add_info,
             cep=cep,
             birth_date=birth_date,
             password=password,

@@ -210,7 +210,7 @@ def createAid(request):
     # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
     user = User.objects.get(pk=request.user.id)
-    aid = user.myaid.count()
+    total_aid = user.myaid.count()
 
     form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
     print("\n\n\n\n\n\n", form, "\n\n\n\n\n\n")
@@ -218,7 +218,7 @@ def createAid(request):
     images = request.FILES.getlist('image') # Contém a lista de imagens pegas pelo request
     print(request.POST)
     print('\n\n\n\nRequest: ', request.FILES.getlist('image'), '\n\n\n\n') 
-    if form.is_valid() and img_form.is_valid() and aid <= 8:
+    if form.is_valid() and img_form.is_valid() and total_aid <= 8:
         print('\n\n\n\nEntrou\n\n\n\n') 
         form = form.save()
         messages.add_message(request, messages.SUCCESS, 'Socorro criado com sucesso!')
