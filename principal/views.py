@@ -6,7 +6,7 @@ from django.conf import settings
 
 from django.core.paginator import Paginator
 
-from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
+from .form import ReviewForm, AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
 from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
@@ -131,6 +131,7 @@ def explore(request, extra_context=None):
 
 def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
+    review = ReviewForm(aid=aid)
 
     ip, is_routable = get_client_ip(request)
     print('\n\nIP: ', ip, " ", is_routable, '\n')
@@ -149,7 +150,8 @@ def seeAid(request, pk):
     aid_photos = aid.photos.all()
     context = {
         'aid': aid,
-        'aid_photos': aid_photos
+        'aid_photos': aid_photos,
+        'review': review
     }
     return render(request, "principal/aid.html", context)
 
@@ -258,4 +260,9 @@ def openAid(request, pk):
         aid.state = "A"
         aid.creation_date = creation_date
         aid.save()
-    return redirect(f'/user/{request.user.id}/')    
+    return redirect(f'/user/{request.user.id}/')
+
+def review(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    next_page = request.GET.get('next')
+    review = ReviewForm(request.POST, aid=aid)

@@ -301,7 +301,14 @@ class ReviewForm(ModelForm):
         exclude = ['aid']
     
     def __init__(self, *args, **kwargs):
-        self._author = kwargs.pop('author')
-        super(AidPhotosForm, self).__init__(*args, **kwargs)
+        self._aid = kwargs.pop('aid')
+        super(ReviewForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class':'form-control'})
+    
+    def save(self, commit=True):
+        review = super(ReviewForm, self).save(commit=False)
+        review.aid = self._aaid
+        if commit:
+            review.save()
+        return review
