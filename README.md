@@ -22,8 +22,10 @@ Siga os seguintes passos para instalar o projeto em sua máquina local.
       
 4. Então instale as bibliotecas necessárias:
     - Django (``pip install django``)
-    - Django Filter (```pip install django-filter```)
+    - Django Environ (``pip install django-environ``)
+    - Django Filter (``pip install django-filter``)
     - Django Q (``pip install django_q``)
+    - Django Ipware (``pip install django-ipware``)
     - Pillow (``pip install pillow``)
     - (Todas as bibliotecas necessárias se encontram em 'requirements.txt', para instalar tudo de uma vez use `pip install -r requirements.txt`
 5. Faça as migrações com: ``python manage.py migrate``
