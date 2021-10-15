@@ -240,7 +240,30 @@ class EditProfileForm(UserChangeForm):
             'id':'_inputIMG',
             'accept':'image/*',
         })
+    def saveEdit(self, commit=True):
+        user = super(EditProfileForm, self).save(commit=False)
+        print("\n\n\n\n\n\n\n\n\n")
+        print(user)
+        print("\n\n\n\n\n\n\n\n\n")
+        user.name = self.cleaned_data['name']
+        print(user.name)
+        user.email = self.cleaned_data['email']
+        user.phone = re.sub('\D', '', self.cleaned_data['phone']).replace(' ', '')
+        user.cpf = re.sub('\D', '', self.cleaned_data['cpf']).replace(' ', '')
+        user.cep = re.sub('\D', '', self.cleaned_data['cep']).replace(' ', '')
+        user.birth_date = self.cleaned_data['birth_date']
+
+        #ITENS OPCIONAIS
+        user.facebook = self.cleaned_data['facebook']
+        user.whatsapp = re.sub('\D', '', self.cleaned_data['whatsapp']).replace(' ', '')
+        user.twitter = self.cleaned_data['twitter']
+        user.instagram = self.cleaned_data['facebook']
+        user.profile_picture = self.cleaned_data['profile_picture']
+
+        if commit:
+            user.save()
         
+        return user
 
 
 class AidForm(ModelForm):

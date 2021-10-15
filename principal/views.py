@@ -36,8 +36,8 @@ def register(request):
             return redirect('register')
 
         form = RegistrationForm(request.POST, request.FILES)
-        print("\n\n\n\n\n\n\n\n\n\n", request.POST)
-        print(request.POST["password1"])
+        # print("\n\n\n\n\n\n\n\n\n\n", request.POST)
+        # print(request.POST["password1"])
 
         if form.is_valid():
             form.save()
@@ -193,6 +193,15 @@ def edit_account(request, id):
     if request.user.id == getattr(user, 'id'):
         if request.method == 'POST':
             print('\n\nFoi POST\n\n')
+            # phone = re.sub("\D", "", request.POST.get('phone')).replace(" ", "")
+            # cpf = re.sub("\D", "", request.POST.get('cpf')).replace(" ", "")
+            # cep = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
+            # print("ASDSOIDJOAS")
+            # a = User.objects.filter(cpf=cpf).update(cpf=cpf)
+            # obj, created = User.objects.update_or_create(
+            #     phone=phone, cpf=cpf, cep=cep,
+            #     defaults={'phone': phone, 'cpf':cpf, 'cep':cep},
+            # )
             userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData)
             if userUpdate.is_valid():
                 userUpdate.save()
