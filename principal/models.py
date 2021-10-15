@@ -215,7 +215,6 @@ class AidPhotos(models.Model):
 
 
 class Review(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     aid = models.OneToOneField(Aid, on_delete=models.CASCADE)
 
     RESULT = (("F", "Funcionou"),("NF", "Não Funcionou"), ("NN", "Não é mas necessário"), ("O", "Outro"))
