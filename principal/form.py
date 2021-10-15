@@ -308,7 +308,7 @@ class ReviewForm(ModelForm):
     
     def save(self, commit=True):
         review = super(ReviewForm, self).save(commit=False)
-        review.aid = self._aaid
+        review.aid = self._aid
         if commit:
             review.save()
         return review

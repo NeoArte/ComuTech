@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main %}
-{% include 'partials/_review.html'%}
+      {% if aid.author.id == user.id %}
+        {% include 'partials/_review.html'%}
+      {% endif %}
       <div class="card-body">
           <div class="aid-first-section">
             <div class="carousel-box slide-aid-page">

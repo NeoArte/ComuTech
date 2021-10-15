@@ -82,6 +82,7 @@ def explore(request, extra_context=None):
     types = AidType.objects.all()
     aid = Aid.objects.all()
     aid = aid.exclude(state="C")
+    review = ReviewForm(aid=-1)
     context = {'aidtypes': types, 'aid_list': aid}
 
     if request.method == "GET":
@@ -209,7 +210,6 @@ def createAid(request):
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
     # recuperada pelo request.FILES.getlist separadamente. 
-    # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
 
     form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
@@ -266,3 +266,10 @@ def review(request, pk):
     aid = Aid.objects.get(pk=pk)
     next_page = request.GET.get('next')
     review = ReviewForm(request.POST, aid=aid)
+
+    if review.is_valid():
+        review.save()
+        return redirect(next_page)
+    else:
+        messages.add_message(request, messages.ERROR, 'Um erro ocorreu ao enviar seu feedback')
+        return redirect(next_page)
