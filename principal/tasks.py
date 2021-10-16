@@ -90,3 +90,4 @@ def freeze_checker():
         
 #         if aid.state == "F" and timezone.now() >= delete_time:
 #             aid.delete()
+
