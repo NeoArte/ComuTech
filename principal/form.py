@@ -181,7 +181,7 @@ class EditProfileForm(UserChangeForm):
         self._cpf = kwargs.pop('cpf')
         self._phone = kwargs.pop('phone')
         self._cep = kwargs.pop('cep')
-        self.whatsapp = kwargs.pop('whatsapp')
+        self._whatsapp = kwargs.pop('whatsapp')
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
@@ -244,7 +244,7 @@ class EditProfileForm(UserChangeForm):
             'id':'_inputIMG',
             'accept':'image/*',
         })
-    def saveEdit(self, commit=True):
+    def save(self, commit=True):
         user = super(EditProfileForm, self).save(commit=False)
         user.cpf = re.sub('\D', '', self._cpf).replace(' ', '')
         user.phone = re.sub('\D', '', self._phone).replace(' ', '')

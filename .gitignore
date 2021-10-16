@@ -4,8 +4,8 @@
 *.pyc
 __pycache__
 db.sqlite3
-media/users/*
-!media/users/empty-img-profile.jpg
+media/users/
+!media/users/empty-img-profile.svg
 
 
 # Backup files # 

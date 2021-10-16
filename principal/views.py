@@ -188,7 +188,7 @@ def user(request, pk):
 @login_required(login_url="/login/")
 def edit_account(request, id):
     userData = User.objects.get(pk=id)
-    userForm = EditProfileForm(instance = userData)
+    userForm = EditProfileForm(instance = userData, phone=0, cpf=0, cep=0, whatsapp=0)
     user = User.objects.get(pk=id)
     if request.user.id == getattr(user, 'id'):
         if request.method == 'POST':
@@ -197,14 +197,17 @@ def edit_account(request, id):
             cpf = re.sub("\D", "", request.POST.get('cpf')).replace(" ", "")
             cep = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
             whatsapp = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
-            userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData,phone=phone, cpf=cpf, cep=cep, whatsapp=whatsapp)
+            userUpdate = EditProfileForm(request.POST, request.FILES, instance=userData,phone=phone, cpf=cpf, cep=cep, whatsapp=whatsapp)
+            
             if userUpdate.is_valid():
+                print(f'Entrou \n\n\n')
                 userUpdate.save()
                 return redirect(f'/user/{id}/')
             else:
                 print("\n\nForm é invalido")
                 print('CPF: ', userUpdate['cpf'].value(), " X ", userData.cpf)
                 print("\n\n")
+
         else:
             print('\n\nNão foi POST\n\n')
             return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})  
