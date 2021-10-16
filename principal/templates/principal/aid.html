@@ -3,6 +3,20 @@
 {% load static %}
 
 {% block main %}
+<style>
+  .btn-drop {
+    background-color: var(--strong-low-contrast);
+    color: var(--main);
+    border: 0;
+  }
+  .btn-drop:hover, .dropdown-item:focus{
+    background-color: var(--main-low-contrast);
+    
+  }
+</style>
+      {% if aid.author.id == user.id %}
+        {% include 'partials/_review.html'%}
+      {% endif %}
       <div class="card-body">
           <div class="aid-first-section">
             <div class="carousel-box slide-aid-page">
@@ -70,7 +84,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-aid-page" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">Desativar Públicação</a>
-                  <a class="dropdown-item" href="#">Finalizar Publicação</a>
+                  <button type="button" class="dropdown-item btn-drop" data-toggle="modal" data-target="#review-modal">
+                    Finalizar Públicação
+                  </button>
                 </div>
               </div>
               {% else%}
