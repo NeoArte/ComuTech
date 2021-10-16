@@ -113,7 +113,7 @@ class User(AbstractBaseUser): # Usuários
     email = models.EmailField(max_length=255, unique=True)
     cpf = models.CharField(max_length=14, validators=[validators.MinLengthValidator(11)], unique=True)
     phone = models.CharField(max_length=19)
-
+    
     # Campos ligados a localização, traduzindo se tratam respectivamente de:
     # País - Estado - Cidade - Bairro - Número da casa (ou prédio) - Informações adicionais (como o número do apartamento) - CEP
     
@@ -130,7 +130,7 @@ class User(AbstractBaseUser): # Usuários
 
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.jpg')
+    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.svg')
 
     whatsapp = models.CharField(max_length=19, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
@@ -189,7 +189,7 @@ class Aid(models.Model): # Socorros
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="myaid")
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=14)
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(AidType, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
