@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_tags %}
 {% block main %}
 <link rel="stylesheet" href="{% static 'Sources/home.css' %}">
 <div class="u-body u-overlap w-100">
@@ -83,77 +84,67 @@
         </div>
         </div>
       </div>
-      <div class="u-clearfix u-expanded-width u-gutter-30 u-layout-wrap u-layout-wrap-1">
-        <div class="u-gutter-0 u-layout">
-          <div class="u-layout-row">
-            <a class="card-link" href="ParaCard" style="text-decoration: none;">
-              <div class="col-md-4"><!--Inicio Card-->
-                <div class="card mb-4 shadow-sm"><!--sombra do card-->
-                  <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-                  <h1 class="text-center c-text">Titulo</h1>
-                  <div class="card-body"><!--Inicio Corpo Do Card-->
-                    <div class="card-date-class">
-                      <p class="description c-text mb-1">DD/MM/AAAA</p>
-                      <p class="card-text c-text mb-1">Classificação</p>
-                    </div>
-                    <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-                      <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                        <span class="username"><!--Nome Do Usuario-->
-                          <a href="Usuario" class="userName">Usuario</a>
-                        </span><!--Fim Do Que Contém No Nome Do Usuario-->
-                      </div>
-                  </div><!--Fim Do Corpo Do Card-->
-                </div><!--Fim da Sombra Do Card-->
-              </div><!--Fim Card-->
-            </a>
-            <a class="card-link" href="ParaCard" style="text-decoration: none;">
-              <div class="col-md-4"><!--Inicio Card-->
-                <div class="card mb-4 shadow-sm"><!--sombra do card-->
-                  <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-                  <h1 class="text-center c-text">Titulo</h1>
-                  <div class="card-body"><!--Inicio Corpo Do Card-->
-                    <div class="card-date-class">
-                      <p class="description c-text mb-1">DD/MM/AAAA</p>
-                      <p class="card-text c-text mb-1">Classificação</p>
-                    </div>
-                    <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-                      <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                        <span class="username"><!--Nome Do Usuario-->
-                          <a href="Usuario" class="userName">Usuario</a>
-                        </span><!--Fim Do Que Contém No Nome Do Usuario-->
-                      </div>
-                  </div><!--Fim Do Corpo Do Card-->
-                </div><!--Fim da Sombra Do Card-->
-              </div><!--Fim Card-->
-            </a>
-            <a class="card-link" href="ParaCard" style="text-decoration: none;">
-              <div class="col-md-4"><!--Inicio Card-->
-                <div class="card mb-4 shadow-sm"><!--sombra do card-->
-                  <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZO25RX0Me_oYwuXa2hPcgah-3t07WXVWXWJGVGYuI0cp4BMW1QXj0KQGHDyzR5TFy8Ys&usqp=CAU">
-                  <h1 class="text-center c-text">Titulo</h1>
-                  <div class="card-body"><!--Inicio Corpo Do Card-->
-                    <div class="card-date-class">
-                      <p class="description c-text mb-1">DD/MM/AAAA</p>
-                      <p class="card-text c-text mb-1">Classificação</p>
-                    </div>
-                    <div class="user-block"><!-- Bloco Do Usuário Ex: Nome, Foto e Descrição-->
-                      <img class="img-circle img-bordered-sm" src="imgs/example_img.jfif" alt="user image"> <!--imagem do usuário-->
-                        <span class="username"><!--Nome Do Usuario-->
-                          <a href="Usuario" class="userName">Usuario</a>
-                        </span><!--Fim Do Que Contém No Nome Do Usuario-->
-                      </div>
-                  </div><!--Fim Do Corpo Do Card-->
-                </div><!--Fim da Sombra Do Card-->
-              </div><!--Fim Card-->
-            </a>
+      <div class="aid-cards home-aid-cards">
+        {% for aid in aid_page %} 
+        <div class="aid-card"
+           {% if aid.state == "C" %}id="froozen-aid-card"
+           {% elif aid.state == "F" %}id="ended-aid-card"{% endif %}>
+            <div>
+              <a href="/explore/{{aid.id}}" class="aid-route">
+                <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
+                <div class="aid-title-section">
+                  <p>
+                    {{aid.title}}
+                  </p>
+                </div>
+              </a>
+              <div class="aid-infos-section">
+                <a class="aid-profile-user" href="/user/{{aid.author.id}}">
+                  <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
+                  {{aid.author.name}}
+                </a>
+                <p class="aid-type">{{aid.type}}</p>
+              </div>
+              <div class="aid-card-buttons">
+                {% if aid.author.id == user.id %}
+                  {% if aid.state != "F" %}
+                <div class="dropdown">
+                  <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Opções
+                  </button>
+                  <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
+                    {% if aid.state == "C" %}
+                    <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
+                    {% endif%}
+                    <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
+                  </div>
+                </div>
+                  {% endif %}
+                {% endif %}
+                <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+                  Descrição
+                </button>
+              </div>
+            </div>
+            <div class="card aid-card-desc">
+              <div class="card-header aid-header-desc">
+                <h3 class="card-title">Descrição</h3>
+                <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+                  Voltar
+                </button>
+              </div>
+              <div class="card-body">
+                {{aid.description}}
+              </div>
+            </div>
           </div>
-          <a href="{% url 'explore' %}">
-            <button class="btn btn-block btn-form col-8 m-4 mx-auto p-2 ml-auto mb-0">
-                Ver mais Publicações
-            </button>
-          </a>
-        </div>
+        {% endfor %}
       </div>
+      <a href="{% url 'explore' %}">
+        <button class="btn btn-block btn-form col-12 p-2 mb-3">
+            Ver mais Publicações
+        </button>
+      </a>
     </div>
   </section>
   <section class="u-clearfix u-image u-section-9" id="about-dev">
@@ -165,7 +156,7 @@
               <div class="u-container-layout u-container-layout-1"></div>
             </div>
             <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-33 u-layout-cell-2">
-              <div class="u-container-layout u-valign-middle">
+              <div class="u-container-layout u-valign-middle" style="opacity: 0.75;">
                 <div class="u-align-left u-container-style u-expanded-width u-group u-right-0 u-white u-group-1 div-about-dev">
                   <div class="u-container-layout u-container-layout-3">
                     <h2 class="u-text info-dev-title">Quem somos nós ?</h2>
@@ -184,4 +175,5 @@
     </div>
   </section>
 </div>
+<script src="{% static 'Sources/home.js' %}"></script>
 {% endblock %}

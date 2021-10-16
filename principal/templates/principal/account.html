@@ -93,9 +93,11 @@
         {% else %}
         <h1 class="user-second-section">Socorros de {{user_viewed.name}}</h1>
         {% endif %}
-        <div class="aid-cards">
+        <div class="aid-cards profile-aid-cards">
           {% for aid in aid_list %}
-          <div class="aid-card">
+          <div class="aid-card"
+           {% if aid.state == "C" %}id="froozen-aid-card"
+           {% elif aid.state == "F" %}id="ended-aid-card"{% endif %}>
             <div>
               <a href="/explore/{{aid.id}}" class="aid-route">
                 <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
@@ -119,7 +121,7 @@
                   <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Opções
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
                     {% if aid.state == "C" %}
                     <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
                     {% endif%}

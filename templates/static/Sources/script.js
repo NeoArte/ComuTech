@@ -178,7 +178,7 @@ for (i=0; i < inputNumbers.length; i++) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-document.getElementById('cpf').onblur = function() {
+document.getElementById('cpf').oninput = function() {
     validateInputCPF(this)
 }
 function isCpf(cpf) {
@@ -267,7 +267,7 @@ function validatePassword(element) {
     }
 }
 
-document.getElementById('ConfirmPassword').onblur = function() {
+document.getElementById('ConfirmPassword').onkeyup = function() {
     validateConfirmPassword(this)
 }
 function validateConfirmPassword(element) {
@@ -288,7 +288,7 @@ function validateConfirmPassword(element) {
     }
 }
 
-document.getElementById('phone').onblur = function() {
+document.getElementById('phone').oninput = function() {
     let phoneNumber = this.value.replace(/\D/g, '')
     let whatsapp = document.getElementById('whatsapp-input')
     if ((phoneNumber.length === 13) && (whatsapp.value == "")) {
@@ -391,6 +391,7 @@ function ableSubmitButton() {
     form_valid = true
     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+    console.log(form_valid)
     console.log('ccccccccccccccccccccccccccccccccccc')
     for (i=0; i < form_inputs.length; i++) {
         if (form_inputs[i].getAttribute('input-valid') != 'true') {
@@ -409,7 +410,7 @@ function ableSubmitButton() {
 }
 let form_inputs = document.getElementsByClassName('form-control')
 for (i=0; i < form_inputs.length; i++) {
-    form_inputs[i].onkeydown = function() {
+    form_inputs[i].onchange = function() {
         ableSubmitButton()
     }
 }
@@ -480,3 +481,7 @@ function createPasswordVerificationSVG(clasification, defs) {
         
         return svgVerification
   }
+
+document.getElementById('page-back').onclick = function() {
+    window.history.back()
+}

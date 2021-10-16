@@ -64,16 +64,20 @@
                 </a>
               </div>
               {% if aid.author.id == user.id %}
+               {% if aid.state != "F" %}
               <div class="dropdown mx-auto">
                 <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle options-aid-page" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Opções
                 </button>
                 <div class="dropdown-menu dropdown-aid-page" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Desativar Públicação</a>
-                  <a class="dropdown-item" href="#">Finalizar Publicação</a>
+                  {% if aid.state == "C" %}
+                  <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
+                  {% endif%}
+                  <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
                 </div>
               </div>
-              {% else%}
+               {% endif %}
+              {% elif aid.state != "F" %}
               {% if aid.author.facebook != "" or aid.author.twitter != "" or aid.author.whatsapp != "" or aid.author.instagram != "" %}
               <div class="m-3">
                 <p class="subtitle user-social-contact">Selecionar meio de contato</p>
