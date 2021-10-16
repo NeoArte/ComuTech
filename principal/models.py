@@ -217,10 +217,10 @@ class AidPhotos(models.Model):
 class Review(models.Model):
     aid = models.OneToOneField(Aid, on_delete=models.CASCADE)
 
-    RESULT = (("F", "Funcionou"),("NF", "Não Funcionou"), ("NN", "Não é mas necessário"), ("O", "Outro"))
+    RESULT = (("F", "Funcionou"),("N", "Não Funcionou"), ("O", "Outro"))
     RATING = ((1,"1"),(2,"2"),(3,"3"),(4,"4"),(5,"5"))
 
-    result = models.CharField(max_length=2, choices=RESULT)
+    result = models.CharField(max_length=1, choices=RESULT)
     rating = models.IntegerField(choices=RATING)
     feedback = models.TextField(blank=True, null=True)
 

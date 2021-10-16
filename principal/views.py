@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 
 from .form import ReviewForm, AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
+from .models import Review, AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
@@ -80,10 +80,13 @@ def log_out(request):
 
 def explore(request, extra_context=None):
     types = AidType.objects.all()
+    
     aid = Aid.objects.all()
     aid = aid.exclude(state="C")
-    review = ReviewForm(aid=-1)
-    context = {'aidtypes': types, 'aid_list': aid}
+    aid = aid.exclude(state="F")
+
+    review = ReviewForm(aid=0)
+    context = {'aidtypes': types, 'aid_list': aid, 'review': review}
 
     if request.method == "GET":
 
@@ -159,6 +162,7 @@ def seeAid(request, pk):
 @login_required(login_url="/login/")
 def user(request, pk):
     user_viewed = User.objects.get(pk=pk)
+    review = ReviewForm(aid=0)
     
     print("\n\n\n\n", user_viewed.id, " x ", request.user.id, "\n\n\n\n")
     
@@ -170,7 +174,8 @@ def user(request, pk):
     context = {
         'user_viewed': user_viewed,
         'user_age': user_age,
-        'aid_list': aid_list
+        'aid_list': aid_list,
+        'review': review,
     }
     return render(request, "principal/account.html", context)
 
@@ -267,9 +272,19 @@ def review(request, pk):
     next_page = request.GET.get('next')
     review = ReviewForm(request.POST, aid=aid)
 
+    if Review.objects.filter(aid=pk).exists():
+        messages.add_message(request, messages.ERROR, 'Você já finalizou esse socorro e enviou sua avaliação')
+        return redirect(next_page)
+
     if review.is_valid():
+        print('\n\n\n',aid,'\n\n\n')
+        aid.state = "F"
+        print('\n\n\n',aid,'\n\n\n')
+        aid.ending_date = datetime.today()
+        aid.save()
         review.save()
+        messages.add_message(request, messages.SUCCESS, 'Sua avaliação foi enviada e seu socorro finalizado. Em duas semanas ele será removido dos nossos sistemas')
         return redirect(next_page)
     else:
-        messages.add_message(request, messages.ERROR, 'Um erro ocorreu ao enviar seu feedback')
+        messages.add_message(request, messages.ERROR, 'Um erro ocorreu ao enviar sua avaliação, tente novamente.')
         return redirect(next_page)

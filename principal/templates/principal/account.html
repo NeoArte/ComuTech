@@ -95,6 +95,9 @@
         {% endif %}
         <div class="aid-cards">
           {% for aid in aid_list %}
+          {% if user_viewed.id == request.user.id %}
+            {% include 'partials/_review.html'%}
+          {% endif %}
           <div class="aid-card">
             <div>
               <a href="/explore/{{aid.id}}" class="aid-route">
@@ -120,7 +123,9 @@
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Desativar Públicação</a>
-                    <a class="dropdown-item" href="#">Finalizar Publicação</a>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#review-modal">
+                      Finalizar Públicação
+                    </button>
                   </div>
                 </div>
                 {% endif %}

@@ -24,5 +24,5 @@ urlpatterns = [
     path("deletar/<int:pk>", views.deletar), # Deleta o socorro e redireciona para "socorrosmeus"
     path("delete/<int:pk>", views.delete, name="delete"), # Deleta o usuário
     path("open/<int:pk>", views.openAid), # Descongela o Socorro que estava Congelado
-
+    path("review/<int:pk>", views.review)
 ]

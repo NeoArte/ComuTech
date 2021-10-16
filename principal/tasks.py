@@ -5,8 +5,8 @@ from django.utils import timezone
 
 # Para iniciar use: python manage.py qcluster
 
-def aid_checker():
-    print("\n\n\nRODANDO AID_CHECKER\n\n\n")
+def freeze_checker():
+    print("\n\n\nRODANDO FREEZE_CHECKER\n\n\n")
     aid_list  = Aid.objects.all()
     for aid in aid_list:
 
@@ -20,4 +20,16 @@ def aid_checker():
             aid = aid.save()
         
         if aid.state == "C" and timezone.now() >= delete_time:
+            aid.delete()
+
+def ending_checker():
+    print("\n\n\nRODANDO ENDING_CHECKER\n\n\n")
+    aid_list  = Aid.objects.all()
+    for aid in aid_list:
+        
+        delete_time = aid.ending_date + timedelta(days=14)
+
+        print("Aid ID: ", aid.id, " | ","Today: ", timezone.now(), " | ", "DT: ", delete_time)
+        
+        if aid.state == "F" and timezone.now() >= delete_time:
             aid.delete()
