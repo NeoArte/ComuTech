@@ -193,16 +193,11 @@ def edit_account(request, id):
     if request.user.id == getattr(user, 'id'):
         if request.method == 'POST':
             print('\n\nFoi POST\n\n')
-            # phone = re.sub("\D", "", request.POST.get('phone')).replace(" ", "")
-            # cpf = re.sub("\D", "", request.POST.get('cpf')).replace(" ", "")
-            # cep = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
-            # print("ASDSOIDJOAS")
-            # a = User.objects.filter(cpf=cpf).update(cpf=cpf)
-            # obj, created = User.objects.update_or_create(
-            #     phone=phone, cpf=cpf, cep=cep,
-            #     defaults={'phone': phone, 'cpf':cpf, 'cep':cep},
-            # )
-            userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData)
+            phone = re.sub("\D", "", request.POST.get('phone')).replace(" ", "")
+            cpf = re.sub("\D", "", request.POST.get('cpf')).replace(" ", "")
+            cep = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
+            whatsapp = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
+            userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData,phone=phone, cpf=cpf, cep=cep, whatsapp=whatsapp)
             if userUpdate.is_valid():
                 userUpdate.save()
                 return redirect(f'/user/{id}/')

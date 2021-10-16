@@ -178,6 +178,10 @@ class EditProfileForm(UserChangeForm):
             )
 
     def __init__(self, *args, **kwargs):
+        self._cpf = kwargs.pop('cpf')
+        self._phone = kwargs.pop('phone')
+        self._cep = kwargs.pop('cep')
+        self.whatsapp = kwargs.pop('whatsapp')
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
@@ -242,23 +246,10 @@ class EditProfileForm(UserChangeForm):
         })
     def saveEdit(self, commit=True):
         user = super(EditProfileForm, self).save(commit=False)
-        print("\n\n\n\n\n\n\n\n\n")
-        print(user)
-        print("\n\n\n\n\n\n\n\n\n")
-        user.name = self.cleaned_data['name']
-        print(user.name)
-        user.email = self.cleaned_data['email']
-        user.phone = re.sub('\D', '', self.cleaned_data['phone']).replace(' ', '')
-        user.cpf = re.sub('\D', '', self.cleaned_data['cpf']).replace(' ', '')
-        user.cep = re.sub('\D', '', self.cleaned_data['cep']).replace(' ', '')
-        user.birth_date = self.cleaned_data['birth_date']
-
-        #ITENS OPCIONAIS
-        user.facebook = self.cleaned_data['facebook']
-        user.whatsapp = re.sub('\D', '', self.cleaned_data['whatsapp']).replace(' ', '')
-        user.twitter = self.cleaned_data['twitter']
-        user.instagram = self.cleaned_data['facebook']
-        user.profile_picture = self.cleaned_data['profile_picture']
+        user.cpf = re.sub('\D', '', self._cpf).replace(' ', '')
+        user.phone = re.sub('\D', '', self._phone).replace(' ', '')
+        user.cep = re.sub('\D', '', self._cep).replace(' ', '')
+        user.whatsapp = re.sub('\D', '', self._whatsapp).replace(' ', '')
 
         if commit:
             user.save()
