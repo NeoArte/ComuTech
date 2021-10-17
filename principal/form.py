@@ -361,7 +361,13 @@ class ReviewForm(ModelForm):
         self._aid = kwargs.pop('aid')
         super(ReviewForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class':'form-control'})
+            self.fields[field].widget.attrs.update({'class':'form-control review-inputs'})
+        self.fields['feedback'].widget.attrs.update({
+            'class':'form-control review-inputs fixed-textarea'
+        })
+        self.fields['rating'].widget.attrs.update({
+            'class':'d-none'
+        })
     
     def save(self, commit=True):
         review = super(ReviewForm, self).save(commit=False)

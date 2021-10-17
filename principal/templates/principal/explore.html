@@ -38,14 +38,14 @@
   {% if aid_page %}
   <div class="aid-cards">
     {% for aid in aid_page %}
-    
-    {% if aid.author.id == user.id%}
-      {% include 'partials/_review.html'%}
-    {% endif %}
-
-    <div class="aid-card">
+      {% if user.id == aid.author.id %}
+        {% include 'partials/_review.html'%}
+      {% endif %}
+    <div class="aid-card"
+    {% if aid.state == "C" %}id="froozen-aid-card"
+    {% elif aid.state == "F" %}id="ended-aid-card"{% endif %}>
       <div>
-        <a href="{{aid.id}}" class="aid-route">
+        <a href="/explore/{{aid.id}}" class="aid-route">
           <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
           <div class="aid-title-section">
             <p>
@@ -73,7 +73,9 @@
               {% if aid.state == "C" %}
               <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
               {% endif%}
-              <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
+              <button type="button" class="dropdown-item" data-toggle="modal" data-target="#review-modal-{{aid.id}}">
+                Finalizar Públicação
+              </button>
             </div>
           </div>
             {% endif %}
@@ -90,7 +92,7 @@
             Voltar
           </button>
         </div>
-        <div class="card-body aid-card-text-desc">
+        <div class="card-body">
           {{aid.description}}
         </div>
       </div>

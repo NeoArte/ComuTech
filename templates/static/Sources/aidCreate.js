@@ -215,6 +215,7 @@ document.getElementById('need-aid-submit').onclick = function() {
         document.getElementById('aid-alert').style.display = 'block'
         document.getElementById('aid-alert-mensage').innerHTML = 'Obrigatório inserir ao menos uma imagem!'
         window.scrollTo(0, 0)
+        return false
     }
 }
 document.getElementById('alert-close').onclick = function() {
@@ -224,3 +225,4 @@ document.getElementById('alert-close').onclick = function() {
 document.getElementById('page-back').onclick = function() {
     window.history.back()
 }
+

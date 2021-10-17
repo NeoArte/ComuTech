@@ -18,6 +18,7 @@ from ipware import get_client_ip
 def home(request):
     _objects = Aid.objects.all()
     _objects = _objects.exclude(state="C")
+    review = ReviewForm(aid=0)
     if not len(_objects) == 0:
         if len(_objects) == 1:
             firstRandom = randint(0, len(_objects) - 1)
@@ -50,7 +51,10 @@ def home(request):
                 ]
     else:
         aid_page = []
-    return render(request, "principal/home.html", {'aid_page':aid_page,})
+    return render(request, "principal/home.html", {
+        'aid_page':aid_page,
+        'review':review
+        })
 
 # REGISTRA O USUÁRIO
 def register(request):

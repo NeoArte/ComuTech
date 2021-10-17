@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {% load custom_tags %}
+{% load static %}
+
 {% block main %}
 <link rel="stylesheet" href="{% static 'Sources/home.css' %}">
 <div class="u-body u-overlap w-100">
@@ -75,6 +77,7 @@
       </div>
     </div>
   </section>
+  {% if aid_page %}
   <section class="u-clearfix u-grey-5 u-section-4" id="posts">
       <div class="u-clearfix u-sheet u-sheet-1">
       <div class="u-align-center u-container-style u-expanded-width-md u-group u-group-1">
@@ -85,59 +88,66 @@
         </div>
       </div>
       <div class="aid-cards home-aid-cards">
-        {% for aid in aid_page %} 
+        {% for aid in aid_page %}
+          {% if user.id == aid.author.id %}
+            {% include 'partials/_review.html'%}
+          {% endif %}
         <div class="aid-card"
-           {% if aid.state == "C" %}id="froozen-aid-card"
-           {% elif aid.state == "F" %}id="ended-aid-card"{% endif %}>
-            <div>
-              <a href="/explore/{{aid.id}}" class="aid-route">
-                <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
-                <div class="aid-title-section">
-                  <p>
-                    {{aid.title}}
-                  </p>
-                </div>
-              </a>
-              <div class="aid-infos-section">
-                <a class="aid-profile-user" href="/user/{{aid.author.id}}">
-                  <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
+        {% if aid.state == "C" %}id="froozen-aid-card"
+        {% elif aid.state == "F" %}id="ended-aid-card"{% endif %}>
+          <div>
+            <a href="/explore/{{aid.id}}" class="aid-route">
+              <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
+              <div class="aid-title-section">
+                <p>
+                  {{aid.title}}
+                </p>
+              </div>
+            </a>
+            <div class="aid-infos-section">
+              <a class="aid-profile-user" href="/user/{{aid.author.id}}">
+                <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
+                <p class="m-0 ml-1">
                   {{aid.author.name}}
-                </a>
-                <p class="aid-type">{{aid.type}}</p>
-              </div>
-              <div class="aid-card-buttons">
-                {% if aid.author.id == user.id %}
-                  {% if aid.state != "F" %}
-                <div class="dropdown">
-                  <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Opções
-                  </button>
-                  <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
-                    {% if aid.state == "C" %}
-                    <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
-                    {% endif%}
-                    <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
-                  </div>
-                </div>
-                  {% endif %}
-                {% endif %}
-                <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
-                  Descrição
-                </button>
-              </div>
+                </p>
+              </a>
+              <p class="aid-type">{{aid.type}}</p>
             </div>
-            <div class="card aid-card-desc">
-              <div class="card-header aid-header-desc">
-                <h3 class="card-title">Descrição</h3>
-                <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
-                  Voltar
+            <div class="aid-card-buttons">
+              {% if aid.author.id == user.id %}
+                {% if aid.state != "F" %}
+              <div class="dropdown">
+                <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Opções
                 </button>
+                <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
+                  {% if aid.state == "C" %}
+                  <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
+                  {% endif%}
+                  <button type="button" class="dropdown-item" data-toggle="modal" data-target="#review-modal-{{aid.id}}">
+                    Finalizar Públicação
+                  </button>
+                </div>
               </div>
-              <div class="card-body">
-                {{aid.description}}
-              </div>
+                {% endif %}
+              {% endif %}
+              <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
+                Descrição
+              </button>
             </div>
           </div>
+          <div class="card aid-card-desc">
+            <div class="card-header aid-header-desc">
+              <h3 class="card-title">Descrição</h3>
+              <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
+                Voltar
+              </button>
+            </div>
+            <div class="card-body">
+              {{aid.description}}
+            </div>
+          </div>
+        </div>
         {% endfor %}
       </div>
       <a href="{% url 'explore' %}">
@@ -147,6 +157,7 @@
       </a>
     </div>
   </section>
+  {% endif %}
   <section class="u-clearfix u-image u-section-9" id="about-dev">
     <div class="u-clearfix u-sheet u-sheet-1">
       <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">

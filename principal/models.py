@@ -189,7 +189,7 @@ class Aid(models.Model): # Socorros
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="myaid")
-    title = models.CharField(max_length=14)
+    title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(AidType, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
