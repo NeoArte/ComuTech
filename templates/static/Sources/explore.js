@@ -19,6 +19,7 @@ for(ind=0; ind < showInfosBTNs.length; ind++) {
         aidCard.children[1].style.display = 'none'
     }
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
 //Sistema de ocultar pagination com 1 pagina ////////////////////////////////////////////
@@ -48,6 +49,3 @@ for(i=0; i < aidAuthors.length; i++) {
     }
     aidAuthors[i].children[1].innerText = masked_name
 }
-
-
-

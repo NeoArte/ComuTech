@@ -6,10 +6,14 @@ document.getElementById('_plusAidIMG').onchange = function() {
     if ( total > 4 ) { //Esta verificação alerta o usuario de quantas imagens ele ainda possa adicionar caso exceda o limite
         let range = 4 - aidImagesInput.length
         if ( range > 1 ){
-            alert(`Você só pode adicionar mais ${range} imagens`)
+            document.getElementById('aid-alert').style.display = 'block'
+            document.getElementById('aid-alert-mensage').innerHTML = `Você só pode adicionar mais ${range} imagens`
+            window.scrollTo(0, 0)
         }
         else {
-            alert(`Você só pode adicionar mais ${range} imagem`)
+            document.getElementById('aid-alert').style.display = 'block'
+            document.getElementById('aid-alert-mensage').innerHTML = `Você só pode adicionar mais ${range} imagem`
+            window.scrollTo(0, 0)
         }
     }
     else {
@@ -28,7 +32,9 @@ document.getElementById('_aidInputIMG').onchange = function(event) {
     let images = event.target.files // Esta linha pega todas as imagens do input de imagens
     if ( images.length > 4) {
         this.value = ''
-        alert("Você só pode selecionar até 4 arquivos")
+        document.getElementById('aid-alert').style.display = 'block'
+        document.getElementById('aid-alert-mensage').innerHTML = "Você só pode selecionar até 4 arquivos"
+        window.scrollTo(0, 0)
     }
     else {
         processRenderImages(images)
@@ -202,3 +208,19 @@ function createAid_EmptyBox() {
     return box
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Verificador de imagens com alert ////
+
+document.getElementById('need-aid-submit').onclick = function() {
+    if (document.getElementById("_aidInputIMG").files.length == 0) {
+        document.getElementById('aid-alert').style.display = 'block'
+        document.getElementById('aid-alert-mensage').innerHTML = 'Obrigatório inserir ao menos uma imagem!'
+        window.scrollTo(0, 0)
+    }
+}
+document.getElementById('alert-close').onclick = function() {
+    document.getElementById('aid-alert').style.display = 'none'
+}
+////////////////////////////////////////////////////////////
+document.getElementById('page-back').onclick = function() {
+    window.history.back()
+}

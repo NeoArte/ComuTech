@@ -38,7 +38,7 @@ class RegistrationForm(UserCreationForm):
             self.fields[field].widget.attrs.update({
                 'class':'form-control',
                 'autocomplete':'off',
-                'autofocus':'false',
+                'autofocus':False,
             })
 
         self.fields['name'].widget.attrs.update({
@@ -134,10 +134,14 @@ class RegistrationForm(UserCreationForm):
             'placeholder':'Rua',
         })
         self.fields['house_number'].widget.attrs.update({
-            'class':'form-control without-icon inputNumber',
+            'class':'form-control without-icon',
             'id':'house_number',
             'placeholder':'Casa',
-            'type':'number',
+        })
+        self.fields['add_info'].widget.attrs.update({
+            'class':'form-control',
+            'placeholder':'Informações adicionais',
+            'input-valid':'true'
         })
         
 
@@ -197,7 +201,10 @@ class EditProfileForm(UserChangeForm):
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class':'form-control'})
+            self.fields[field].widget.attrs.update({
+                'class':'form-control',
+                'input-valid':'true',
+                })
 
         self.fields['name'].widget.attrs.update({
             'placeholder':'Nome Completo',
@@ -281,6 +288,11 @@ class EditProfileForm(UserChangeForm):
             'id':'house_number',
             'placeholder':'Casa',
             'type':'number',
+        })
+        self.fields['add_info'].widget.attrs.update({
+            'class':'form-control',
+            'placeholder':'Informações adicionais',
+            'input-valid':'true'
         })
         
 

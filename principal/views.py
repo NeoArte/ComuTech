@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages # Vai importar as mensagens do django
 from django.conf import settings
+from random import randint
 
 from django.core.paginator import Paginator
 
@@ -15,7 +16,41 @@ from datetime import datetime, timedelta, date
 from ipware import get_client_ip
 
 def home(request):
-    return render(request, "principal/home.html")
+    _objects = Aid.objects.all()
+    _objects = _objects.exclude(state="C")
+    if not len(_objects) == 0:
+        if len(_objects) == 1:
+            firstRandom = randint(0, len(_objects) - 1)
+            aid_page = [
+                _objects[firstRandom],
+                ]
+            print(_objects[0])
+            print('tem 1 aiiiiiiiiiiiiiidddddddddddddddddd')
+        elif len(_objects) == 2:
+            firstRandom = randint(0, len(_objects) - 1)
+            secondRandom = randint(0, len(_objects) - 1)
+            while firstRandom == secondRandom:
+                secondRandom = randint(0, len(_objects) - 1)
+            aid_page = [
+                _objects[firstRandom],
+                _objects[secondRandom],
+                ]
+        else:
+            firstRandom = randint(0, len(_objects) - 1)
+            secondRandom = randint(0, len(_objects) - 1)
+            while firstRandom == secondRandom:
+                secondRandom = randint(0, len(_objects) -1)
+            thirdRandom = randint(0, len(_objects) -1)
+            while thirdRandom == firstRandom or thirdRandom == secondRandom:
+                thirdRandom = randint(0, len(_objects) -1)
+            aid_page = [
+                _objects[firstRandom],
+                _objects[secondRandom],
+                _objects[thirdRandom],
+                ]
+    else:
+        aid_page = []
+    return render(request, "principal/home.html", {'aid_page':aid_page,})
 
 # REGISTRA O USUÁRIO
 def register(request):
@@ -42,7 +77,6 @@ def register(request):
                 messages.add_message(request, messages.ERROR, 'As senhas não correspodem!')
             else:
                 messages.add_message(request, messages.ERROR, 'Algo no formulário está incorreto!')
-
     form = RegistrationForm() 
     context = {
         'form': form,
@@ -83,7 +117,6 @@ def explore(request, extra_context=None):
     aid = Aid.objects.all()
     aid = aid.exclude(state="C")
     aid = aid.exclude(state="F")
-
     review = ReviewForm(aid=0)
     context = {'aidtypes': types, 'aid_list': aid, 'review': review}
 
@@ -94,16 +127,22 @@ def explore(request, extra_context=None):
         if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
             aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
+            aid = aid.exclude(state="C")
+            aid = aid.exclude(state="F")
             context["aid_list"] = aid
 
         elif request.GET.get('publicado', 'erro') == "2week":
             fourteen_days_ago = datetime.today() - timedelta(days=14)
             aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
+            aid = aid.exclude(state="C")
+            aid = aid.exclude(state="F")
             context["aid_list"] = aid            
         
         elif request.GET.get('publicado', 'erro') == "1month":
             one_month_ago = datetime.today() - timedelta(days=30)
             aid = Aid.objects.filter(creation_date__gt=one_month_ago)
+            aid = aid.exclude(state="C")
+            aid = aid.exclude(state="F")
             context["aid_list"] = aid
 
         # Filtro por Tipo =================

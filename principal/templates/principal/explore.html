@@ -22,7 +22,7 @@
         </select>
       </div>
       <div class="second-nav-searchs">
-        <input name="search" class="form-control explore-btn second-nav-search" type="search" placeholder="Buscar por...">
+        <input id="explore-search" name="search" class="form-control explore-btn second-nav-search" type="search" placeholder="Buscar por...">
         <button class="btn explore-btn second-nav-submit" type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -64,17 +64,19 @@
         </div>
         <div class="aid-card-buttons">
           {% if aid.author.id == user.id %}
+            {% if aid.state != "F" %}
           <div class="dropdown">
             <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Opções
             </button>
             <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Desativar Públicação</a>
-              <button type="button" class="dropdown-item" data-toggle="modal" data-target="#review-modal">
-                Finalizar Públicação
-              </button>
+              {% if aid.state == "C" %}
+              <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
+              {% endif%}
+              <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
             </div>
           </div>
+            {% endif %}
           {% endif %}
           <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
             Descrição

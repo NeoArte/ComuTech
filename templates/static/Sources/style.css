@@ -16,6 +16,9 @@
     --help: rgb(228, 26, 26);
     --help-low-contrast: rgb(255, 62, 62);
     --help-high-contrast: rgb(158, 27, 27);
+    --froozen: #6fbbd3;
+    --froozen-high-contrast: #6fbbd3;
+    --froozen-low-contrast: #6fbbd3;
 }
 *>hover {
     color: inherit;
@@ -1149,9 +1152,12 @@ button.btn-aid {
     display: grid;
     grid-template-columns: repeat(2, 380px);
 }
-#register-form {
+#register-form, #aid-form {
     min-width: none;
     max-width: none;
+}
+#aid-form .first-form-grid, #aid-form .second-form-grid {
+    padding: 0 12px;
 }
 @media only screen and (max-width: 830px) {
     .form-grid {grid-template-columns: repeat(1, 380px);}
@@ -1224,11 +1230,8 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
 .social-medias.selected {
     color: var(--main);
 }
-.popover * {
-    width: 100%;
-}
 .mensage-title {
-    margin: auto;
+    margin: auto auto auto 0;
     font-size: 20px;
     font-weight: 550;
     color: var(--main-high-contrast);
@@ -1287,8 +1290,150 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
     overflow-y: auto;
     max-height: 375px;
 }
+.home-aid-cards, .profile-aid-cards {
+    width: max-content;
+}
+#aid-alert {
+    color: var(--secundary-low-contrast);
+    background-color: var(--help-low-contrast);
+    border-radius: 15px;
+    text-align: center;
+    display: none;
+}
+.form-full-lane {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+#page-back {
+    padding: 5px 10px;
+    border-radius: 15%;
+    background-color: var(--secundary);
+    border: 2.5px solid var(--secundary-high-contrast);
+    outline: none;
+    margin: 15px 10px;
+}
+#page-back svg {
+    color: var(--secundary-high-contrast);
+    width: 32px;
+    height: 32px;
+}
+.op-0 {
+    opacity: 0;
+    cursor: default !important;
+}
+#explore-search {
+    cursor: text;
+}
+.form-full-lane .form-control:focus {
+    border-color: var(--main);
+}
+.contributor-img {
+    background-color: white;
+    border-radius: 20px;
+}
+.footer-comutech {
+    background-color: var(--main);
+    color: var(--strong);
+}
+.footer-comutech h5 {
+    font-size: 23px;
+    font-weight: bold;
+}
+.footer-comutech small strong {
+    color: var(--strong);
+}
+#froozen-aid-card .aid-card-img {
+    border-color: #53b2d1;
+}
+#froozen-aid-card .aid-title-section {
+    background-color: #53b2d1;
+    color: #6d92b1;
+}
+#froozen-aid-card .aid-infos-section {
+    background-color: #53b2d1;
+    border-color: #6d92b1;
+}
+#froozen-aid-card.aid-card {
+    background-color: #6fbbd3;
+}
+#froozen-aid-card .btn {
+    color: var(--strong);
+    background-color: #53b2d1;
+    box-shadow: 2.5px 2.5px 0px 1px rgb(109 146 177)
+}
+#froozen-aid-card .btn:active {
+    box-shadow: none;
+}
+#froozen-aid-card.aid-card {
+    background-color: #6fbbd3;
+}
+#froozen-aid-card .aid-profile-user {
+    color: var(--strong-low-contrast);
+}
+#froozen-aid-card .aid-profile-user:hover {
+    color: var(--strong-high-contrast);
+}
+#froozen-aid-card .dropdown-item {
+    color: var(--strong);
+}
+#froozen-aid-card .dropdown-item:hover {
+    background-color: #53b2d1;
+}
+#froozen-aid-card .dropdown-menu.dropdown-strong {
+    background-color: rgb(111, 187, 211);
+}
+#froozen-aid-card .card-title {
+    color: var(--strong);
+}
 
 
+#ended-aid-card .aid-card-img {
+    border-color: rgb(14, 131, 74);
+}
+#ended-aid-card .aid-title-section {
+    background-color: rgb(14, 131, 74);
+    color: var(--main-low-contrast);
+}
+#ended-aid-card .aid-infos-section {
+    background-color: var(--main-low-contrast);
+    border-color: var(--main-high-contrast);
+}
+#ended-aid-card .aid-profile-user {
+    color: var(--strong-low-contrast);
+}
+#ended-aid-card .aid-profile-user:hover {
+    color: var(--strong-high-contrast);
+}
+#ended-aid-card.aid-card {
+    background-color: #6fbbd3;
+}
+#ended-aid-card .btn {
+    color: var(--strong);
+    background-color: var(--main-low-contrast);
+    box-shadow: 2.5px 2.5px 0px 1px var(--main-high-contrast);
+}
+#ended-aid-card .btn:active {
+    box-shadow: none;
+}
+#ended-aid-card.aid-card {
+    background-color: #28d380;
+}
+#ended-aid-card .dropdown-item {
+    color: var(--strong);
+}
+#ended-aid-card .dropdown-item:hover {
+    background-color: #53b2d1;
+}
+#ended-aid-card .dropdown-menu.dropdown-strong {
+    background-color: rgb(111, 187, 211);
+}
+#ended-aid-card .card-title {
+    color: var(--strong);
+}
+.end-footer {
+    background-color: var(--main-high-contrast);
+    margin-top: 20px;
+}
 
 
 
