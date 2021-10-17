@@ -15,6 +15,8 @@ from datetime import datetime, timedelta, date
 
 from ipware import get_client_ip
 
+import re
+
 def home(request):
     _objects = Aid.objects.all()
     _objects = _objects.exclude(state="C")
@@ -59,10 +61,22 @@ def home(request):
 # REGISTRA O USUÁRIO
 def register(request):
     if request.method == 'POST':
+        cpf = re.sub("\D", "", request.POST.get('cpf')).replace(" ", "")
+        email = re.sub("\D", "", request.POST.get('email')).replace(" ", "")
+        # Verifica se o cpf já existe   
+        if User.objects.filter(cpf=cpf).exists():
+            # Mensagem de Erro
+            messages.add_message(request, messages.ERROR, 'O cpf já está cadastrado')
+            return redirect('register')
+        # Verifica se o email já existe 
+        if User.objects.filter(email=email).exists():
+            messages.add_message(request, messages.ERROR, 'O email já está cadastrado')
+            return redirect('register')
+
         form = RegistrationForm(request.POST, request.FILES)
-        print("\n\n\n\n\n\n\n\n\n\n", request.POST)
-        print(request.POST["password1"])
-        print(request.POST["password2"], "\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        # print("\n\n\n\n\n\n\n\n\n\n", request.POST)
+        # print(request.POST["password1"])
+
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Cadastro concluido com sucesso!')
@@ -225,19 +239,26 @@ def user(request, pk):
 @login_required(login_url="/login/")
 def edit_account(request, id):
     userData = User.objects.get(pk=id)
-    userForm = EditProfileForm(instance = userData)
+    userForm = EditProfileForm(instance = userData, phone=0, cpf=0, cep=0, whatsapp=0)
     user = User.objects.get(pk=id)
     if request.user.id == getattr(user, 'id'):
         if request.method == 'POST':
             print('\n\nFoi POST\n\n')
-            userUpdate = EditProfileForm(request.POST, request.FILES, instance= userData)
+            phone = re.sub("\D", "", request.POST.get('phone')).replace(" ", "")
+            cpf = re.sub("\D", "", request.POST.get('cpf')).replace(" ", "")
+            cep = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
+            whatsapp = re.sub("\D", "", request.POST.get('cep')).replace(" ", "")
+            userUpdate = EditProfileForm(request.POST, request.FILES, instance=userData,phone=phone, cpf=cpf, cep=cep, whatsapp=whatsapp)
+            
             if userUpdate.is_valid():
+                print(f'Entrou \n\n\n')
                 userUpdate.save()
                 return redirect(f'/user/{id}/')
             else:
                 print("\n\nForm é invalido")
                 print('CPF: ', userUpdate['cpf'].value(), " X ", userData.cpf)
                 print("\n\n")
+
         else:
             print('\n\nNão foi POST\n\n')
             return render(request, "principal/editAccount.html", {'userForm': userForm, 'userData':userData})  

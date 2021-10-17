@@ -4,6 +4,8 @@
 *.pyc
 __pycache__
 db.sqlite3
+media/users/
+!media/users/empty-img-profile.svg
 comutech/media/users/*
 comutech/media/usuarios/*
 comutech/media/socorros/*

@@ -3,6 +3,7 @@ from django.forms import ModelForm, fields, widgets
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Review, User, Aid, AidPhotos
 from django.contrib.admin import widgets
+import re
 
 
 class RegistrationForm(UserCreationForm):
@@ -30,6 +31,8 @@ class RegistrationForm(UserCreationForm):
             'house_number',
             'add_info'
         )
+
+
     
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -143,20 +146,19 @@ class RegistrationForm(UserCreationForm):
             'placeholder':'Informações adicionais',
             'input-valid':'true'
         })
-        
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.name = self.cleaned_data['name']
         user.email = self.cleaned_data['email']
-        user.phone = self.cleaned_data['phone']
-        user.cpf = self.cleaned_data['cpf']
-        user.cep = self.cleaned_data['cep']
+        user.phone = re.sub('\D', '', self.cleaned_data['phone']).replace(' ', '')
+        user.cpf = re.sub('\D', '', self.cleaned_data['cpf']).replace(' ', '')
+        user.cep = re.sub('\D', '', self.cleaned_data['cep']).replace(' ', '')
         user.birth_date = self.cleaned_data['birth_date']
 
         #ITENS OPCIONAIS
         user.facebook = self.cleaned_data['facebook']
-        user.whatsapp = self.cleaned_data['whatsapp']
+        user.whatsapp = re.sub('\D', '', self.cleaned_data['whatsapp']).replace(' ', '')
         user.twitter = self.cleaned_data['twitter']
         user.instagram = self.cleaned_data['facebook']
         user.profile_picture = self.cleaned_data['profile_picture']
@@ -198,6 +200,10 @@ class EditProfileForm(UserChangeForm):
             )
 
     def __init__(self, *args, **kwargs):
+        self._cpf = kwargs.pop('cpf')
+        self._phone = kwargs.pop('phone')
+        self._cep = kwargs.pop('cep')
+        self._whatsapp = kwargs.pop('whatsapp')
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
@@ -263,7 +269,7 @@ class EditProfileForm(UserChangeForm):
             'id':'_inputIMG',
             'accept':'image/*',
         })
-        self.fields['state'].widget.attrs.update({
+                self.fields['state'].widget.attrs.update({
             'class':'form-control without-icon',
             'id':'state',
             'placeholder':'UF',
@@ -294,7 +300,17 @@ class EditProfileForm(UserChangeForm):
             'placeholder':'Informações adicionais',
             'input-valid':'true'
         })
+    def save(self, commit=True):
+        user = super(EditProfileForm, self).save(commit=False)
+        user.cpf = re.sub('\D', '', self._cpf).replace(' ', '')
+        user.phone = re.sub('\D', '', self._phone).replace(' ', '')
+        user.cep = re.sub('\D', '', self._cep).replace(' ', '')
+        user.whatsapp = re.sub('\D', '', self._whatsapp).replace(' ', '')
+
+        if commit:
+            user.save()
         
+        return user
 
 
 class AidForm(ModelForm):
