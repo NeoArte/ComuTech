@@ -23,6 +23,7 @@
 *>hover {
     color: inherit;
 }
+
 .logo {
     max-width: 10px;
     height: 10px;
@@ -1434,6 +1435,19 @@ input.form-control.wrong-form-control, label.input-group.wrong-form-control * {
     margin-top: 20px;
 }
 
+
+
+
+
+.instruction-font{
+    font-weight: bolder;
+    color: #8eb5d6;
+}
+
+.title-modal {
+    font-weight: bolder;
+    color: #6b9ec9;
+}
 
 
 @media only screen and (max-width: 1065px) {

@@ -1,3 +1,4 @@
+from typing import no_type_check
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.http import request
@@ -211,3 +212,16 @@ class AidPhotos(models.Model):
     aid = models.ForeignKey(Aid, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to="socorros/", default="")
     description = models.TextField(null=True, blank=True) # Descrição na imagem para leitores de tela.
+
+
+class Review(models.Model):
+    aid = models.OneToOneField(Aid, on_delete=models.CASCADE)
+
+    RESULT = (("F", "Funcionou"),("N", "Não Funcionou"), ("O", "Outro"))
+    RATING = ((1,"1"),(2,"2"),(3,"3"),(4,"4"),(5,"5"))
+
+    result = models.CharField(max_length=1, choices=RESULT)
+    rating = models.IntegerField(choices=RATING)
+    feedback = models.TextField(blank=True, null=True)
+
+

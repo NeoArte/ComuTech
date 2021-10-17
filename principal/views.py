@@ -7,8 +7,8 @@ from random import randint
 
 from django.core.paginator import Paginator
 
-from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
+from .form import ReviewForm, AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
+from .models import Review, AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
@@ -113,10 +113,12 @@ def log_out(request):
 
 def explore(request, extra_context=None):
     types = AidType.objects.all()
+    
     aid = Aid.objects.all()
     aid = aid.exclude(state="C")
     aid = aid.exclude(state="F")
-    context = {'aidtypes': types, 'aid_list': aid}
+    review = ReviewForm(aid=0)
+    context = {'aidtypes': types, 'aid_list': aid, 'review': review}
 
     if request.method == "GET":
 
@@ -171,6 +173,7 @@ def explore(request, extra_context=None):
 
 def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
+    review = ReviewForm(aid=aid)
 
     ip, is_routable = get_client_ip(request)
     print('\n\nIP: ', ip, " ", is_routable, '\n')
@@ -190,13 +193,15 @@ def seeAid(request, pk):
 
     context = {
         'aid': aid,
-        'aid_photos': aid_photos
+        'aid_photos': aid_photos,
+        'review': review
     }
     return render(request, "principal/aid.html", context)
 
 @login_required(login_url="/login/")
 def user(request, pk):
     user_viewed = User.objects.get(pk=pk)
+    review = ReviewForm(aid=0)
     
     print("\n\n\n\n", user_viewed.id, " x ", request.user.id, "\n\n\n\n")
     
@@ -208,7 +213,8 @@ def user(request, pk):
     context = {
         'user_viewed': user_viewed,
         'user_age': user_age,
-        'aid_list': aid_list
+        'aid_list': aid_list,
+        'review': review,
     }
     return render(request, "principal/account.html", context)
 
@@ -248,7 +254,6 @@ def createAid(request):
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
     # recuperada pelo request.FILES.getlist separadamente. 
-    # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
     user = User.objects.get(pk=request.user.id)
     total_aid = user.myaid.count()
@@ -306,7 +311,8 @@ def openAid(request, pk):
         aid.state = "A"
         aid.creation_date = creation_date
         aid.save()
-    return redirect(f'/user/{request.user.id}/')    
+    return redirect(f'/user/{request.user.id}/')
+ 
 
 def closeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
@@ -319,3 +325,26 @@ def closeAid(request, pk):
         aid.ending_date = ending_date
         aid.save()
     return redirect(f'/user/{request.user.id}/')
+
+  
+def review(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    next_page = request.GET.get('next')
+    review = ReviewForm(request.POST, aid=aid)
+
+    if Review.objects.filter(aid=pk).exists():
+        messages.add_message(request, messages.ERROR, 'Você já finalizou esse socorro e enviou sua avaliação')
+        return redirect(next_page)
+
+    if review.is_valid():
+        print('\n\n\n',aid,'\n\n\n')
+        aid.state = "F"
+        print('\n\n\n',aid,'\n\n\n')
+        aid.ending_date = datetime.today()
+        aid.save()
+        review.save()
+        messages.add_message(request, messages.SUCCESS, 'Sua avaliação foi enviada e seu socorro finalizado. Em duas semanas ele será removido dos nossos sistemas')
+        return redirect(next_page)
+    else:
+        messages.add_message(request, messages.ERROR, 'Um erro ocorreu ao enviar sua avaliação, tente novamente.')
+        return redirect(next_page)

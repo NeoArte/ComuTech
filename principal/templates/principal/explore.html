@@ -37,7 +37,12 @@
 <div class="explore-content">
   {% if aid_page %}
   <div class="aid-cards">
-    {% for aid in aid_page %} 
+    {% for aid in aid_page %}
+    
+    {% if aid.author.id == user.id%}
+      {% include 'partials/_review.html'%}
+    {% endif %}
+
     <div class="aid-card">
       <div>
         <a href="{{aid.id}}" class="aid-route">

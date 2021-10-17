@@ -95,6 +95,9 @@
         {% endif %}
         <div class="aid-cards profile-aid-cards">
           {% for aid in aid_list %}
+          {% if user_viewed.id == request.user.id %}
+            {% include 'partials/_review.html'%}
+          {% endif %}
           <div class="aid-card"
            {% if aid.state == "C" %}id="froozen-aid-card"
            {% elif aid.state == "F" %}id="ended-aid-card"{% endif %}>
@@ -125,7 +128,9 @@
                     {% if aid.state == "C" %}
                     <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
                     {% endif%}
-                    <a class="dropdown-item" href="/close/{{aid.id}}?close=True" name="close">Finalizar Publicação</a>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#review-modal">
+                      Finalizar Públicação
+                    </button>
                   </div>
                 </div>
                   {% endif %}
