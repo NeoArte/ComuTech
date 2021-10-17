@@ -79,15 +79,15 @@ def freeze_checker():
                 aid.delete()
     print("\nTERMINANDO AID_CHECKER\n")
     
-# def ending_checker():
-#     print("\n\n\nRODANDO ENDING_CHECKER\n\n\n")
-#     aid_list  = Aid.objects.all()
-#     for aid in aid_list:
+def ending_checker():
+    print("\n\n\nRODANDO ENDING_CHECKER\n\n\n")
+    aid_list  = Aid.objects.all()
+    for aid in aid_list:
         
-#         delete_time = aid.ending_date + timedelta(days=14)
+        delete_time = aid.ending_date + timedelta(days=14)
 
-#         print("Aid ID: ", aid.id, " | ","Today: ", timezone.now(), " | ", "DT: ", delete_time)
+        print("Aid ID: ", aid.id, " | ","Today: ", timezone.now(), " | ", "DT: ", delete_time)
         
-#         if aid.state == "F" and timezone.now() >= delete_time:
-#             aid.delete()
+        if aid.state == "F" and timezone.now() >= delete_time:
+            aid.delete()
 
