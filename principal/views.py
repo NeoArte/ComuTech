@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages # Vai importar as mensagens do django
 from django.conf import settings
+from random import randint
 
 from django.core.paginator import Paginator
 
-from .form import AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
-from .models import AidType, Aid, AidPhotos, User, UserManager, IpModel
+from .form import ReviewForm, AidForm, AidPhotosForm, RegistrationForm, EditProfileForm
+from .models import Review, AidType, Aid, AidPhotos, User, UserManager, IpModel
 from django.contrib.auth.forms import UserCreationForm
 
 from datetime import datetime, timedelta, date
@@ -16,9 +17,46 @@ from ipware import get_client_ip
 
 import re
 
-
 def home(request):
-    return render(request, "principal/home.html")
+    _objects = Aid.objects.all()
+    _objects = _objects.exclude(state="C")
+    review = ReviewForm(aid=0)
+    if not len(_objects) == 0:
+        if len(_objects) == 1:
+            firstRandom = randint(0, len(_objects) - 1)
+            aid_page = [
+                _objects[firstRandom],
+                ]
+            print(_objects[0])
+            print('tem 1 aiiiiiiiiiiiiiidddddddddddddddddd')
+        elif len(_objects) == 2:
+            firstRandom = randint(0, len(_objects) - 1)
+            secondRandom = randint(0, len(_objects) - 1)
+            while firstRandom == secondRandom:
+                secondRandom = randint(0, len(_objects) - 1)
+            aid_page = [
+                _objects[firstRandom],
+                _objects[secondRandom],
+                ]
+        else:
+            firstRandom = randint(0, len(_objects) - 1)
+            secondRandom = randint(0, len(_objects) - 1)
+            while firstRandom == secondRandom:
+                secondRandom = randint(0, len(_objects) -1)
+            thirdRandom = randint(0, len(_objects) -1)
+            while thirdRandom == firstRandom or thirdRandom == secondRandom:
+                thirdRandom = randint(0, len(_objects) -1)
+            aid_page = [
+                _objects[firstRandom],
+                _objects[secondRandom],
+                _objects[thirdRandom],
+                ]
+    else:
+        aid_page = []
+    return render(request, "principal/home.html", {
+        'aid_page':aid_page,
+        'review':review
+        })
 
 # REGISTRA O USUÁRIO
 def register(request):
@@ -57,7 +95,6 @@ def register(request):
                 messages.add_message(request, messages.ERROR, 'As senhas não correspodem!')
             else:
                 messages.add_message(request, messages.ERROR, 'Algo no formulário está incorreto!')
-
     form = RegistrationForm() 
     context = {
         'form': form,
@@ -94,9 +131,12 @@ def log_out(request):
 
 def explore(request, extra_context=None):
     types = AidType.objects.all()
+    
     aid = Aid.objects.all()
     aid = aid.exclude(state="C")
-    context = {'aidtypes': types, 'aid_list': aid}
+    aid = aid.exclude(state="F")
+    review = ReviewForm(aid=0)
+    context = {'aidtypes': types, 'aid_list': aid, 'review': review}
 
     if request.method == "GET":
 
@@ -105,16 +145,22 @@ def explore(request, extra_context=None):
         if request.GET.get('publicado', 'erro') == "1week":
             seven_days_ago = datetime.today() - timedelta(days=7)
             aid = Aid.objects.filter(creation_date__gt=seven_days_ago)
+            aid = aid.exclude(state="C")
+            aid = aid.exclude(state="F")
             context["aid_list"] = aid
 
         elif request.GET.get('publicado', 'erro') == "2week":
             fourteen_days_ago = datetime.today() - timedelta(days=14)
             aid = Aid.objects.filter(creation_date__gt=fourteen_days_ago)
+            aid = aid.exclude(state="C")
+            aid = aid.exclude(state="F")
             context["aid_list"] = aid            
         
         elif request.GET.get('publicado', 'erro') == "1month":
             one_month_ago = datetime.today() - timedelta(days=30)
             aid = Aid.objects.filter(creation_date__gt=one_month_ago)
+            aid = aid.exclude(state="C")
+            aid = aid.exclude(state="F")
             context["aid_list"] = aid
 
         # Filtro por Tipo =================
@@ -145,6 +191,7 @@ def explore(request, extra_context=None):
 
 def seeAid(request, pk):
     aid = Aid.objects.get(pk=pk)
+    review = ReviewForm(aid=aid)
 
     ip, is_routable = get_client_ip(request)
     print('\n\nIP: ', ip, " ", is_routable, '\n')
@@ -161,15 +208,18 @@ def seeAid(request, pk):
 
 
     aid_photos = aid.photos.all()
+
     context = {
         'aid': aid,
-        'aid_photos': aid_photos
+        'aid_photos': aid_photos,
+        'review': review
     }
     return render(request, "principal/aid.html", context)
 
 @login_required(login_url="/login/")
 def user(request, pk):
     user_viewed = User.objects.get(pk=pk)
+    review = ReviewForm(aid=0)
     
     print("\n\n\n\n", user_viewed.id, " x ", request.user.id, "\n\n\n\n")
     
@@ -181,7 +231,8 @@ def user(request, pk):
     context = {
         'user_viewed': user_viewed,
         'user_age': user_age,
-        'aid_list': aid_list
+        'aid_list': aid_list,
+        'review': review,
     }
     return render(request, "principal/account.html", context)
 
@@ -228,27 +279,33 @@ def createAid(request):
     # A criação de socorros consiste em 2 forms, o primeiro para o socorro em sí (título, descrição e autor) e o segundo 
     # para as imagens (socorro, imagem e descrição) e para seu input de imagens que possui "multiple" (mais de uma imagem), é necessário que a lista seja 
     # recuperada pelo request.FILES.getlist separadamente. 
-    # Os 2 forms devem ser validos para que o processo de salvamento ocorra, o form de socorro retorna uma instancia que será armazenada e será o socorro da
     # instancia do form de imagens (o campo "aid" do model AidPhotos) 
+    user = User.objects.get(pk=request.user.id)
+    total_aid = user.myaid.count()
 
     form = AidForm(request.POST, author=request.user) # Form do Socorro em sí
-    
+    print("\n\n\n\n\n\n", form, "\n\n\n\n\n\n")
     img_form = AidPhotosForm(request.POST, request.FILES) # Contém os dados do form de imagens (seu ImageField pode conter apenas 1 imagem)
     images = request.FILES.getlist('image') # Contém a lista de imagens pegas pelo request
-
+    print(request.POST)
     print('\n\n\n\nRequest: ', request.FILES.getlist('image'), '\n\n\n\n') 
-
-    if form.is_valid() and img_form.is_valid():
+    if form.is_valid() and img_form.is_valid() and total_aid <= 8:
         print('\n\n\n\nEntrou\n\n\n\n') 
         form = form.save()
+        messages.add_message(request, messages.SUCCESS, 'Socorro criado com sucesso!')
         description = img_form.cleaned_data['description']
         for img in images:
             print(img)
             AidPhotos.objects.create(aid=form, image=img, description=description)
         print("\n\n\n\n")
         return redirect('home')
-
-    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n') 
+    else:
+        messages.add_message(request, messages.ERROR, 'Você já excedeu o limite de 8 socorros ativos!')
+        print("- - -  id  - - -")
+        print(user.id)
+        print("- - - Fim id - - -\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        return redirect("criacao")
+    print('\n\n\n\nErrors: ', img_form.errors, '\n\n\n\n')
 
 @login_required(login_url="/login/")
 def deletar(request, pk):
@@ -279,4 +336,40 @@ def openAid(request, pk):
         aid.state = "A"
         aid.creation_date = creation_date
         aid.save()
-    return redirect(f'/user/{request.user.id}/')    
+    return redirect(f'/user/{request.user.id}/')
+ 
+
+def closeAid(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    ending_date = datetime.today()
+
+    if request.method == "GET":
+        close = request.GET.get('close')
+    if close:
+        aid.state = "F"
+        aid.ending_date = ending_date
+        aid.save()
+    return redirect(f'/user/{request.user.id}/')
+
+  
+def review(request, pk):
+    aid = Aid.objects.get(pk=pk)
+    next_page = request.GET.get('next')
+    review = ReviewForm(request.POST, aid=aid)
+
+    if Review.objects.filter(aid=pk).exists():
+        messages.add_message(request, messages.ERROR, 'Você já finalizou esse socorro e enviou sua avaliação')
+        return redirect(next_page)
+
+    if review.is_valid():
+        print('\n\n\n',aid,'\n\n\n')
+        aid.state = "F"
+        print('\n\n\n',aid,'\n\n\n')
+        aid.ending_date = datetime.today()
+        aid.save()
+        review.save()
+        messages.add_message(request, messages.SUCCESS, 'Sua avaliação foi enviada e seu socorro finalizado. Em duas semanas ele será removido dos nossos sistemas')
+        return redirect(next_page)
+    else:
+        messages.add_message(request, messages.ERROR, 'Um erro ocorreu ao enviar sua avaliação, tente novamente.')
+        return redirect(next_page)

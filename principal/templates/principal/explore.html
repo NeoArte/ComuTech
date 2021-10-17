@@ -22,7 +22,7 @@
         </select>
       </div>
       <div class="second-nav-searchs">
-        <input name="search" class="form-control explore-btn second-nav-search" type="search" placeholder="Buscar por...">
+        <input id="explore-search" name="search" class="form-control explore-btn second-nav-search" type="search" placeholder="Buscar por...">
         <button class="btn explore-btn second-nav-submit" type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -35,11 +35,17 @@
 
 {% block main %}
 <div class="explore-content">
+  {% if aid_page %}
   <div class="aid-cards">
-    {% for aid in aid_page %} 
-    <div class="aid-card">
+    {% for aid in aid_page %}
+      {% if user.id == aid.author.id %}
+        {% include 'partials/_review.html'%}
+      {% endif %}
+    <div class="aid-card"
+    {% if aid.state == "C" %}id="froozen-aid-card"
+    {% elif aid.state == "F" %}id="ended-aid-card"{% endif %}>
       <div>
-        <a href="{{aid.id}}" class="aid-route">
+        <a href="/explore/{{aid.id}}" class="aid-route">
           <img class="aid-card-img" src="{% get_thumbnail aid.id %}">
           <div class="aid-title-section">
             <p>
@@ -50,21 +56,29 @@
         <div class="aid-infos-section">
           <a class="aid-profile-user" href="/user/{{aid.author.id}}">
             <img class="aid-profile-img" src="{{MEDIA_URL}}{{aid.author.profile_picture}}" >
-            {{aid.author.name}}
+            <p class="m-0 ml-1">
+              {{aid.author.name}}
+            </p>
           </a>
           <p class="aid-type">{{aid.type}}</p>
         </div>
         <div class="aid-card-buttons">
           {% if aid.author.id == user.id %}
+            {% if aid.state != "F" %}
           <div class="dropdown">
             <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Opções
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Desativar Públicação</a>
-              <a class="dropdown-item" href="#">Finalizar Publicação</a>
+            <div class="dropdown-menu dropdown-strong" aria-labelledby="dropdownMenuButton">
+              {% if aid.state == "C" %}
+              <a class="dropdown-item" href="/open/{{aid.id}}?open=True" name="open">Descongelar Publicação</a>
+              {% endif%}
+              <button type="button" class="dropdown-item" data-toggle="modal" data-target="#review-modal-{{aid.id}}">
+                Finalizar Públicação
+              </button>
             </div>
           </div>
+            {% endif %}
           {% endif %}
           <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
             Descrição
@@ -83,56 +97,18 @@
         </div>
       </div>
     </div>
-    {% empty %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="explore-empty-search">
     <h1>Nenhum socorro encontrado.</h1>
     <h4>Os filtros selecionados não correspondem a nenhum socorro, mude os filtros e tente novamente.</h4>
-    {% endfor %}
-  
-  <!--  <div class="aid-card">
-      <div href="paracard/" id="aid-card-infos">
-        <img class="aid-card-img" src="https://www.researchgate.net/profile/Victor-Cayres/publication/327989326/figure/fig1/AS:676949827543042@1538408824317/Figura-24-Amostragem-aleatoria-de-personagens-de-anoes.jpg">
-        <div class="aid-title-section">
-          <p>Título Fodástico</p>
-        </div>
-        <div class="aid-infos-section">
-          <a class="aid-profile-user" href="">
-            <img class="aid-profile-img" src="{% static '/Sources/images/Publicação.jpeg' %}" >
-            Usuario
-          </a>
-          <p class="aid-type">Classificação</p>
-        </div>
-        <div class="aid-card-buttons">
-          <div class="dropdown">
-            <button class="btn btn-aid btn-block btn-form btn-strong dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Opções
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Desativar Públicação</a>
-              <a class="dropdown-item" href="#">Excluir Publicação</a>
-            </div>
-          </div>
-          <button class="btn btn-aid btn-block btn-form ml-auto btn-aid-show-desc">
-            Descrição
-          </button>
-        </div>
-      </div>
-      <div id="aid-card-desc" class="card">
-        <div class="card-header aid-header-desc">
-          <h3 class="card-title">Descrição</h3>
-          <button class="btn btn-strong btn-form ml-auto btn-aid-show-infos">
-            Voltar
-          </button>
-        </div>
-        <div class="card-body">
-          BLablablablablablablablabla
-        </div>
-      </div>
-    </div>-->
   </div>
+  {% endif %}
   
   <!-- Paginação -->
   {% if aid_list.count != 0 %}
-  <nav class="nav-pagination">
+  <nav id="explore-pagination" class="nav-pagination">
     <ul class="nav-pagination-ul">
       {% for pagina in aid_page.paginator.page_range %}
         {% if aid_page.number == pagina %}

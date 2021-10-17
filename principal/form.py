@@ -1,12 +1,13 @@
 from django import forms
 from django.forms import ModelForm, fields, widgets
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, Aid, AidPhotos
+from .models import Review, User, Aid, AidPhotos
 from django.contrib.admin import widgets
 import re
 
 
 class RegistrationForm(UserCreationForm):
+    name = forms.CharField(max_length=255, help_text="Seu nome")
     class Meta:
         model = User
         fields = (
@@ -28,6 +29,7 @@ class RegistrationForm(UserCreationForm):
             'neighborhood', 
             'street',
             'house_number',
+            'add_info'
         )
 
 
@@ -36,7 +38,11 @@ class RegistrationForm(UserCreationForm):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class':'form-control','autocomplete':'off'})
+            self.fields[field].widget.attrs.update({
+                'class':'form-control',
+                'autocomplete':'off',
+                'autofocus':False,
+            })
 
         self.fields['name'].widget.attrs.update({
             'placeholder':'Nome Completo',
@@ -131,10 +137,14 @@ class RegistrationForm(UserCreationForm):
             'placeholder':'Rua',
         })
         self.fields['house_number'].widget.attrs.update({
-            'class':'form-control without-icon inputNumber',
+            'class':'form-control without-icon',
             'id':'house_number',
             'placeholder':'Casa',
-            'type':'number',
+        })
+        self.fields['add_info'].widget.attrs.update({
+            'class':'form-control',
+            'placeholder':'Informações adicionais',
+            'input-valid':'true'
         })
 
     def save(self, commit=True):
@@ -152,29 +162,41 @@ class RegistrationForm(UserCreationForm):
         user.twitter = self.cleaned_data['twitter']
         user.instagram = self.cleaned_data['facebook']
         user.profile_picture = self.cleaned_data['profile_picture']
+        user.country = "Brasil"
+        user.state = self.cleaned_data['state']
+        user.city = self.cleaned_data['city']
+        user.neighborhood = self.cleaned_data['neighborhood']
+        user.street = self.cleaned_data['street']
+        user.house_number = self.cleaned_data['house_number']
+        user.add_info = self.cleaned_data['add_info']
 
         if commit:
             user.save()
-        
         return user
+
 
 class EditProfileForm(UserChangeForm):
     
     class Meta:
         model = User
         fields = (
-            'profile_picture',
             'name',
             'email',
-            'phone', 
-            'facebook', 
-            'whatsapp', 
-            'instagram', 
-            'twitter', 
-            'cpf', 
-            'cep', 
-            'birth_date', 
-            'password', 
+            'phone',
+            'cpf',
+            'cep',
+            'birth_date',
+            'facebook',
+            'whatsapp',
+            'twitter',
+            'instagram',
+            'profile_picture',
+            'state', 
+            'city', 
+            'neighborhood', 
+            'street',
+            'house_number',
+            'add_info'
             )
 
     def __init__(self, *args, **kwargs):
@@ -185,7 +207,10 @@ class EditProfileForm(UserChangeForm):
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class':'form-control'})
+            self.fields[field].widget.attrs.update({
+                'class':'form-control',
+                'input-valid':'true',
+                })
 
         self.fields['name'].widget.attrs.update({
             'placeholder':'Nome Completo',
@@ -244,6 +269,37 @@ class EditProfileForm(UserChangeForm):
             'id':'_inputIMG',
             'accept':'image/*',
         })
+                self.fields['state'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'state',
+            'placeholder':'UF',
+        })
+        self.fields['city'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'city',
+            'placeholder':'Cidade',
+        })
+        self.fields['neighborhood'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'neighborhood',
+            'placeholder':'Bairro',
+        })
+        self.fields['street'].widget.attrs.update({
+            'class':'form-control without-icon',
+            'id':'street',
+            'placeholder':'Rua',
+        })
+        self.fields['house_number'].widget.attrs.update({
+            'class':'form-control without-icon inputNumber',
+            'id':'house_number',
+            'placeholder':'Casa',
+            'type':'number',
+        })
+        self.fields['add_info'].widget.attrs.update({
+            'class':'form-control',
+            'placeholder':'Informações adicionais',
+            'input-valid':'true'
+        })
     def save(self, commit=True):
         user = super(EditProfileForm, self).save(commit=False)
         user.cpf = re.sub('\D', '', self._cpf).replace(' ', '')
@@ -282,6 +338,7 @@ class AidForm(ModelForm):
         self.fields['description'].widget.attrs.update({
             'class':'form-control desc-textarea',
             'id':'aid-desc',
+            'cols':'25',
         })
         self.fields['type'].widget.attrs.update({
             'class':'form-control',
@@ -309,3 +366,28 @@ class AidPhotosForm(ModelForm):
             'id':'_aidInputIMG',
             'accept':'image/*',
         })
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = "__all__"
+        exclude = ['aid']
+    
+    def __init__(self, *args, **kwargs):
+        self._aid = kwargs.pop('aid')
+        super(ReviewForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class':'form-control review-inputs'})
+        self.fields['feedback'].widget.attrs.update({
+            'class':'form-control review-inputs fixed-textarea'
+        })
+        self.fields['rating'].widget.attrs.update({
+            'class':'d-none'
+        })
+    
+    def save(self, commit=True):
+        review = super(ReviewForm, self).save(commit=False)
+        review.aid = self._aid
+        if commit:
+            review.save()
+        return review

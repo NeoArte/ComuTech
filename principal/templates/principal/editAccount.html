@@ -5,6 +5,11 @@
   <form enctype="multipart/form-data" action="/user/{{userData.id}}/edit/" method="POST" class="w-100">
     {% csrf_token %}
     <div class="card-body column m-0">
+        <button id="page-back">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+              </svg>
+        </button>
         <div class="user-first-section mb-0">
             <div class="user-first-box">
                 <div class="page-input-img">
@@ -86,7 +91,7 @@
             </div>
             <div class="user-second-box user-edit-second-box">
                 <div class="label-inputs">
-                    <label class="input-group mb-3 big-input" for="name">
+                    <label class="input-group mb-2 big-input" for="name">
                         {{userForm.name}}
                         <div class="input-group-text">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -94,7 +99,7 @@
                         </svg>
                         </div>
                     </label>
-                    <label class="input-group mb-3" for="email">
+                    <label class="input-group mb-2" for="email">
                         {{userForm.email}}
                         <div class="input-group-text">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
@@ -102,7 +107,7 @@
                             </svg>
                         </div>
                     </label>
-                    <label class="input-group mb-3" for="phone">
+                    <label class="input-group mb-2" for="phone">
                         {{userForm.phone}}
                         <div class="input-group-text">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
@@ -110,7 +115,7 @@
                             </svg>
                         </div>
                     </label>
-                    <label class="input-group mb-3" for="cpf">
+                    <label class="input-group mb-2" for="cpf">
                         {{userForm.cpf}}
                         <div class="input-group-text">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -118,7 +123,7 @@
                             </svg>
                         </div>
                     </label>
-                    <label class="input-group mb-3" for="birth_date">
+                    <label class="input-group mb-2" for="birth_date">
                         {{userForm.birth_date}}
                         <div class="input-group-text">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -127,7 +132,7 @@
                             </svg>
                         </div>
                     </label>
-                    <label class="input-group mb-3" for="cep">
+                    <label class="input-group mb-2" for="cep">
                         {{userForm.cep}}
                         <div class="input-group-text">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
@@ -136,9 +141,21 @@
                             </svg>
                         </div>
                     </label>
+                    <div class="grid-uf-city mb-2">
+                        {{userForm.state}}
+                        {{userForm.city}}
+                    </div>
+                    <div class="grid-neighborhood-street mb-2">
+                        {{userForm.neighborhood}}
+                        {{userForm.street}}
+                        {{userForm.house_number}}
+                    </div>
+                    <div class="form-full-lane">
+                        {{userForm.add_info}}
+                    </div>
                 </div>
                 <div id="social-inputs">
-                    <label id="input-facebook" class="input-group mb-3" for="facebook-input">
+                    <label id="input-facebook" class="input-group mb-2" for="facebook-input">
                         {{userForm.facebook}}
                         <div class="input-group-text">
                             <svg id="facebook" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 9 23" fill="currentColor">
@@ -146,7 +163,7 @@
                             </svg>
                         </div>
                     </label>
-                    <label id="input-whatsapp" class="input-group mb-3" for="whatsapp-input">
+                    <label id="input-whatsapp" class="input-group mb-2" for="whatsapp-input">
                         {{userForm.whatsapp}}
                         <div class="input-group-text">
                             <svg id="whatsapp" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-whatsapp" viewBox="-1 0 18 17">
@@ -154,7 +171,7 @@
                             </svg>
                         </div>
                     </label>
-                    <label id="input-instagram" class="input-group mb-3" for="instagram-input">
+                    <label id="input-instagram" class="input-group mb-2" for="instagram-input">
                         {{userForm.instagram}}
                         <div class="input-group-text">
                             <svg id="instagram" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 18 17" fill="currentColor">
@@ -162,7 +179,7 @@
                             </svg>
                         </div>
                     </label>
-                    <label id="input-twitter" class="input-group mb-3" for="twitter-input">
+                    <label id="input-twitter" class="input-group mb-2" for="twitter-input">
                         {{userForm.twitter}}
                         <div class="input-group-text">
                             <svg id="twitter" class="social-medias form-media-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 14" fill="currentColor">
@@ -174,10 +191,11 @@
             </div>
         </div>
         <div class="user-second-section py-0" >
-            <button type="submit" class="btn btn-block btn-form mx-auto">
+            <button id="edit-account-btn" type="submit" class="btn btn-block btn-form mx-auto">
                 Salvar
             </button>
         </div>
     </div>
   </form>
+  <script src="{% static 'Sources/editAccount.js' %}"></script>
 {% endblock %}

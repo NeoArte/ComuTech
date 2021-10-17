@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Aid, AidType, User
+from .models import Review, Aid, AidType, User
 
 
 class UsuarioAdmin(admin.ModelAdmin):
@@ -14,6 +14,11 @@ class AidAdmin(admin.ModelAdmin):
     list_display = ['id', 'author', 'title', 'description', 'type', 'creation_date', 'ending_date', 'state']
     list_display_links = ['id', 'title', 'description']
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['id', 'aid', 'result', 'rating', 'feedback']
+    list_display_links = ['id', 'aid']
+
 admin.site.register(AidType, AidTypeAdmin)
 admin.site.register(User, UsuarioAdmin)
 admin.site.register(Aid, AidAdmin)
+admin.site.register(Review, ReviewAdmin)

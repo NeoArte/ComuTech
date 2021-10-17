@@ -1,3 +1,4 @@
+from typing import no_type_check
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.http import request
@@ -112,7 +113,7 @@ class User(AbstractBaseUser): # Usuários
     email = models.EmailField(max_length=255, unique=True)
     cpf = models.CharField(max_length=14, validators=[validators.MinLengthValidator(11)], unique=True)
     phone = models.CharField(max_length=19)
-
+    
     # Campos ligados a localização, traduzindo se tratam respectivamente de:
     # País - Estado - Cidade - Bairro - Número da casa (ou prédio) - Informações adicionais (como o número do apartamento) - CEP
     
@@ -129,7 +130,7 @@ class User(AbstractBaseUser): # Usuários
 
     birth_date = models.DateField()
     password = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.jpg')
+    profile_picture = models.ImageField(upload_to='users/', default='users/empty-img-profile.svg')
 
     whatsapp = models.CharField(max_length=19, null=True, blank=True)
     twitter = models.CharField(null=True, blank=True, max_length=15, validators=[validators.MinLengthValidator(4)])
@@ -180,6 +181,7 @@ class IpModel(models.Model):
     def __str__(self):
         return self.ip
 
+
 class Aid(models.Model): # Socorros
 
     # O socorro é a principal engrenagem da plataforma, ele necessita e apenas existe caso tenha um criador (usuário), necessita de um tipo, titulo, 
@@ -187,7 +189,7 @@ class Aid(models.Model): # Socorros
     # por fim os contribuidores que é uma relação de muitos para muitos com usuários (muitos usuarios podem ser contribuidores de muitos socorros)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="myaid")
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     type = models.ForeignKey(AidType, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(default=timezone.now) # Quando o socorro foi aberto, usado para a "data de validade" dele
@@ -210,3 +212,16 @@ class AidPhotos(models.Model):
     aid = models.ForeignKey(Aid, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to="socorros/", default="")
     description = models.TextField(null=True, blank=True) # Descrição na imagem para leitores de tela.
+
+
+class Review(models.Model):
+    aid = models.OneToOneField(Aid, on_delete=models.CASCADE)
+
+    RESULT = (("F", "Funcionou"),("N", "Não Funcionou"), ("O", "Outro"))
+    RATING = ((1,"1"),(2,"2"),(3,"3"),(4,"4"),(5,"5"))
+
+    result = models.CharField(max_length=1, choices=RESULT)
+    rating = models.IntegerField(choices=RATING)
+    feedback = models.TextField(blank=True, null=True)
+
+

@@ -1,6 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Sistema de mostrar e ocultar descrição de card ///////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+console.log('homeeeeeeeeeeeeeeeeeeeeeeeeeeee')
 let showDescBTNs = document.getElementsByClassName('btn-aid-show-desc')
 let showInfosBTNs = document.getElementsByClassName('btn-aid-show-infos')
 
@@ -62,11 +63,12 @@ for (i=0; i < titlesSections.length; i++) {
 
 //////////////////////////////////////////////////////////////////////
 
+
 // Script da avaliação por estrela ////////////////////////////
+
 let stars5 = document.getElementsByClassName('review-star-5')
 for (i=0; i < stars5.length; i++) {
-    console.log('yyyeeeeeeeeyyyyyy')
-    stars5[i].onclick = function() {
+stars5[i].onclick = function() {
     this.parentElement.parentElement.children[1].value = '5'
     this.parentElement.children[4].style.color = 'yellow'
     this.parentElement.children[3].style.color = 'yellow'
