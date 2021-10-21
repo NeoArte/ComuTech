@@ -66,20 +66,20 @@
             </div>
             <div class="form-group row m-2 user-info">
               <h4><b class="pr-2">Telefone: </b></h4>
-              <h4 id="phone">{{user.phone}}</h4>
+              <h4 id="phone">{{user_viewed.phone}}</h4>
             </div>
             {% if user.id == user_viewed.id %}
             <div class="form-group row m-2 user-info">
               <h4><b class="pr-2">CPF: </b></h4>
-              <h4 id="cpf">{{user.cpf}}</h4>
+              <h4 id="cpf">{{user_viewed.cpf}}</h4>
             </div>
             <div class="form-group row m-2 user-info">
               <h4><b class="pr-2">Email: </b></h4>
-              <h4>{{user.email}}</h4>
+              <h4>{{user_viewed.email}}</h4>
             </div>
             <div class="form-group row m-2 user-info">
               <h4><b class="pr-2">CEP: </b></h4>
-              <h4 id="cep">{{user.cep}}</h4>
+              <h4 id="cep">{{user_viewed.cep}}</h4>
             </div>
             {% endif %}
           </div>
