@@ -108,8 +108,8 @@
   
   <!-- Paginação -->
   {% if aid_list.count != 0 %}
-  <nav id="explore-pagination" class="nav-pagination">
-    <ul class="nav-pagination-ul">
+  <nav class="nav-pagination mt-auto">
+    <ul id="explore-pagination" class="nav-pagination-ul">
       {% for pagina in aid_page.paginator.page_range %}
         {% if aid_page.number == pagina %}
         <li class="page-item active">

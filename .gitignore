@@ -3,11 +3,6 @@
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
-comutech/media/users/*
-comutech/media/usuarios/*
-comutech/media/socorros/*
-!comutech/media/users/empty-img-profile.jpg
 comutech/.env
 
 
