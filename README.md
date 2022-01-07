@@ -9,7 +9,7 @@ Esse projeto é feito com Python (Django) para o back-end e HTML, CSS e Javascri
 
 Siga os seguintes passos para instalar o projeto em sua máquina local.
 
-1. Clone o repositório com: ``git clone https://github.com/NicolasDestito/ComuTech.git``
+1. Clone o repositório com: ``git clone https://github.com/NeoArte/ComuTech.git``
 2. Acessar a pasta ComuTech: ``cd ComuTech``
 3. Criar um ambiente virtual (python venv): ``python -m venv env``
 4. Entre no ambiente virtual:
